@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "Movie.h"
 
 @interface ViewController ()
 

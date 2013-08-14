@@ -18,6 +18,7 @@
 		4A38769917BBEB1300F95ECA /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A38769817BBEB1300F95ECA /* Default-568h@2x.png */; };
 		4A38769C17BBEB1300F95ECA /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A38769A17BBEB1300F95ECA /* MainStoryboard.storyboard */; };
 		4A38769F17BBEB1300F95ECA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A38769E17BBEB1300F95ECA /* ViewController.m */; };
+		4A3876AB17BC00B700F95ECA /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3876AA17BC00B700F95ECA /* Movie.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,8 @@
 		4A38769B17BBEB1300F95ECA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		4A38769D17BBEB1300F95ECA /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		4A38769E17BBEB1300F95ECA /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		4A3876A917BC00B700F95ECA /* Movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
+		4A3876AA17BC00B700F95ECA /* Movie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +86,8 @@
 		4A38768817BBEB1300F95ECA /* PikFlick */ = {
 			isa = PBXGroup;
 			children = (
+				4A3876A917BC00B700F95ECA /* Movie.h */,
+				4A3876AA17BC00B700F95ECA /* Movie.m */,
 				4A38769117BBEB1300F95ECA /* AppDelegate.h */,
 				4A38769217BBEB1300F95ECA /* AppDelegate.m */,
 				4A38769A17BBEB1300F95ECA /* MainStoryboard.storyboard */,
@@ -176,6 +181,7 @@
 				4A38768F17BBEB1300F95ECA /* main.m in Sources */,
 				4A38769317BBEB1300F95ECA /* AppDelegate.m in Sources */,
 				4A38769F17BBEB1300F95ECA /* ViewController.m in Sources */,
+				4A3876AB17BC00B700F95ECA /* Movie.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
