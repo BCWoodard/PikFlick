@@ -10,8 +10,10 @@
 
 @interface ViewController ()
 {
+    NSString                    *randomMovieTitle;
     NSArray                     *moviesArray;
     NSArray                     *moviePostersArray;
+    NSMutableArray              *shakeArray;
     __weak IBOutlet UITableView *moviesTable;
 }
 
@@ -38,9 +40,15 @@
     
 }
 
+// This assigns the randomly selected movie title to NSString *randomMovieTitle
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    if (motion == UIEventSubtypeMotionShake) {
-        NSLog(@"Did shake");
+    if (!(moviesArray ==nil)) {
+        if (motion == UIEventSubtypeMotionShake) {
+            shakeArray = [[NSMutableArray alloc] initWithArray:moviesArray];
+            int index = arc4random() % shakeArray.count;
+            randomMovieTitle = [NSString stringWithFormat:@"%@", [[shakeArray objectAtIndex:index] movieTitle]];
+            NSLog(@"%@", randomMovieTitle);
+        }
     }
 }
 
