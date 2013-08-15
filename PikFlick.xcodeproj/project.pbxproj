@@ -19,6 +19,10 @@
 		4A38769C17BBEB1300F95ECA /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A38769A17BBEB1300F95ECA /* MainStoryboard.storyboard */; };
 		4A38769F17BBEB1300F95ECA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A38769E17BBEB1300F95ECA /* ViewController.m */; };
 		4A3876AB17BC00B700F95ECA /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3876AA17BC00B700F95ECA /* Movie.m */; };
+		4A3876AE17BC444300F95ECA /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3876AD17BC444300F95ECA /* CustomCell.m */; };
+		4A3876B017BC447800F95ECA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A3876AF17BC447800F95ECA /* QuartzCore.framework */; };
+		4A3876B317BC7D7200F95ECA /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A3876B117BC7D7200F95ECA /* icon.png */; };
+		4A3876B417BC7D7200F95ECA /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A3876B217BC7D7200F95ECA /* icon@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +44,11 @@
 		4A38769E17BBEB1300F95ECA /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		4A3876A917BC00B700F95ECA /* Movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
 		4A3876AA17BC00B700F95ECA /* Movie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
+		4A3876AC17BC444300F95ECA /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
+		4A3876AD17BC444300F95ECA /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
+		4A3876AF17BC447800F95ECA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4A3876B117BC7D7200F95ECA /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		4A3876B217BC7D7200F95ECA /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A3876B017BC447800F95ECA /* QuartzCore.framework in Frameworks */,
 				4A38768317BBEB1300F95ECA /* UIKit.framework in Frameworks */,
 				4A38768517BBEB1300F95ECA /* Foundation.framework in Frameworks */,
 				4A38768717BBEB1300F95ECA /* CoreGraphics.framework in Frameworks */,
@@ -76,9 +86,10 @@
 		4A38768117BBEB1300F95ECA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4A38768217BBEB1300F95ECA /* UIKit.framework */,
-				4A38768417BBEB1300F95ECA /* Foundation.framework */,
 				4A38768617BBEB1300F95ECA /* CoreGraphics.framework */,
+				4A38768417BBEB1300F95ECA /* Foundation.framework */,
+				4A3876AF17BC447800F95ECA /* QuartzCore.framework */,
+				4A38768217BBEB1300F95ECA /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -93,6 +104,8 @@
 				4A38769A17BBEB1300F95ECA /* MainStoryboard.storyboard */,
 				4A38769D17BBEB1300F95ECA /* ViewController.h */,
 				4A38769E17BBEB1300F95ECA /* ViewController.m */,
+				4A3876AC17BC444300F95ECA /* CustomCell.h */,
+				4A3876AD17BC444300F95ECA /* CustomCell.m */,
 				4A38768917BBEB1300F95ECA /* Supporting Files */,
 			);
 			path = PikFlick;
@@ -101,6 +114,8 @@
 		4A38768917BBEB1300F95ECA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4A3876B117BC7D7200F95ECA /* icon.png */,
+				4A3876B217BC7D7200F95ECA /* icon@2x.png */,
 				4A38768A17BBEB1300F95ECA /* PikFlick-Info.plist */,
 				4A38768B17BBEB1300F95ECA /* InfoPlist.strings */,
 				4A38768E17BBEB1300F95ECA /* main.m */,
@@ -168,6 +183,8 @@
 				4A38769717BBEB1300F95ECA /* Default@2x.png in Resources */,
 				4A38769917BBEB1300F95ECA /* Default-568h@2x.png in Resources */,
 				4A38769C17BBEB1300F95ECA /* MainStoryboard.storyboard in Resources */,
+				4A3876B317BC7D7200F95ECA /* icon.png in Resources */,
+				4A3876B417BC7D7200F95ECA /* icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,6 +199,7 @@
 				4A38769317BBEB1300F95ECA /* AppDelegate.m in Sources */,
 				4A38769F17BBEB1300F95ECA /* ViewController.m in Sources */,
 				4A3876AB17BC00B700F95ECA /* Movie.m in Sources */,
+				4A3876AE17BC444300F95ECA /* CustomCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +322,7 @@
 				4A3876A417BBEB1300F95ECA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

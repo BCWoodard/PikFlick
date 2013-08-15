@@ -7,12 +7,15 @@
 
 #import "ViewController.h"
 #import "Movie.h"
+#import "CustomCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface ViewController ()
 {
     NSArray                     *moviesArray;
     NSArray                     *moviePostersArray;
     __weak IBOutlet UITableView *moviesTable;
+    
 }
 
 @end
@@ -32,10 +35,16 @@
      selector:@selector(getPosterThumbnail:)
      name:@"ThumbnailFound"
      object:nil];
-    
+        
     [super viewDidLoad];
+    
     [self getRottenTomatoesDATA];
     
+    
+    // UI Elements
+    moviesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    moviesTable.backgroundColor = [UIColor blackColor];
+
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
@@ -55,6 +64,7 @@
 }
 
 
+#pragma  mark - UITableViewDataSource
 - (int)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -67,22 +77,30 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    static NSString *CellIdentifier = @"Cell";
+    CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
-    }
-    
-    // Grab movie object and poster thumbnail from their respective arrays
+    cell.textLabel.backgroundColor = [UIColor clearColor];
+
+    // Grab movie object and pass it to the custom cell
     Movie *movie = [moviesArray objectAtIndex:indexPath.row];
-    //UIImage *moviePosterThumbnail = [moviePostersArray objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = movie.movieTitle;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@. Genre: %@. Peer Rating: %@", movie.movieMPAA, movie.movieGenre, movie.moviePeerRating];
-    cell.imageView.image = movie.movieThumbnail;
+    [cell loadMovie:movie];
     
     return cell;
 }
+
+
+#pragma mark - UITableViewDelegate
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 108.0f;
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    cell.backgroundColor = [self colorForIndex:indexPath.row];
+}
+
+
 
 - (void)getRottenTomatoesDATA
 {
@@ -138,7 +156,7 @@
     NSUInteger movieIndex = [moviesArray indexOfObject:movie];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:movieIndex inSection:0];
     
-    [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 
@@ -149,7 +167,18 @@
     NSUInteger movieIndex = [moviesArray indexOfObject:movie];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:movieIndex inSection:0];
     
-    [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+
+#pragma mark - COLOR THE CELLS
+
+- (UIColor *)colorForIndex:(NSInteger) index
+{
+    NSUInteger itemCount = moviesArray.count - 1;
+    float val = ((float)index / (float)itemCount) * 0.8;
+    
+    return [UIColor colorWithRed:1.0 green:val blue:0.1 alpha:0.8];
 }
 
 - (void)dealloc
