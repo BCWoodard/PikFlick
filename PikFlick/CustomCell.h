@@ -8,13 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class Movie;
+
 @interface CustomCell : UITableViewCell <UIGestureRecognizerDelegate>
 
-@property (strong, nonatomic) UIImage       *cellImage;
-@property (strong, nonatomic) NSString      *cellPeerRating;
-@property (strong, nonatomic) NSString      *cellTitle;
-@property (strong, nonatomic) NSString      *cellMPAA;
-@property (strong, nonatomic) NSString      *cellGenre;
+-(void)loadMovie:(Movie *)movie;
 
 -(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 

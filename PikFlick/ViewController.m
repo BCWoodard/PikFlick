@@ -14,6 +14,7 @@
     NSArray                     *moviesArray;
     NSArray                     *moviePostersArray;
     __weak IBOutlet UITableView *moviesTable;
+    
 }
 
 @end
@@ -33,7 +34,7 @@
      selector:@selector(getPosterThumbnail:)
      name:@"ThumbnailFound"
      object:nil];
-    
+        
     [super viewDidLoad];
     
     [self getRottenTomatoesDATA];
@@ -43,7 +44,7 @@
     moviesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     moviesTable.backgroundColor = [UIColor blackColor];
     
-    //[moviesTable registerClass:[CustomCell class] forCellReuseIdentifier:@"CustomCell"];
+    //[moviesTable registerClass:[CustomCell class] forCellReuseIdentifier:@"CoolCell"];
 
 }
 
@@ -75,25 +76,26 @@
     return [moviesArray count];
 }
 
-- (CustomCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CustomCell *cell = [moviesTable dequeueReusableCellWithIdentifier:@"CustomCell"];
-        
+    static NSString *CellIdentifier = @"CoolCell";
+    CustomCell *cell = [moviesTable dequeueReusableCellWithIdentifier:CellIdentifier];
+    
     if (cell == nil) {
-        cell = [[CustomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CustomCell"];
+        
+        cell = [[CustomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        
         cell.textLabel.backgroundColor = [UIColor clearColor];
         
     }
     
     // Grab movie object and poster thumbnail from their respective arrays
     Movie *movie = [moviesArray objectAtIndex:indexPath.row];
-    
+    [cell loadMovie:movie];
     // Set cell values
-    cell.cellImage = movie.movieThumbnail;
-    cell.cellPeerRating = movie.moviePeerRating;
-    cell.cellTitle = movie.movieTitle;
-    cell.cellMPAA = movie.movieMPAA;
-    cell.cellGenre = movie.movieGenre;
+    
+    //cell.cellMPAA = movie.movieMPAA;
+    //cell.cellGenre = movie.movieGenre;
     
     return cell;
 }
@@ -164,7 +166,7 @@
     NSUInteger movieIndex = [moviesArray indexOfObject:movie];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:movieIndex inSection:0];
     
-    [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 
@@ -175,7 +177,7 @@
     NSUInteger movieIndex = [moviesArray indexOfObject:movie];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:movieIndex inSection:0];
     
-    [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 

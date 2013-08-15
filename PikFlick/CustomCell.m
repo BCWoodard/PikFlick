@@ -7,22 +7,37 @@
 //
 
 #import "CustomCell.h"
+
+#import "Movie.h"
+
 #import <QuartzCore/QuartzCore.h>
+
+@interface CustomCell ()
+
+@property (weak, nonatomic) IBOutlet UIImageView *cellImage;
+
+@property (strong, nonatomic) IBOutlet UILabel      *cellPeerRating;
+@property (strong, nonatomic) IBOutlet UILabel      *cellTitle;
+@property (strong, nonatomic) IBOutlet UILabel      *cellMPAA;
+@property (strong, nonatomic) IBOutlet UILabel      *cellGenre;
+
+@end
 
 @implementation CustomCell
 {
     CAGradientLayer             * _gradientLayer;
     CGPoint                     _originalCellCenter;
     BOOL                        _deleteCellOnDragRelease;
-    UIGestureRecognizer *recognizer;
-//    UISwipeGestureRecognizer * swiper;
+    UIGestureRecognizer         *recognizer;
     
-    __weak IBOutlet UIImageView *movieThumbnailImage;
-    __weak IBOutlet UILabel     *moviePeerRating;
-    __weak IBOutlet UILabel     *movieTitleLabel;
-    __weak IBOutlet UILabel     *movieGenreLabel;
-    __weak IBOutlet UILabel     *movieMPAALabel;
+}
 
+-(void)loadMovie:(Movie *)movie {
+    self.cellImage.image = movie.movieThumbnail;
+    self.cellPeerRating.text = movie.moviePeerRating;
+    self.cellTitle.text = movie.movieTitle;
+    self.cellMPAA.text = movie.movieMPAA;
+    self.cellGenre.text = movie.movieGenre;
 }
 
 -(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -51,10 +66,11 @@
     return self;
 }
 
-
+/*
 #pragma mark - Assign LABEL Values
 - (void)setCellImage:(UIImage *)cellImage
 {
+    movieThumbnailImage = (UIImageView *)[self viewWithTag:1];
     movieThumbnailImage.image = cellImage;
 }
 
@@ -78,6 +94,8 @@
 {
     movieGenreLabel.text = cellGenre;
 }
+
+*/
 
 -(void) layoutSubviews {
     [super layoutSubviews];
@@ -146,23 +164,3 @@
 
 
 @end
-
-/*
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
-@end
-*/
