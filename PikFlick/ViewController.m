@@ -8,6 +8,7 @@
 #import "ViewController.h"
 #import "Movie.h"
 #import "CustomCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface ViewController ()
 {
@@ -44,7 +45,7 @@
     moviesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     moviesTable.backgroundColor = [UIColor blackColor];
     
-    //[moviesTable registerClass:[CustomCell class] forCellReuseIdentifier:@"CoolCell"];
+//    [moviesTable registerClass:[CustomCell class] forCellReuseIdentifier:@"CoolCell"];
 
 }
 
@@ -79,14 +80,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"CoolCell";
-    CustomCell *cell = [moviesTable dequeueReusableCellWithIdentifier:CellIdentifier];
+    CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
         
-        cell = [[CustomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+         cell = [[CustomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         
         cell.textLabel.backgroundColor = [UIColor clearColor];
-        
+
     }
     
     // Grab movie object and poster thumbnail from their respective arrays

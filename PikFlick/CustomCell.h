@@ -12,8 +12,7 @@
 
 @interface CustomCell : UITableViewCell <UIGestureRecognizerDelegate>
 
--(void)loadMovie:(Movie *)movie;
+- (void)loadMovie:(Movie *)movie;
 
--(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 
 @end

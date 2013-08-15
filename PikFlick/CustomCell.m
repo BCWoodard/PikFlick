@@ -32,7 +32,7 @@
     
 }
 
--(void)loadMovie:(Movie *)movie {
+- (void)loadMovie:(Movie *)movie {
     self.cellImage.image = movie.movieThumbnail;
     self.cellPeerRating.text = movie.moviePeerRating;
     self.cellTitle.textColor = [UIColor whiteColor];
@@ -41,19 +41,15 @@
     self.cellGenre.text = movie.movieGenre;
 }
 
--(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-
-    if (self) {
+- (void)awakeFromNib {
         // add a layer that overlays the cell adding a subtle gradient effect
         _gradientLayer = [CAGradientLayer layer];
         _gradientLayer.frame = self.bounds;
-        _gradientLayer.colors = @[(id)[[UIColor colorWithWhite:0.8f alpha:0.2f] CGColor],
-                                  (id)[[UIColor colorWithWhite:0.6f alpha:0.1f] CGColor],
+        _gradientLayer.colors = @[(id)[[UIColor colorWithWhite:1.0f alpha:0.2f] CGColor],
+                                  (id)[[UIColor colorWithWhite:0.8f alpha:0.1f] CGColor],
                                   (id)[[UIColor clearColor] CGColor],
-                                  (id)[[UIColor colorWithWhite:0.4f alpha:1.0f] CGColor]];
-        _gradientLayer.locations = @[@0.00f, @0.01f, @0.95f, @1.00f];
+                                  (id)[[UIColor colorWithWhite:0.2f alpha:1.0f] CGColor]];
+        _gradientLayer.locations = @[@0.00f, @0.01f, @0.99f, @1.00f];
         [self.layer insertSublayer:_gradientLayer atIndex:0];
         
         // add a pan recognizer
@@ -61,10 +57,6 @@
         recognizer.delegate = self;
         
         [self addGestureRecognizer:recognizer];
-        
-    }
-    
-    return self;
 }
 
 
