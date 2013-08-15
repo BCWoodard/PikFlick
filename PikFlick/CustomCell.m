@@ -35,6 +35,7 @@
 -(void)loadMovie:(Movie *)movie {
     self.cellImage.image = movie.movieThumbnail;
     self.cellPeerRating.text = movie.moviePeerRating;
+    self.cellTitle.textColor = [UIColor whiteColor];
     self.cellTitle.text = movie.movieTitle;
     self.cellMPAA.text = movie.movieMPAA;
     self.cellGenre.text = movie.movieGenre;
@@ -66,36 +67,6 @@
     return self;
 }
 
-/*
-#pragma mark - Assign LABEL Values
-- (void)setCellImage:(UIImage *)cellImage
-{
-    movieThumbnailImage = (UIImageView *)[self viewWithTag:1];
-    movieThumbnailImage.image = cellImage;
-}
-
-- (void)setCellPeerRating:(NSString *)cellPeerRating
-{
-    moviePeerRating.text = [NSString stringWithFormat:@"Rating: %@", cellPeerRating];
-}
-
-- (void)setCellTitle:(NSString *)cellTitle
-{
-    movieTitleLabel.textColor = [UIColor whiteColor];
-    movieTitleLabel.text = cellTitle;
-}
-
-- (void)setCellMPAA:(NSString *)cellMPAA
-{
-    movieMPAALabel.text = cellMPAA;
-}
-
-- (void)setCellGenre:(NSString *)cellGenre
-{
-    movieGenreLabel.text = cellGenre;
-}
-
-*/
 
 -(void) layoutSubviews {
     [super layoutSubviews];
