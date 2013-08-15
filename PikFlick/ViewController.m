@@ -44,8 +44,6 @@
     // UI Elements
     moviesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     moviesTable.backgroundColor = [UIColor blackColor];
-    
-//    [moviesTable registerClass:[CustomCell class] forCellReuseIdentifier:@"CoolCell"];
 
 }
 
@@ -79,24 +77,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"CoolCell";
-    CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"Cell";
+    CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    if (cell == nil) {
-        
-         cell = [[CustomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        
-        cell.textLabel.backgroundColor = [UIColor clearColor];
+    cell.textLabel.backgroundColor = [UIColor clearColor];
 
-    }
-    
-    // Grab movie object and poster thumbnail from their respective arrays
+    // Grab movie object and pass it to the custom cell
     Movie *movie = [moviesArray objectAtIndex:indexPath.row];
-    [cell loadMovie:movie];
-    // Set cell values
     
-    //cell.cellMPAA = movie.movieMPAA;
-    //cell.cellGenre = movie.movieGenre;
+    [cell loadMovie:movie];
     
     return cell;
 }
