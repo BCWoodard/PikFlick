@@ -49,7 +49,19 @@
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (motion == UIEventSubtypeMotionShake) {
-        NSLog(@"Did shake");
+        NSMutableArray *randomizer = [moviesArray mutableCopy];
+        
+        if ([randomizer count] > 1) {
+            [randomizer removeObjectAtIndex:arc4random() % [randomizer count]];
+            
+            NSLog(@"Randomizer Count: %i", [randomizer count]);
+            NSLog(@"%@", randomizer);
+            
+            moviesArray = randomizer;
+            [moviesTable reloadData];
+        }
+        
+            
     }
 }
 
@@ -107,7 +119,7 @@
     // Activate the Network Activity Indicator
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    NSURL *url = [NSURL URLWithString:@"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?page_limit=32&page=1&country=us&apikey=xx88qet7sppj6r7jp7wrnznd"];
+    NSURL *url = [NSURL URLWithString:@"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?page_limit=48&page=1&country=us&apikey=xx88qet7sppj6r7jp7wrnznd"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -120,22 +132,16 @@
         // One to hold poster images - tempPostersArray
         NSArray *dataMovieArray = [rottenTomatoesJSON objectForKey:@"movies"];
         NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:[dataMovieArray count]];
-        // NSMutableArray *tempPostersArray = [NSMutableArray arrayWithCapacity:[dataMovieArray count]];
         
         for (NSDictionary *dictionary in dataMovieArray) {
             // Create a movie using our init override method in Movie.m
             Movie *movie = [[Movie alloc] initWithMovieDictionary:dictionary];
-            /*
-             NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:movie.movieThumbnailURL]];
-             UIImage *moviePosterThumbnail = [UIImage imageWithData:data];
-             [tempPostersArray addObject:moviePosterThumbnail];
-             */
+
             [tempArray addObject:movie];
         }
         
         // Populate our NSArrays with temporary mutable arrays
         // Again, we do this to protect our arrays from accidental edits, etc.
-        //moviePostersArray = [NSArray arrayWithArray:tempPostersArray];
         moviesArray = [NSArray arrayWithArray:tempArray];
         
         
@@ -173,7 +179,7 @@
 
 #pragma mark - COLOR THE CELLS
 
-- (UIColor *)colorForIndex:(NSInteger) index
+- (UIColor *)colorForIndex:(NSInteger)index
 {
     NSUInteger itemCount = moviesArray.count - 1;
     float val = ((float)index / (float)itemCount) * 0.8;

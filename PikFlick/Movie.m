@@ -18,7 +18,7 @@
         _movieID = [movieDictionary valueForKey:@"id"];
         _movieTitle = [movieDictionary valueForKey:@"title"];
         _moviePeerRating = [[[movieDictionary objectForKey:@"ratings"] valueForKey:@"audience_score"] stringValue];
-        _movieThumbnailURL = [[movieDictionary objectForKey:@"posters"] valueForKey:@"profile"];
+        _movieThumbnailURL = [[movieDictionary objectForKey:@"posters"] valueForKey:@"detailed"];
         _movieMPAA = [movieDictionary objectForKey:@"mpaa_rating"];
     }
     
