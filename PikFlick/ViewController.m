@@ -85,6 +85,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+#pragma mark - BUG FIX NEEDED
+    /*  Multiple cells get highlighted and the addMovieToQueue list gets all
+     whack if 32 (maybe less?) records are retrieved. Need to look at that
+     code and correct.
+     */
+    
     static NSString *CellIdentifier = @"Cell";
     pfCustomCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
@@ -125,7 +131,7 @@
     // Activate the Network Activity Indicator
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    NSURL *url = [NSURL URLWithString:@"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?page_limit=32&page=1&country=us&apikey=xx88qet7sppj6r7jp7wrnznd"];
+    NSURL *url = [NSURL URLWithString:@"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?page_limit=16&page=1&country=us&apikey=xx88qet7sppj6r7jp7wrnznd"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
