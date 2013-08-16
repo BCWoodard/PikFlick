@@ -25,10 +25,14 @@
 
 @implementation pfCustomCell
 {
-    CAGradientLayer             * _gradientLayer;
+    CAGradientLayer             *_gradientLayer;
+    CALayer                     *_movieToSeeLayer;
     CGPoint                     _originalCellCenter;
     BOOL                        _deleteCellOnDragRelease;
+    BOOL                        _addToMovieQueueOnDragRelease;
     UIGestureRecognizer         *recognizer;
+    UILabel                     *deleteMovieLabel;
+    UILabel                     *movieToSeeLabel;
     
 }
 @synthesize delegate;
@@ -42,30 +46,66 @@
     self.cellGenre.text = movie.movieGenre;
 }
 
+const float UI_CUES_MARGIN = 10.0f;
+const float UI_CUES_WIDTH = 120.0f;
+
 - (void)awakeFromNib {
-        // add a layer that overlays the cell adding a subtle gradient effect
-        _gradientLayer = [CAGradientLayer layer];
-        _gradientLayer.frame = self.bounds;
-        _gradientLayer.colors = @[(id)[[UIColor colorWithWhite:1.0f alpha:0.2f] CGColor],
-                                  (id)[[UIColor colorWithWhite:0.8f alpha:0.1f] CGColor],
-                                  (id)[[UIColor clearColor] CGColor],
-                                  (id)[[UIColor colorWithWhite:0.2f alpha:1.0f] CGColor]];
-        _gradientLayer.locations = @[@0.00f, @0.01f, @0.99f, @1.00f];
-        [self.layer insertSublayer:_gradientLayer atIndex:0];
-        
-        // add a pan recognizer
-        recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
-        recognizer.delegate = self;
-        
-        [self addGestureRecognizer:recognizer];
+    // add a tick and cross
+    movieToSeeLabel = [self createCueLabel];
+    movieToSeeLabel.numberOfLines = 0;
+    movieToSeeLabel.text = @"Definite\nMaybe\n\u2713";
+    movieToSeeLabel.textAlignment = NSTextAlignmentRight;
+    [self addSubview:movieToSeeLabel];
+    deleteMovieLabel = [self createCueLabel];
+    deleteMovieLabel.numberOfLines = 0;
+    deleteMovieLabel.text = @"No\nWay!\n\u2717";
+    deleteMovieLabel.textAlignment = NSTextAlignmentLeft;
+    [self addSubview:deleteMovieLabel];
+    
+    // add a layer that overlays the cell adding a subtle gradient effect
+    _gradientLayer = [CAGradientLayer layer];
+    _gradientLayer.frame = self.bounds;
+    _gradientLayer.colors = @[(id)[[UIColor colorWithWhite:1.0f alpha:0.2f] CGColor],
+                              (id)[[UIColor colorWithWhite:0.8f alpha:0.1f] CGColor],
+                              (id)[[UIColor clearColor] CGColor],
+                              (id)[[UIColor colorWithWhite:0.2f alpha:1.0f] CGColor]];
+    _gradientLayer.locations = @[@0.00f, @0.01f, @0.99f, @1.00f];
+    [self.layer insertSublayer:_gradientLayer atIndex:0];
+
+    _movieToSeeLayer = [CALayer layer];
+    _movieToSeeLayer.backgroundColor = [[[UIColor alloc] initWithRed:0.0f green:0.8f blue:0.0f alpha:1.0f] CGColor];
+    _movieToSeeLayer.hidden = YES;
+    [self.layer insertSublayer:_movieToSeeLayer atIndex:0];
+
+    // add a pan recognizer
+    recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    recognizer.delegate = self;
+    
+    [self addGestureRecognizer:recognizer];
 }
 
 
 -(void) layoutSubviews {
     [super layoutSubviews];
-    // ensure the gradient layers occupies the full bounds
+    // ensure the gradient movieToSee layers occupies the full bounds
     _gradientLayer.frame = self.bounds;
+    _movieToSeeLayer.frame = self.bounds;
+    
+    // Contextual cues
+    movieToSeeLabel.frame = CGRectMake(-UI_CUES_WIDTH - UI_CUES_MARGIN, 0,
+                                  UI_CUES_WIDTH, self.bounds.size.height);
+    deleteMovieLabel.frame = CGRectMake(self.bounds.size.width + UI_CUES_MARGIN, 0,
+                                   UI_CUES_WIDTH, self.bounds.size.height);
 
+}
+
+// utility method for creating the contextual cues
+-(UILabel*) createCueLabel {
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectNull];
+    label.textColor = [UIColor whiteColor];
+    label.font = [UIFont boldSystemFontOfSize:16.0];
+    label.backgroundColor = [UIColor clearColor];
+    return label;
 }
 
 
@@ -84,34 +124,34 @@
     return NO;
 }
 
--(void)handlePan:(UIPanGestureRecognizer *)_recognizer
+-(void)handlePan:(UIPanGestureRecognizer *)panRecognizer
 {
     // If a gesture is recognized
-    if (_recognizer.state == UIGestureRecognizerStateBegan) {
-        // Record the original center point of the cell
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        // Record the original center point of the cell so we can determine how far
+        // a user has slid the cell to the right or left
         _originalCellCenter = self.center;
         
-        // We need this information in order to determine how far a user
-        // has slid the cell to the right or left
+
     }
     
-    if (_recognizer.state == UIGestureRecognizerStateChanged) {
-        // "Translate" the center point of the cell
-        // In effect, reset the center point of the cell to the new center point
-        // value as the cell is slid right or left
-        CGPoint translation = [_recognizer translationInView:self];
-        self.center = CGPointMake(_originalCellCenter.x + translation.x, _originalCellCenter.y);
+    if (recognizer.state == UIGestureRecognizerStateChanged) {
+        // We need to determine if the cell is slid to the right or left
+        //
+        // 1. Reset the center point of the cell to the new center point
+        //    value as the cell is slid right or left.
+        // 2. If the x origin is > than the center of the cell, ADD to queue.
+        // 3. If x origin is more than half off the view to the left, delete the cell.
         
-        // Calculate if the cell has been dragged far enough to initiate a
-        // delete / complete
-        // Set the BOOL _deleteCellOnDragRelease to YES if the original x value
-        // is less than (negative)CustomCell.frame.size.width (i.e. - 320) divided
-        // by 2
-        _deleteCellOnDragRelease = self.frame.origin.x < -self.frame.size.width / 2;
+        CGPoint translation = [panRecognizer translationInView:self];
+        self.center = CGPointMake(_originalCellCenter.x + translation.x, _originalCellCenter.y);                                            // 1
+        
+        _addToMovieQueueOnDragRelease = self.frame.origin.x > self.frame.size.width / 2;    // 2
+        _deleteCellOnDragRelease = self.frame.origin.x < -self.frame.size.width / 2;    // 3
         
     }
     
-    if (_recognizer.state == UIGestureRecognizerStateEnded) {
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
         // the frame this cell would have had before being dragged
         CGRect originalFrame = CGRectMake(0, self.frame.origin.y,
                                           self.bounds.size.width, self.bounds.size.height);
@@ -120,11 +160,24 @@
             [UIView animateWithDuration:0.2
                              animations:^{
                                  self.frame = originalFrame;
-                                 [delegate movieDeletedFromList:self.movie];
             }];
         }
+        
+        if (_deleteCellOnDragRelease) {
+			// notify the delegate that this item should be deleted
+			[delegate movieDeletedFromList:self.movie];
+		}
+        if (_addToMovieQueueOnDragRelease) {
+            // mark the item as complete and update the UI state
+            _movieToSeeLayer.hidden = NO;
+            
+#pragma mark - CODE NEEDED!
+            // add code to put the movie in the "moviesToSee" array
+        }
+
     }
 }
+
 
 
 @end
