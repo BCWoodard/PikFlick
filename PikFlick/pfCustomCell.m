@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 Brad Woodard. All rights reserved.
 //
 
-#import "CustomCell.h"
+#import "pfCustomCell.h"
 
 #import "Movie.h"
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface CustomCell ()
+@interface pfCustomCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *cellImage;
 
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation CustomCell
+@implementation pfCustomCell
 {
     CAGradientLayer             * _gradientLayer;
     CGPoint                     _originalCellCenter;
@@ -31,6 +31,7 @@
     UIGestureRecognizer         *recognizer;
     
 }
+@synthesize delegate;
 
 - (void)loadMovie:(Movie *)movie {
     self.cellImage.image = movie.movieThumbnail;
@@ -119,8 +120,8 @@
             [UIView animateWithDuration:0.2
                              animations:^{
                                  self.frame = originalFrame;
-                             }
-             ];
+                                 [delegate movieDeletedFromList:self.movie];
+            }];
         }
     }
 }
