@@ -7,7 +7,7 @@
 
 #import "ViewController.h"
 #import "Movie.h"
-#import "CustomCell.h"
+#import "pfCustomCell.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface ViewController ()
@@ -53,10 +53,6 @@
         
         if ([randomizer count] > 1) {
             [randomizer removeObjectAtIndex:arc4random() % [randomizer count]];
-            
-            NSLog(@"Randomizer Count: %i", [randomizer count]);
-            NSLog(@"%@", randomizer);
-            
             moviesArray = randomizer;
             [moviesTable reloadData];
         }
@@ -89,26 +85,42 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+#pragma mark - BUG FIX NEEDED
+    /*  Multiple cells get highlighted and the addMovieToQueue list gets all
+     whack if 32 (maybe less?) records are retrieved. Need to look at that
+     code and correct.
+     */
+    
     static NSString *CellIdentifier = @"Cell";
-    CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    pfCustomCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     cell.textLabel.backgroundColor = [UIColor clearColor];
 
-    // Grab movie object and pass it to the custom cell
+    // Grab movie object and pass it to the custom cell where the properties
+    // are extracted by the method 'loadMovie:'
     Movie *movie = [moviesArray objectAtIndex:indexPath.row];
-    
     [cell loadMovie:movie];
+    
+    // The ViewController ISA delegate of CustomCell
+    cell.delegate = self;
+    cell.movie = movie;
     
     return cell;
 }
 
 
 #pragma mark - UITableViewDelegate
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return;
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 108.0f;
 }
 
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     cell.backgroundColor = [self colorForIndex:indexPath.row];
 }
 
@@ -119,7 +131,7 @@
     // Activate the Network Activity Indicator
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    NSURL *url = [NSURL URLWithString:@"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?page_limit=48&page=1&country=us&apikey=xx88qet7sppj6r7jp7wrnznd"];
+    NSURL *url = [NSURL URLWithString:@"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?page_limit=16&page=1&country=us&apikey=xx88qet7sppj6r7jp7wrnznd"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -177,8 +189,9 @@
 }
 
 
-#pragma mark - COLOR THE CELLS
 
+
+#pragma mark - COLOR THE CELLS
 - (UIColor *)colorForIndex:(NSInteger)index
 {
     NSUInteger itemCount = moviesArray.count - 1;
@@ -192,6 +205,33 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"GenreFound" object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ThumbnailFound" object:nil];
+}
+
+#pragma mark - DELEGATE IMPLEMENTATION
+- (void)movieDeletedFromList:(Movie *)movie
+{
+    // Use the moviesTable to animate the removal of this row
+    // We don't want the app to crash if someone deletes the last item from the
+    // array, so add the 'if' conditional
+    // 1. Make a mutable copy of moviesArray
+    // 2. Get the index of the selected movie
+    // 3. In order to make changes to the tableView on the fly, and not crash, we must
+    //    call 'beginUpdates' on moviesTable
+    // 4. Remove the movie from tempArray
+    // 5. Delete the row from the tableView with fade animation
+    // 6. Refill moviesArray with our tempArray
+    // 7. Must complete the beginUpdates with 'endUpdates'
+    
+    if ([moviesArray count] > 1) {
+
+        NSMutableArray *tempArray = [moviesArray mutableCopy];  // 1
+        NSUInteger index = [tempArray indexOfObject:movie];     // 2
+        [moviesTable beginUpdates];                             // 3
+        [tempArray removeObjectAtIndex:index];                  // 4
+        [moviesTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationFade];   // 5
+        moviesArray = tempArray;                                // 6
+        [moviesTable endUpdates];                               // 7
+    }
 }
 
 @end
