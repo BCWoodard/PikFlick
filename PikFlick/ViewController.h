@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "pfDeleteMovieDelegate.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <pfDeleteMovieDelegate>
 
 @end
