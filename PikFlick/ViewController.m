@@ -13,7 +13,7 @@
 @interface ViewController ()
 {
     NSArray                     *moviesArray;
-    NSArray                     *moviePostersArray;
+    NSArray                     *moviesShortlist;
     __weak IBOutlet UITableView *moviesTable;
     
 }
@@ -24,6 +24,9 @@
 
 - (void)viewDidLoad
 {
+    // Alloc and init moviesToSeeArray
+    moviesShortlist = [[NSArray alloc] init];
+    
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(getMovieGenre:)
@@ -49,15 +52,12 @@
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (motion == UIEventSubtypeMotionShake) {
-        NSMutableArray *randomizer = [moviesArray mutableCopy];
+        NSMutableArray *tempArray = [moviesShortlist mutableCopy];
         
-        if ([randomizer count] > 1) {
-            [randomizer removeObjectAtIndex:arc4random() % [randomizer count]];
-            moviesArray = randomizer;
-            [moviesTable reloadData];
+        if ([tempArray count] > 1) {
+            [tempArray removeObjectAtIndex:arc4random() % [tempArray count]];
+            moviesShortlist = tempArray;
         }
-        
-            
     }
 }
 
@@ -89,11 +89,15 @@
     /*  Multiple cells get highlighted and the addMovieToQueue list gets all
      whack if 32 (maybe less?) records are retrieved. Need to look at that
      code and correct.
-     */
+     
+     If movie.shortlisted, then use the green cell, else use a regular cell
+    */
+    
     
     static NSString *CellIdentifier = @"Cell";
     pfCustomCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
+    // Need to set the background color to clear in order for gradient to show
     cell.textLabel.backgroundColor = [UIColor clearColor];
 
     // Grab movie object and pass it to the custom cell where the properties
@@ -125,7 +129,7 @@
 }
 
 
-
+#pragma mark - Get DATA and Utility Methods
 - (void)getRottenTomatoesDATA
 {
     // Activate the Network Activity Indicator
@@ -146,23 +150,20 @@
         NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:[dataMovieArray count]];
         
         for (NSDictionary *dictionary in dataMovieArray) {
-            // Create a movie using our init override method in Movie.m
+            // Create a movie using our init override method in Movie.m, set the shortlist value and add to our tempArray
             Movie *movie = [[Movie alloc] initWithMovieDictionary:dictionary];
-
+            movie.shortlisted = NO;
             [tempArray addObject:movie];
         }
         
-        // Populate our NSArrays with temporary mutable arrays
+        // Populate moviesArray with tempArray
         // Again, we do this to protect our arrays from accidental edits, etc.
         moviesArray = [NSArray arrayWithArray:tempArray];
-        
-        
         
         // Stop NetworkActivityIndicator
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
         [moviesTable reloadData];
-        
     }];
 }
 
@@ -170,25 +171,23 @@
 - (void)getMovieGenre:(NSNotification *)note
 {
     Movie *movie = note.object;
-    
     NSUInteger movieIndex = [moviesArray indexOfObject:movie];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:movieIndex inSection:0];
     
     [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
 }
 
 
 - (void)getPosterThumbnail:(NSNotification *)note
 {
     Movie *movie = note.object;
-    
     NSUInteger movieIndex = [moviesArray indexOfObject:movie];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:movieIndex inSection:0];
     
     [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
 }
-
-
 
 
 #pragma mark - COLOR THE CELLS
@@ -198,40 +197,65 @@
     float val = ((float)index / (float)itemCount) * 0.8;
     
     return [UIColor colorWithRed:1.0 green:val blue:0.1 alpha:0.8];
+    
 }
 
 - (void)dealloc
 {
+    // dealloc our notification centers
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"GenreFound" object:nil];
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ThumbnailFound" object:nil];
 }
 
 #pragma mark - DELEGATE IMPLEMENTATION
-- (void)movieDeletedFromList:(Movie *)movie
+- (void)deleteMovieFromLists:(Movie *)movie
 {
     // Use the moviesTable to animate the removal of this row
     // We don't want the app to crash if someone deletes the last item from the
     // array, so add the 'if' conditional
-    // 1. Make a mutable copy of moviesArray
-    // 2. Get the index of the selected movie
-    // 3. In order to make changes to the tableView on the fly, and not crash, we must
+    // 1. If the movie is shortlisted - delete from that array
+    //      a. Make a mutable copy
+    //      b. Identify the movie index in the array
+    //      c. Remove the object at that index
+    //      d. Set moviesShortlist equal to tempShortlist
+    // 2. Make a mutable copy of moviesArray
+    // 3. Get the index of the selected movie
+    // 4. In order to make changes to the tableView on the fly and not crash, we must
     //    call 'beginUpdates' on moviesTable
-    // 4. Remove the movie from tempArray
-    // 5. Delete the row from the tableView with fade animation
-    // 6. Refill moviesArray with our tempArray
-    // 7. Must complete the beginUpdates with 'endUpdates'
+    // 5. Remove the movie from tempArray
+    // 6. Delete the row from the tableView with fade animation
+    // 7. Refill moviesArray with our tempArray
+    // 8. Must complete the beginUpdates with 'endUpdates'
     
     if ([moviesArray count] > 1) {
 
-        NSMutableArray *tempArray = [moviesArray mutableCopy];  // 1
-        NSUInteger index = [tempArray indexOfObject:movie];     // 2
-        [moviesTable beginUpdates];                             // 3
-        [tempArray removeObjectAtIndex:index];                  // 4
-        [moviesTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationFade];   // 5
-        moviesArray = tempArray;                                // 6
-        [moviesTable endUpdates];                               // 7
+        if (movie.shortlisted) {    // 1
+            NSMutableArray *tempShortlist = [moviesShortlist mutableCopy];
+            NSUInteger tempShortlistIndex = [tempShortlist indexOfObject:movie];
+            [tempShortlist removeObjectAtIndex:tempShortlistIndex];
+            moviesShortlist = tempShortlist;
+            NSLog(@"Movies to See: %i", [moviesShortlist count]);
+
+        }
+        
+        NSMutableArray *tempArray = [moviesArray mutableCopy];  // 2
+        NSUInteger index = [tempArray indexOfObject:movie];     // 3
+        [moviesTable beginUpdates];                             // 4
+        [tempArray removeObjectAtIndex:index];                  // 5
+        [moviesTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationFade];   // 6
+        moviesArray = tempArray;                                // 7
+        [moviesTable endUpdates];                               // 8
+        
     }
 }
+
+- (void)addMovieToShortlist:(Movie *)movie
+{
+    NSMutableArray *tempArray = [moviesShortlist mutableCopy];
+    [tempArray addObject:movie];
+    moviesShortlist = tempArray;
+    NSLog(@"Movies to See: %i", [moviesShortlist count]);
+}
+
 
 @end

@@ -17,6 +17,7 @@
 @property (strong, nonatomic) NSString  *movieThumbnailURL;
 @property (strong, nonatomic) UIImage   *movieThumbnail;
 @property (strong, nonatomic) NSString  *movieMPAA;
+@property BOOL  shortlisted;
 
 // Overwrite init with a method to create our Movie object directly
 // from the Movie Dictionary we retrieve from Rotten Tomatoes

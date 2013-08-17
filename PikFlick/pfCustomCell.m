@@ -7,9 +7,7 @@
 //
 
 #import "pfCustomCell.h"
-
 #import "Movie.h"
-
 #import <QuartzCore/QuartzCore.h>
 
 @interface pfCustomCell ()
@@ -44,13 +42,31 @@
     self.cellTitle.text = movie.movieTitle;
     self.cellMPAA.text = movie.movieMPAA;
     self.cellGenre.text = movie.movieGenre;
+    
+    // Show the cell as SHORTLISTED or NOT
+    if (movie.shortlisted) {
+        _movieToSeeLayer.hidden = NO;
+    } else {
+        _movieToSeeLayer.hidden = YES;
+    }
 }
 
 const float UI_CUES_MARGIN = 10.0f;
 const float UI_CUES_WIDTH = 120.0f;
 
 - (void)awakeFromNib {
-    // add a tick and cross
+
+    // add a layer that overlays the cell adding a subtle gradient effect
+    _gradientLayer = [CAGradientLayer layer];
+    _gradientLayer.frame = self.bounds;
+    _gradientLayer.colors = @[(id)[[UIColor colorWithWhite:1.0f alpha:0.2f] CGColor],
+                              (id)[[UIColor colorWithWhite:0.8f alpha:0.1f] CGColor],
+                              (id)[[UIColor clearColor] CGColor],
+                              (id)[[UIColor colorWithWhite:0.2f alpha:1.0f] CGColor]];
+    _gradientLayer.locations = @[@0.00f, @0.01f, @0.99f, @1.00f];
+    [self.layer insertSublayer:_gradientLayer atIndex:0];
+
+    // Add the DELETE context and SHORTLIST context
     movieToSeeLabel = [self createCueLabel];
     movieToSeeLabel.numberOfLines = 0;
     movieToSeeLabel.text = @"Definite\nMaybe\n\u2713";
@@ -62,16 +78,6 @@ const float UI_CUES_WIDTH = 120.0f;
     deleteMovieLabel.textAlignment = NSTextAlignmentLeft;
     [self addSubview:deleteMovieLabel];
     
-    // add a layer that overlays the cell adding a subtle gradient effect
-    _gradientLayer = [CAGradientLayer layer];
-    _gradientLayer.frame = self.bounds;
-    _gradientLayer.colors = @[(id)[[UIColor colorWithWhite:1.0f alpha:0.2f] CGColor],
-                              (id)[[UIColor colorWithWhite:0.8f alpha:0.1f] CGColor],
-                              (id)[[UIColor clearColor] CGColor],
-                              (id)[[UIColor colorWithWhite:0.2f alpha:1.0f] CGColor]];
-    _gradientLayer.locations = @[@0.00f, @0.01f, @0.99f, @1.00f];
-    [self.layer insertSublayer:_gradientLayer atIndex:0];
-
     _movieToSeeLayer = [CALayer layer];
     _movieToSeeLayer.backgroundColor = [[[UIColor alloc] initWithRed:0.0f green:0.8f blue:0.0f alpha:1.0f] CGColor];
     _movieToSeeLayer.hidden = YES;
@@ -99,7 +105,7 @@ const float UI_CUES_WIDTH = 120.0f;
 
 }
 
-// utility method for creating the contextual cues
+// Create the contextual cues
 -(UILabel*) createCueLabel {
     UILabel* label = [[UILabel alloc] initWithFrame:CGRectNull];
     label.textColor = [UIColor whiteColor];
@@ -132,7 +138,6 @@ const float UI_CUES_WIDTH = 120.0f;
         // a user has slid the cell to the right or left
         _originalCellCenter = self.center;
         
-
     }
     
     if (recognizer.state == UIGestureRecognizerStateChanged) {
@@ -155,26 +160,35 @@ const float UI_CUES_WIDTH = 120.0f;
         // the frame this cell would have had before being dragged
         CGRect originalFrame = CGRectMake(0, self.frame.origin.y,
                                           self.bounds.size.width, self.bounds.size.height);
+        
+        // if the item is not being deleted, snap back to the original location        
         if (!_deleteCellOnDragRelease) {
-            // if the item is not being deleted, snap back to the original location
             [UIView animateWithDuration:0.2
                              animations:^{
                                  self.frame = originalFrame;
             }];
         }
         
+        // notify the delegate that this item should be deleted
         if (_deleteCellOnDragRelease) {
-			// notify the delegate that this item should be deleted
-			[delegate movieDeletedFromList:self.movie];
+            [delegate deleteMovieFromLists:self.movie];
+
 		}
+
+        // If the item is not being added to the shortlist, snap back to the original location
+        if (!_addToMovieQueueOnDragRelease) {
+            [UIView animateWithDuration:0.2
+                             animations:^{
+                                 self.frame = originalFrame;
+                             }];
+        }
+        // Add the movie to the shortlist and update the UI state
         if (_addToMovieQueueOnDragRelease) {
-            // mark the item as complete and update the UI state
+            [self.movie setShortlisted:YES];
+            [delegate addMovieToShortlist:self.movie];
             _movieToSeeLayer.hidden = NO;
             
-#pragma mark - CODE NEEDED!
-            // add code to put the movie in the "moviesToSee" array
         }
-
     }
 }
 
