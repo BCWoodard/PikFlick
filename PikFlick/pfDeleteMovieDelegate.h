@@ -16,6 +16,8 @@
 
 @protocol pfDeleteMovieDelegate <NSObject>
 
-- (void)movieDeletedFromList:(Movie *)movie;
+- (void)deleteMovieFromLists:(Movie *)movie;
+- (void)addMovieToShortlist:(Movie *)movie;
+
 
 @end
