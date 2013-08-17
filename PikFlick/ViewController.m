@@ -175,6 +175,7 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:movieIndex inSection:0];
     
     [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
 }
 
 
@@ -185,6 +186,7 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:movieIndex inSection:0];
     
     [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
 }
 
 

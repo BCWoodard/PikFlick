@@ -42,6 +42,13 @@
     self.cellTitle.text = movie.movieTitle;
     self.cellMPAA.text = movie.movieMPAA;
     self.cellGenre.text = movie.movieGenre;
+    
+    // Show the cell as SHORTLISTED or NOT
+    if (movie.shortlisted) {
+        _movieToSeeLayer.hidden = NO;
+    } else {
+        _movieToSeeLayer.hidden = YES;
+    }
 }
 
 const float UI_CUES_MARGIN = 10.0f;
