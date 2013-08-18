@@ -14,8 +14,8 @@
 {
     NSArray                     *moviesArray;
     NSArray                     *moviesShortlist;
-    __weak IBOutlet UITableView *moviesTable;
     
+    __weak IBOutlet UITableView *moviesTable;
 }
 
 @end
@@ -43,7 +43,6 @@
     
     [self getRottenTomatoesDATA];
     
-    
     // UI Elements
     moviesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     moviesTable.backgroundColor = [UIColor blackColor];
@@ -52,11 +51,41 @@
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (motion == UIEventSubtypeMotionShake) {
-        NSMutableArray *tempArray = [moviesShortlist mutableCopy];
-        
-        if ([tempArray count] > 1) {
-            [tempArray removeObjectAtIndex:arc4random() % [tempArray count]];
+
+        if ([moviesShortlist count] > 1) {
+            Movie *selectedMovie = [moviesShortlist objectAtIndex:arc4random() % [moviesShortlist count]];
+            int movieIndex = [moviesShortlist indexOfObject:selectedMovie];
+            NSLog(@"Selected Shortlist Movie: %@", selectedMovie.movieTitle);
+
+            // Remove that movie from the shortlist array
+            NSMutableArray *tempArray = [moviesShortlist mutableCopy];
+            [tempArray removeObjectAtIndex:movieIndex];
             moviesShortlist = tempArray;
+            [moviesTable reloadData];
+            
+        } else if ([moviesShortlist count] == 1) {
+            Movie *selectedMovie = [moviesShortlist objectAtIndex:0];
+            NSLog(@"Only shortlist movie remaining is %@", selectedMovie.movieTitle);
+            
+            // Throw up an alertView or other notification that this is the last movie
+            // in their shortlist and prompt for returning to the full list.
+            // Maybe we retrieve more movies if this happens?
+            
+        } else if (([moviesShortlist count] == 0) && ([moviesArray count] > 1)) {
+
+            Movie *selectedMovie = [moviesArray objectAtIndex:arc4random() % [moviesArray count]];
+            int movieIndex = [moviesArray indexOfObject:selectedMovie];
+            NSLog(@"Selected Movie: %@", selectedMovie.movieTitle);
+            
+            // Remove that movie from the shortlist array
+            NSMutableArray *tempArray = [moviesArray mutableCopy];
+            [tempArray removeObjectAtIndex:movieIndex];
+            moviesArray = tempArray;
+            [moviesTable reloadData];
+
+        } else {
+            Movie *selectedMovie = [moviesArray objectAtIndex:0];
+            NSLog(@"The only remaining movie is %@", selectedMovie.movieTitle);
         }
     }
 }
@@ -85,15 +114,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-#pragma mark - BUG FIX NEEDED
-    /*  Multiple cells get highlighted and the addMovieToQueue list gets all
-     whack if 32 (maybe less?) records are retrieved. Need to look at that
-     code and correct.
-     
-     If movie.shortlisted, then use the green cell, else use a regular cell
-    */
-    
-    
     static NSString *CellIdentifier = @"Cell";
     pfCustomCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
@@ -234,7 +254,6 @@
             NSUInteger tempShortlistIndex = [tempShortlist indexOfObject:movie];
             [tempShortlist removeObjectAtIndex:tempShortlistIndex];
             moviesShortlist = tempShortlist;
-            NSLog(@"Movies to See: %i", [moviesShortlist count]);
 
         }
         
