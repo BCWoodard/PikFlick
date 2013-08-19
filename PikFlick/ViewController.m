@@ -51,23 +51,27 @@
     
     [self getRottenTomatoesDATA];
     
-    
-    
-    
-    
-    //    detailedShakeView = [[[NSBundle mainBundle] loadNibNamed:@"DetailedShakeView" owner:nil options:nil] objectAtIndex:0];
-    
-    selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
-    [selectedMovieOverlay setHidden:YES];
-    
-    
     // UI Elements
     moviesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     moviesTable.backgroundColor = [UIColor blackColor];
     
+    
+    
+//  detailedShakeView = [[[NSBundle mainBundle] loadNibNamed:@"DetailedShakeView" owner:nil options:nil] objectAtIndex:0];
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    if (screenSize.height > 480) {
+         selectedMovieOverlay.frame = CGRectMake(0, 0, 320, 548);
+    } else {
+         selectedMovieOverlay.frame = CGRectMake(0, 0, 320, 480);
+    }
+    
+    selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
+    [selectedMovieOverlay setHidden:YES];
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if (selectedMovieOverlay.isHidden == YES) {
+        
     if (motion == UIEventSubtypeMotionShake) {
         if ([moviesShortlist count] > 1) {
             Movie *selectedMovie = [moviesShortlist objectAtIndex:arc4random() % [moviesShortlist count]];
@@ -140,7 +144,8 @@
         }
     }
 }
-
+}
+    
 - (BOOL)canBecomeFirstResponder {
     return YES;
 }
