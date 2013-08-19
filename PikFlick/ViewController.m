@@ -394,7 +394,7 @@
         NSUInteger index = [tempArray indexOfObject:movie];     // 3
         [moviesTable beginUpdates];                             // 4
         [tempArray removeObjectAtIndex:index];                  // 5
-        [moviesTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationFade];   // 6
+        [moviesTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:	UITableViewRowAnimationFade];   // 6
         moviesArray = tempArray;                                // 7
         [moviesTable endUpdates];                               // 8
         
@@ -444,4 +444,5 @@
         [startOverButton setHidden:YES];
     }];
 }
+
 @end
