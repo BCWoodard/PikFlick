@@ -60,10 +60,17 @@
 //  detailedShakeView = [[[NSBundle mainBundle] loadNibNamed:@"DetailedShakeView" owner:nil options:nil] objectAtIndex:0];
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
     if (screenSize.height > 480) {
+        moviesTable.frame = CGRectMake(0, 0, 320, 548);
          selectedMovieOverlay.frame = CGRectMake(0, 0, 320, 548);
     } else {
+        moviesTable.frame = CGRectMake(0, 0, 320, 460);
          selectedMovieOverlay.frame = CGRectMake(0, 0, 320, 480);
     }
+    
+    selectedMoviePoster.layer.shadowColor = [UIColor whiteColor].CGColor;
+//    selectedMoviePoster.layer.shadowOffset = CGSizeMake(0, 0);
+    selectedMoviePoster.layer.shadowOpacity = 1;
+    selectedMoviePoster.layer.shadowRadius = 8;
     
     selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
     [selectedMovieOverlay setHidden:YES];
