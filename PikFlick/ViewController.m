@@ -57,30 +57,29 @@
     
     
     
-//  detailedShakeView = [[[NSBundle mainBundle] loadNibNamed:@"DetailedShakeView" owner:nil options:nil] objectAtIndex:0];
+    //  detailedShakeView = [[[NSBundle mainBundle] loadNibNamed:@"DetailedShakeView" owner:nil options:nil] objectAtIndex:0];
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
     if (screenSize.height > 480) {
         moviesTable.frame = CGRectMake(0, 0, 320, 548);
-         selectedMovieOverlay.frame = CGRectMake(0, 0, 320, 548);
+        selectedMovieOverlay.frame = CGRectMake(0, 0, 320, 548);
     } else {
         moviesTable.frame = CGRectMake(0, 0, 320, 460);
-         selectedMovieOverlay.frame = CGRectMake(0, 0, 320, 480);
+        selectedMovieOverlay.frame = CGRectMake(0, 0, 320, 480);
     }
     
     selectedMoviePoster.layer.shadowColor = [UIColor whiteColor].CGColor;
-//    selectedMoviePoster.layer.shadowOffset = CGSizeMake(0, 0);
     selectedMoviePoster.layer.shadowOpacity = 1;
-    selectedMoviePoster.layer.shadowRadius = 8;
+    selectedMoviePoster.layer.shadowRadius = 15;
     
     selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
     [selectedMovieOverlay setHidden:YES];
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    if (selectedMovieOverlay.isHidden == YES) {
-        
+    
     if (motion == UIEventSubtypeMotionShake) {
-        if ([moviesShortlist count] > 1) {
+        
+        if (([moviesShortlist count] > 1) && (selectedMovieOverlay.isHidden == YES)) {
             Movie *selectedMovie = [moviesShortlist objectAtIndex:arc4random() % [moviesShortlist count]];
             int movieIndex = [moviesShortlist indexOfObject:selectedMovie];
             selectedMovie.shortlisted = NO;
@@ -91,21 +90,40 @@
             [tempArray removeObjectAtIndex:movieIndex];
             moviesShortlist = tempArray;
             
+            announcementGreeting.text = [self announcementMessage];
             selectedMoviePoster.image = selectedMovie.movieThumbnail;
             selectedMovieTitle.text = selectedMovie.movieTitle;
-            [UIView animateWithDuration:1 animations:^{
-                selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 100, 100);
-                [selectedMovieOverlay setHidden:NO];
-            }];
+            
+            [self initialAnimatedOverlay];
             
             [moviesTable reloadData];
             
-        } else if ([moviesShortlist count] == 1) {
+        } else if (([moviesShortlist count] > 1) && (selectedMovieOverlay.isHidden == NO)) {
+
+                Movie *selectedMovie = [moviesShortlist objectAtIndex:arc4random() % [moviesShortlist count]];
+                int movieIndex = [moviesShortlist indexOfObject:selectedMovie];
+                selectedMovie.shortlisted = NO;
+                NSLog(@"Selected Shortlist Movie: %@", selectedMovie.movieTitle);
+                
+                // Remove that movie from the shortlist array
+                NSMutableArray *tempArray = [moviesShortlist mutableCopy];
+                [tempArray removeObjectAtIndex:movieIndex];
+                moviesShortlist = tempArray;
+                
+                selectedMoviePoster.image = selectedMovie.movieThumbnail;
+                selectedMovieTitle.text = selectedMovie.movieTitle;
+
+            [self initialAnimatedOverlay];
+            
+            
+            [moviesTable reloadData];
+        }
+        else if (([moviesShortlist count] == 1) && (selectedMovieOverlay.isHidden == YES)) {
             Movie *selectedMovie = [moviesShortlist objectAtIndex:0];
             
             selectedMoviePoster.image = selectedMovie.movieThumbnail;
             selectedMovieTitle.text = selectedMovie.movieTitle;
-            [UIView animateWithDuration:1 animations:^{
+            [UIView animateWithDuration:0.3 animations:^{
                 selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 100, 100);
                 [selectedMovieOverlay setHidden:NO];
             }];
@@ -117,42 +135,121 @@
             // in their shortlist and prompt for returning to the full list.
             // Maybe we retrieve more movies if this happens?
             
-        } else if (([moviesShortlist count] == 0) && ([moviesArray count] > 1)) {
-            
-            Movie *selectedMovie = [moviesArray objectAtIndex:arc4random() % [moviesArray count]];
-            int movieIndex = [moviesArray indexOfObject:selectedMovie];
-            NSLog(@"Selected Movie: %@", selectedMovie.movieTitle);
-            
-            // Remove that movie from the shortlist array
-            NSMutableArray *tempArray = [moviesArray mutableCopy];
-            [tempArray removeObjectAtIndex:movieIndex];
-            moviesArray = tempArray;
-            
-            selectedMoviePoster.image = selectedMovie.movieThumbnail;
-            selectedMovieTitle.text = selectedMovie.movieTitle;
-            [UIView animateWithDuration:1 animations:^{
-                selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 100, 100);
-                [selectedMovieOverlay setHidden:NO];
+        } else if (([moviesShortlist count] == 1) && (selectedMovieOverlay.isHidden == NO)) {
+            [UIView animateWithDuration:0.3 animations:^{
+                selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
+            } completion:^(BOOL finished) {
+                Movie *selectedMovie = [moviesShortlist objectAtIndex:0];
+                
+                selectedMoviePoster.image = selectedMovie.movieThumbnail;
+                selectedMovieTitle.text = selectedMovie.movieTitle;
+                [UIView animateWithDuration:0.3 animations:^{
+                    selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 100, 100);
+                    [selectedMovieOverlay setHidden:NO];
+                }];
+                
+                selectedMovie.shortlisted = NO;
+                NSLog(@"Only shortlist movie remaining is %@", selectedMovie.movieTitle);
             }];
-            
-            [moviesTable reloadData];
-            
+        }
+        else if (([moviesShortlist count] == 0) && ([moviesArray count] > 1)) {
+            if (selectedMovieOverlay.isHidden == YES) {
+                Movie *selectedMovie = [moviesArray objectAtIndex:arc4random() % [moviesArray count]];
+                int movieIndex = [moviesArray indexOfObject:selectedMovie];
+                NSLog(@"Selected Movie: %@", selectedMovie.movieTitle);
+                
+                // Remove that movie from the shortlist array
+                NSMutableArray *tempArray = [moviesArray mutableCopy];
+                [tempArray removeObjectAtIndex:movieIndex];
+                moviesArray = tempArray;
+                
+                selectedMoviePoster.image = selectedMovie.movieThumbnail;
+                selectedMovieTitle.text = selectedMovie.movieTitle;
+                [UIView animateWithDuration:0.3 animations:^{
+                    selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 100, 100);
+                    [selectedMovieOverlay setHidden:NO];
+                }];
+                
+                [moviesTable reloadData];
+            } else {
+                [UIView animateWithDuration:0.3 animations:^{
+                    selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
+                } completion:^(BOOL finished) {
+                    Movie *selectedMovie = [moviesArray objectAtIndex:arc4random() % [moviesArray count]];
+                    int movieIndex = [moviesArray indexOfObject:selectedMovie];
+                    NSLog(@"Selected Movie: %@", selectedMovie.movieTitle);
+                    
+                    // Remove that movie from the shortlist array
+                    NSMutableArray *tempArray = [moviesArray mutableCopy];
+                    [tempArray removeObjectAtIndex:movieIndex];
+                    moviesArray = tempArray;
+                    
+                    selectedMoviePoster.image = selectedMovie.movieThumbnail;
+                    selectedMovieTitle.text = selectedMovie.movieTitle;
+                    [UIView animateWithDuration:0.3 animations:^{
+                        selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 100, 100);
+                        [selectedMovieOverlay setHidden:NO];
+                    }];
+                    
+                    [moviesTable reloadData];
+                }];
+            }
         } else {
-            Movie *selectedMovie = [moviesArray objectAtIndex:0];
-            
-            selectedMoviePoster.image = selectedMovie.movieThumbnail;
-            selectedMovieTitle.text = selectedMovie.movieTitle;
-            [UIView animateWithDuration:1 animations:^{
-                selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 100, 100);
-                [selectedMovieOverlay setHidden:NO];
-            }];
-            
-            NSLog(@"The only remaining movie is %@", selectedMovie.movieTitle);
+            if (selectedMovieOverlay.isHidden == YES) {
+                
+                Movie *selectedMovie = [moviesArray objectAtIndex:0];
+                
+                selectedMoviePoster.image = selectedMovie.movieThumbnail;
+                selectedMovieTitle.text = selectedMovie.movieTitle;
+                [UIView animateWithDuration:0.3 animations:^{
+                    selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 100, 100);
+                    [selectedMovieOverlay setHidden:NO];
+                }];
+                
+                NSLog(@"The only remaining movie is %@", selectedMovie.movieTitle);
+            } else {
+                [UIView animateWithDuration:0.3 animations:^{
+                    selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
+                } completion:^(BOOL finished) {
+                    Movie *selectedMovie = [moviesArray objectAtIndex:0];
+                    
+                    selectedMoviePoster.image = selectedMovie.movieThumbnail;
+                    selectedMovieTitle.text = selectedMovie.movieTitle;
+                    [UIView animateWithDuration:0.3 animations:^{
+                        selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 100, 100);
+                        [selectedMovieOverlay setHidden:NO];
+                    }];
+                    
+                    NSLog(@"The only remaining movie is %@", selectedMovie.movieTitle);
+                }];
+            }
         }
     }
 }
+
+- (void)initialAnimatedOverlay {
+    [UIView animateWithDuration:0.3 animations:^{
+        selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 100, 100);
+        [selectedMovieOverlay setHidden:NO];
+    }];
 }
-    
+
+
+- (void)animatedOverlayRemoval {
+    [UIView animateWithDuration:0.3 animations:^{
+        selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
+    }];
+    [selectedMovieOverlay setHidden:YES];
+}
+
+
+- (NSString *)announcementMessage {
+        NSArray *announcementMessages = [[NSArray alloc] initWithObjects:@"It is decidedly so", @"It is certain", @"You will see", @"We have decided", @"Without a doubt", @"Take it or leave it", @"Most likely", @"Signs point to", @"Tonight you will see", @"Your fate is", @"Your key to success", @"", nil];
+    int index = arc4random() % announcementMessages.count;
+    return [announcementMessages objectAtIndex:index];
+}
+
+
 - (BOOL)canBecomeFirstResponder {
     return YES;
 }
@@ -342,7 +439,7 @@
 
 - (IBAction)closeSelectedMovieOverlay:(id)sender {
     
-    [UIView animateWithDuration:1 animations:^{
+    [UIView animateWithDuration:0.5 animations:^{
         selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
     } completion:^(BOOL finished) {
         [selectedMovieOverlay setHidden:YES];
