@@ -24,6 +24,7 @@
 		4A3876B317BC7D7200F95ECA /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A3876B117BC7D7200F95ECA /* icon.png */; };
 		4A3876B417BC7D7200F95ECA /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A3876B217BC7D7200F95ECA /* icon@2x.png */; };
 		CFFD3C6217C269FE00B4A888 /* DetailedShakeView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFD3C6117C269FE00B4A888 /* DetailedShakeView.m */; };
+		CFFD3C6417C2770200B4A888 /* OriginalNameIsDetailedShakeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFFD3C6317C2770200B4A888 /* OriginalNameIsDetailedShakeView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		4A66264817BDA96000F31785 /* pfDeleteMovieDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pfDeleteMovieDelegate.h; sourceTree = "<group>"; };
 		CFFD3C6017C269FE00B4A888 /* DetailedShakeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailedShakeView.h; sourceTree = "<group>"; };
 		CFFD3C6117C269FE00B4A888 /* DetailedShakeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailedShakeView.m; sourceTree = "<group>"; };
+		CFFD3C6317C2770200B4A888 /* OriginalNameIsDetailedShakeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OriginalNameIsDetailedShakeView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 				4A3876AA17BC00B700F95ECA /* Movie.m */,
 				CFFD3C6017C269FE00B4A888 /* DetailedShakeView.h */,
 				CFFD3C6117C269FE00B4A888 /* DetailedShakeView.m */,
+				CFFD3C6317C2770200B4A888 /* OriginalNameIsDetailedShakeView.xib */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				4A38769C17BBEB1300F95ECA /* MainStoryboard.storyboard in Resources */,
 				4A3876B317BC7D7200F95ECA /* icon.png in Resources */,
 				4A3876B417BC7D7200F95ECA /* icon@2x.png in Resources */,
+				CFFD3C6417C2770200B4A888 /* OriginalNameIsDetailedShakeView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

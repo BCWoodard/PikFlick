@@ -15,9 +15,16 @@
 {
     NSArray                     *moviesArray;
     NSArray                     *moviesShortlist;
-    
+    //    DetailedShakeView           *detailedShakeView;
     __weak IBOutlet UITableView *moviesTable;
+    __weak IBOutlet UIView *selectedMovieOverlay;
+    __weak IBOutlet UIButton *selectedMovieCloseButton;
+    __weak IBOutlet UILabel *selectedMovieTitle;
+    __weak IBOutlet UILabel *announcementGreeting;
+    __weak IBOutlet UIImageView *selectedMoviePoster;
+    
 }
+- (IBAction)closeSelectedMovieOverlay:(id)sender;
 
 @end
 
@@ -39,33 +46,60 @@
      selector:@selector(getPosterThumbnail:)
      name:@"ThumbnailFound"
      object:nil];
-        
+    
     [super viewDidLoad];
     
     [self getRottenTomatoesDATA];
     
+    
+    
+    
+    
+    //    detailedShakeView = [[[NSBundle mainBundle] loadNibNamed:@"DetailedShakeView" owner:nil options:nil] objectAtIndex:0];
+    
+    selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
+    [selectedMovieOverlay setHidden:YES];
+    
+    
     // UI Elements
     moviesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     moviesTable.backgroundColor = [UIColor blackColor];
-
+    
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (motion == UIEventSubtypeMotionShake) {
-
         if ([moviesShortlist count] > 1) {
             Movie *selectedMovie = [moviesShortlist objectAtIndex:arc4random() % [moviesShortlist count]];
             int movieIndex = [moviesShortlist indexOfObject:selectedMovie];
+            selectedMovie.shortlisted = NO;
             NSLog(@"Selected Shortlist Movie: %@", selectedMovie.movieTitle);
-
+            
             // Remove that movie from the shortlist array
             NSMutableArray *tempArray = [moviesShortlist mutableCopy];
             [tempArray removeObjectAtIndex:movieIndex];
             moviesShortlist = tempArray;
+            
+            selectedMoviePoster.image = selectedMovie.movieThumbnail;
+            selectedMovieTitle.text = selectedMovie.movieTitle;
+            [UIView animateWithDuration:1 animations:^{
+                selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 100, 100);
+                [selectedMovieOverlay setHidden:NO];
+            }];
+            
             [moviesTable reloadData];
             
         } else if ([moviesShortlist count] == 1) {
             Movie *selectedMovie = [moviesShortlist objectAtIndex:0];
+            
+            selectedMoviePoster.image = selectedMovie.movieThumbnail;
+            selectedMovieTitle.text = selectedMovie.movieTitle;
+            [UIView animateWithDuration:1 animations:^{
+                selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 100, 100);
+                [selectedMovieOverlay setHidden:NO];
+            }];
+            
+            selectedMovie.shortlisted = NO;
             NSLog(@"Only shortlist movie remaining is %@", selectedMovie.movieTitle);
             
             // Throw up an alertView or other notification that this is the last movie
@@ -73,7 +107,7 @@
             // Maybe we retrieve more movies if this happens?
             
         } else if (([moviesShortlist count] == 0) && ([moviesArray count] > 1)) {
-
+            
             Movie *selectedMovie = [moviesArray objectAtIndex:arc4random() % [moviesArray count]];
             int movieIndex = [moviesArray indexOfObject:selectedMovie];
             NSLog(@"Selected Movie: %@", selectedMovie.movieTitle);
@@ -82,10 +116,26 @@
             NSMutableArray *tempArray = [moviesArray mutableCopy];
             [tempArray removeObjectAtIndex:movieIndex];
             moviesArray = tempArray;
+            
+            selectedMoviePoster.image = selectedMovie.movieThumbnail;
+            selectedMovieTitle.text = selectedMovie.movieTitle;
+            [UIView animateWithDuration:1 animations:^{
+                selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 100, 100);
+                [selectedMovieOverlay setHidden:NO];
+            }];
+            
             [moviesTable reloadData];
-
+            
         } else {
             Movie *selectedMovie = [moviesArray objectAtIndex:0];
+            
+            selectedMoviePoster.image = selectedMovie.movieThumbnail;
+            selectedMovieTitle.text = selectedMovie.movieTitle;
+            [UIView animateWithDuration:1 animations:^{
+                selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 100, 100);
+                [selectedMovieOverlay setHidden:NO];
+            }];
+            
             NSLog(@"The only remaining movie is %@", selectedMovie.movieTitle);
         }
     }
@@ -120,7 +170,7 @@
     
     // Need to set the background color to clear in order for gradient to show
     cell.textLabel.backgroundColor = [UIColor clearColor];
-
+    
     // Grab movie object and pass it to the custom cell where the properties
     // are extracted by the method 'loadMovie:'
     Movie *movie = [moviesArray objectAtIndex:indexPath.row];
@@ -249,13 +299,13 @@
     // 8. Must complete the beginUpdates with 'endUpdates'
     
     if ([moviesArray count] > 1) {
-
+        
         if (movie.shortlisted) {    // 1
             NSMutableArray *tempShortlist = [moviesShortlist mutableCopy];
             NSUInteger tempShortlistIndex = [tempShortlist indexOfObject:movie];
             [tempShortlist removeObjectAtIndex:tempShortlistIndex];
             moviesShortlist = tempShortlist;
-
+            
         }
         
         NSMutableArray *tempArray = [moviesArray mutableCopy];  // 2
@@ -278,4 +328,12 @@
 }
 
 
+- (IBAction)closeSelectedMovieOverlay:(id)sender {
+    
+    [UIView animateWithDuration:1 animations:^{
+        selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
+    } completion:^(BOOL finished) {
+        [selectedMovieOverlay setHidden:YES];
+    }];
+}
 @end
