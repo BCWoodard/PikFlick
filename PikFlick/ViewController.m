@@ -8,6 +8,7 @@
 #import "ViewController.h"
 #import "Movie.h"
 #import "pfCustomCell.h"
+#import "DetailedShakeView.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface ViewController ()

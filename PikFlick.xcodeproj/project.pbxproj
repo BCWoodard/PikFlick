@@ -23,6 +23,7 @@
 		4A3876B017BC447800F95ECA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A3876AF17BC447800F95ECA /* QuartzCore.framework */; };
 		4A3876B317BC7D7200F95ECA /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A3876B117BC7D7200F95ECA /* icon.png */; };
 		4A3876B417BC7D7200F95ECA /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A3876B217BC7D7200F95ECA /* icon@2x.png */; };
+		CFFD3C6217C269FE00B4A888 /* DetailedShakeView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFD3C6117C269FE00B4A888 /* DetailedShakeView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,8 @@
 		4A3876B117BC7D7200F95ECA /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		4A3876B217BC7D7200F95ECA /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		4A66264817BDA96000F31785 /* pfDeleteMovieDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pfDeleteMovieDelegate.h; sourceTree = "<group>"; };
+		CFFD3C6017C269FE00B4A888 /* DetailedShakeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailedShakeView.h; sourceTree = "<group>"; };
+		CFFD3C6117C269FE00B4A888 /* DetailedShakeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailedShakeView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +133,8 @@
 			children = (
 				4A3876A917BC00B700F95ECA /* Movie.h */,
 				4A3876AA17BC00B700F95ECA /* Movie.m */,
+				CFFD3C6017C269FE00B4A888 /* DetailedShakeView.h */,
+				CFFD3C6117C269FE00B4A888 /* DetailedShakeView.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -226,6 +231,7 @@
 				4A38769F17BBEB1300F95ECA /* ViewController.m in Sources */,
 				4A3876AB17BC00B700F95ECA /* Movie.m in Sources */,
 				4A3876AE17BC444300F95ECA /* pfCustomCell.m in Sources */,
+				CFFD3C6217C269FE00B4A888 /* DetailedShakeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
