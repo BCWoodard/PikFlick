@@ -80,21 +80,28 @@
     
     if (motion == UIEventSubtypeMotionShake) {
         
-        if (([moviesShortlist count] > 1) && (selectedMovieOverlay.isHidden == YES)) {
+        if (([moviesShortlist count] > 0) && (selectedMovieOverlay.isHidden == YES)) {
             selectedMovie = [moviesShortlist objectAtIndex:arc4random() % [moviesShortlist count]];
             int movieIndex = [moviesShortlist indexOfObject:selectedMovie];
             selectedMovie.shortlisted = NO;
             NSLog(@"Selected Shortlist Movie: %@", selectedMovie.movieTitle);
             
+            NSLog(@"movies array%@", moviesArray);
+            NSLog(@"shortlist array%@", moviesShortlist);
+            
             // Remove that movie from the shortlist array
             NSMutableArray *tempArray = [moviesShortlist mutableCopy];
+            NSObject *removeObject = [tempArray objectAtIndex:movieIndex];
             [tempArray removeObjectAtIndex:movieIndex];
             moviesShortlist = tempArray;
+            NSMutableArray *tempMovieArray = [moviesArray mutableCopy];
+            [tempMovieArray removeObject:removeObject];
+            moviesArray = tempMovieArray;
             
             [self initialAnimatedOverlay];
             [moviesTable reloadData];
             
-        } else if (([moviesShortlist count] > 1) && (selectedMovieOverlay.isHidden == NO)) {
+        } else if (([moviesShortlist count] > 0) && (selectedMovieOverlay.isHidden == NO)) {
             
             selectedMovie = [moviesShortlist objectAtIndex:arc4random() % [moviesShortlist count]];
             int movieIndex = [moviesShortlist indexOfObject:selectedMovie];
@@ -103,14 +110,19 @@
             
             // Remove that movie from the shortlist array
             NSMutableArray *tempArray = [moviesShortlist mutableCopy];
+            NSObject *removeObject = [tempArray objectAtIndex:movieIndex];
             [tempArray removeObjectAtIndex:movieIndex];
             moviesShortlist = tempArray;
+            NSMutableArray *tempMovieArray = [moviesArray mutableCopy];
+            [tempMovieArray removeObject:removeObject];
+            moviesArray = tempMovieArray;
+
             
             [self animatedOverlayRemoval];
             
             [moviesTable reloadData];
         }
-        else if (([moviesShortlist count] == 1) && (selectedMovieOverlay.isHidden == YES)) {
+/*        else if (([moviesShortlist count] == 1) && (selectedMovieOverlay.isHidden == YES)) {
             selectedMovie = [moviesShortlist objectAtIndex:0];
             
             [self initialAnimatedOverlay];
@@ -130,7 +142,7 @@
 
             NSLog(@"Only shortlist movie remaining is %@", selectedMovie.movieTitle);
             
-        }
+        } */
         else if (([moviesShortlist count] == 0) && ([moviesArray count] > 1)) {
             if (selectedMovieOverlay.isHidden == YES) {
                 selectedMovie = [moviesArray objectAtIndex:arc4random() % [moviesArray count]];
@@ -162,6 +174,13 @@
             if (selectedMovieOverlay.isHidden == YES) {
                 
                 selectedMovie = [moviesArray objectAtIndex:0];
+                
+
+                
+                
+                
+                
+                
                 
                 [self initialAnimatedOverlay];
                 
@@ -368,7 +387,7 @@
             NSMutableArray *tempShortlist = [moviesShortlist mutableCopy];
             NSUInteger tempShortlistIndex = [tempShortlist indexOfObject:movie];
             [tempShortlist removeObjectAtIndex:tempShortlistIndex];
-            moviesShortlist = tempShortlist;
+            moviesShortlist = [tempShortlist copy];
             
         }
         
@@ -385,9 +404,13 @@
 
 - (void)addMovieToShortlist:(Movie *)movie
 {
+    if ([moviesShortlist containsObject:movie]) {
+        return;
+    }
+    
     NSMutableArray *tempArray = [moviesShortlist mutableCopy];
     [tempArray addObject:movie];
-    moviesShortlist = tempArray;
+    moviesShortlist = [tempArray copy];
     NSLog(@"Movies to See: %i", [moviesShortlist count]);
 }
 
