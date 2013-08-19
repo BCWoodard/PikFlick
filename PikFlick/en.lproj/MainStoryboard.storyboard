@@ -146,10 +146,10 @@ SHAKE AGAIN!!</string>
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zif-O6-1m7">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zif-O6-1m7">
                                         <rect key="frame" x="8" y="407" width="97" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Start Over">
                                             <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -157,6 +157,9 @@ SHAKE AGAIN!!</string>
                                         <state key="highlighted">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="startOver:" destination="2" eventType="touchUpInside" id="Ac3-o1-yo4"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -171,6 +174,7 @@ SHAKE AGAIN!!</string>
                         <outlet property="selectedMovieOverlay" destination="4G0-AZ-Sap" id="ixc-8V-DGV"/>
                         <outlet property="selectedMoviePoster" destination="Ecl-Uq-MGg" id="Cc3-fH-rt2"/>
                         <outlet property="selectedMovieTitle" destination="xuu-U6-5Sp" id="PPI-YG-H05"/>
+                        <outlet property="startOverButton" destination="zif-O6-1m7" id="q00-6Q-Sf9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
@@ -178,30 +182,6 @@ SHAKE AGAIN!!</string>
             <point key="canvasLocation" x="-2124" y="89"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="closeSelectedMovieOverlay:"/>
-                <relationship kind="outlet" name="announcementGreeting" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="moviesTable" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="selectedMovieCloseButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="selectedMovieOverlay" candidateClass="UIView"/>
-                <relationship kind="outlet" name="selectedMoviePoster" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="selectedMovieTitle" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="pfCustomCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/pfCustomCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="cellGenre" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="cellImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="cellMPAA" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="cellPeerRating" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="cellTitle" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
