@@ -33,7 +33,7 @@
 {
     [super viewDidLoad];
     
-	// Do any additional setup after loading the view.
+    NSLog(@"Movie title: %@", self.incomingMovie.movieTitle);
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,7 +52,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return @"Movie Title";
+        return self.incomingMovie.movieTitle;
     } else if (section ==1) {
         return nil;
         
