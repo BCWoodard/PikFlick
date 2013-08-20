@@ -23,8 +23,10 @@
 		4A3876B017BC447800F95ECA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A3876AF17BC447800F95ECA /* QuartzCore.framework */; };
 		4A3876B317BC7D7200F95ECA /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A3876B117BC7D7200F95ECA /* icon.png */; };
 		4A3876B417BC7D7200F95ECA /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A3876B217BC7D7200F95ECA /* icon@2x.png */; };
-		CFFD3C6217C269FE00B4A888 /* DetailedShakeView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFD3C6117C269FE00B4A888 /* DetailedShakeView.m */; };
+		4AF560A717C2FA0200BCF482 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A617C2FA0200BCF482 /* CoreLocation.framework */; };
+		4AF560A917C3016C00BCF482 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A817C3016C00BCF482 /* MapKit.framework */; };
 		4FC5AD8417C2838000E3E55D /* pfDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC5AD8317C2838000E3E55D /* pfDetailViewController.m */; };
+		CFFD3C6217C269FE00B4A888 /* DetailedShakeView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFD3C6117C269FE00B4A888 /* DetailedShakeView.m */; };
 		CFFD3C6417C2770200B4A888 /* OriginalNameIsDetailedShakeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFFD3C6317C2770200B4A888 /* OriginalNameIsDetailedShakeView.xib */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +55,9 @@
 		4A3876B117BC7D7200F95ECA /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		4A3876B217BC7D7200F95ECA /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		4A66264817BDA96000F31785 /* pfDeleteMovieDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pfDeleteMovieDelegate.h; sourceTree = "<group>"; };
+		4AF560A617C2FA0200BCF482 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		4AF560A817C3016C00BCF482 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		4AF560AA17C30D4E00BCF482 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		4FC5AD8217C2838000E3E55D /* pfDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pfDetailViewController.h; sourceTree = "<group>"; };
 		4FC5AD8317C2838000E3E55D /* pfDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pfDetailViewController.m; sourceTree = "<group>"; };
 		CFFD3C6017C269FE00B4A888 /* DetailedShakeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailedShakeView.h; sourceTree = "<group>"; };
@@ -65,6 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AF560A917C3016C00BCF482 /* MapKit.framework in Frameworks */,
+				4AF560A717C2FA0200BCF482 /* CoreLocation.framework in Frameworks */,
 				4A3876B017BC447800F95ECA /* QuartzCore.framework in Frameworks */,
 				4A38768317BBEB1300F95ECA /* UIKit.framework in Frameworks */,
 				4A38768517BBEB1300F95ECA /* Foundation.framework in Frameworks */,
@@ -96,7 +103,9 @@
 			isa = PBXGroup;
 			children = (
 				4A38768617BBEB1300F95ECA /* CoreGraphics.framework */,
+				4AF560A617C2FA0200BCF482 /* CoreLocation.framework */,
 				4A38768417BBEB1300F95ECA /* Foundation.framework */,
+				4AF560A817C3016C00BCF482 /* MapKit.framework */,
 				4A3876AF17BC447800F95ECA /* QuartzCore.framework */,
 				4A38768217BBEB1300F95ECA /* UIKit.framework */,
 			);
@@ -141,6 +150,7 @@
 				CFFD3C6017C269FE00B4A888 /* DetailedShakeView.h */,
 				CFFD3C6117C269FE00B4A888 /* DetailedShakeView.m */,
 				CFFD3C6317C2770200B4A888 /* OriginalNameIsDetailedShakeView.xib */,
+				4AF560AA17C30D4E00BCF482 /* Constants.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
