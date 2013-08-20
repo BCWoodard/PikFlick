@@ -10,10 +10,35 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{    
+{
+    [self getCurrentLocation];
     return YES;
+}
+
+// #2. Get Current Location
+- (void)getCurrentLocation
+{
+    if (!locationManager) {
+        locationManager = [[CLLocationManager alloc] init];
+    }
+    
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+    [locationManager startUpdatingLocation];
+    
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    currentLocation = [[CLLocation alloc] initWithLatitude:newLocation.coordinate.latitude longitude:newLocation.coordinate.longitude];
+    
+    latForQuery = [NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude];
+    lngForQuery = [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
+    
+    [locationManager stopUpdatingLocation];
+    
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

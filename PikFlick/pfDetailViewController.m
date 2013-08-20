@@ -45,7 +45,7 @@
 
     // Get current date and location so we can retrieve theater and showtime info
     [self getTodaysDate];
-    [self getCurrentLocation];
+//    [self getCurrentLocation];
     
 }
 
@@ -220,26 +220,26 @@
     return startDate;
 }
 
-// #2. Get Current Location
-- (void)getCurrentLocation
-{
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
-    [locationManager startUpdatingLocation];
-    
-}
-
-- (void)locationManager:(CLLocationManager *)manager
-    didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-{
-    currentLocation = [[CLLocation alloc] initWithLatitude:newLocation.coordinate.latitude longitude:newLocation.coordinate.longitude];
-    
-    latForQuery = [NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude];
-    lngForQuery = [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
-    
-    [locationManager stopUpdatingLocation];
-    
-}
+//// #2. Get Current Location
+//- (void)getCurrentLocation
+//{
+//    locationManager.delegate = self;
+//    locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+//    [locationManager startUpdatingLocation];
+//    
+//}
+//
+//- (void)locationManager:(CLLocationManager *)manager
+//    didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+//{
+//    currentLocation = [[CLLocation alloc] initWithLatitude:newLocation.coordinate.latitude longitude:newLocation.coordinate.longitude];
+//    
+//    latForQuery = [NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude];
+//    lngForQuery = [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
+//    
+//    [locationManager stopUpdatingLocation];
+//    
+//}
 
 
 - (void)getTMSData
@@ -267,7 +267,6 @@
         
         // Set our incomingMovie property equal to tmsId from TMS data
         incomingMovie.movieTMSID = [[filteredArray objectAtIndex:0] valueForKey:@"tmsId"];
-        NSLog(@"tmsID: %@", incomingMovie.movieTMSID);
         NSDictionary *filteredMovieDictionary = [filteredArray lastObject];
         if (filteredMovieDictionary) {
             self.incomingMovie.movieTMSID = filteredMovieDictionary[@"tmsId"];

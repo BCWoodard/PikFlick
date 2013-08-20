@@ -7,8 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate> {
+    CLLocationManager           *locationManager;
+    CLLocation                  *currentLocation;
+    
+    NSString                    *latForQuery;
+    NSString                    *lngForQuery;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 
