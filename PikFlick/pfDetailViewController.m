@@ -12,10 +12,6 @@
 
 @interface pfDetailViewController ()
 {
-    NSString                    *startDate;
-    NSString                    *latForQuery;
-    NSString                    *lngForQuery;
-        
     __weak IBOutlet UITableView *myDetailTableView;
     
 }
