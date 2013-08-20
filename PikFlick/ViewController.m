@@ -306,9 +306,7 @@
         // Retrieve all the Rotten Tomatoes movie data
         NSDictionary *rottenTomatoesJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
         
-        // Create an array of movie data and 2 temp arrays -
-        // One to hold movie objects - tempArray
-        // One to hold poster images - tempPostersArray
+        // Create an array of movie data and a mutable temp array to hold movie objects
         NSArray *dataMovieArray = [rottenTomatoesJSON objectForKey:@"movies"];
         NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:[dataMovieArray count]];
         
