@@ -25,6 +25,7 @@
 		4A3876B417BC7D7200F95ECA /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A3876B217BC7D7200F95ECA /* icon@2x.png */; };
 		4AF560A717C2FA0200BCF482 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A617C2FA0200BCF482 /* CoreLocation.framework */; };
 		4AF560A917C3016C00BCF482 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A817C3016C00BCF482 /* MapKit.framework */; };
+		4AF560AE17C3E8E800BCF482 /* PFMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF560AD17C3E8E800BCF482 /* PFMapViewController.m */; };
 		4FC5AD8417C2838000E3E55D /* pfDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC5AD8317C2838000E3E55D /* pfDetailViewController.m */; };
 		CFFD3C6217C269FE00B4A888 /* DetailedShakeView.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFD3C6117C269FE00B4A888 /* DetailedShakeView.m */; };
 		CFFD3C6417C2770200B4A888 /* OriginalNameIsDetailedShakeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFFD3C6317C2770200B4A888 /* OriginalNameIsDetailedShakeView.xib */; };
@@ -58,6 +59,8 @@
 		4AF560A617C2FA0200BCF482 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4AF560A817C3016C00BCF482 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		4AF560AA17C30D4E00BCF482 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		4AF560AC17C3E8E800BCF482 /* PFMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFMapViewController.h; sourceTree = "<group>"; };
+		4AF560AD17C3E8E800BCF482 /* PFMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFMapViewController.m; sourceTree = "<group>"; };
 		4FC5AD8217C2838000E3E55D /* pfDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pfDetailViewController.h; sourceTree = "<group>"; };
 		4FC5AD8317C2838000E3E55D /* pfDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pfDetailViewController.m; sourceTree = "<group>"; };
 		CFFD3C6017C269FE00B4A888 /* DetailedShakeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailedShakeView.h; sourceTree = "<group>"; };
@@ -115,11 +118,11 @@
 		4A38768817BBEB1300F95ECA /* PikFlick */ = {
 			isa = PBXGroup;
 			children = (
-				4A66264917BDAA2500F31785 /* Delegates */,
-				4A38771717BDA4D700F95ECA /* Classes */,
 				4A38769117BBEB1300F95ECA /* AppDelegate.h */,
 				4A38769217BBEB1300F95ECA /* AppDelegate.m */,
 				4A38769A17BBEB1300F95ECA /* MainStoryboard.storyboard */,
+				4A66264917BDAA2500F31785 /* Delegates */,
+				4A38771717BDA4D700F95ECA /* Classes */,
 				4A38771817BDA4E800F95ECA /* Controllers */,
 				4A38768917BBEB1300F95ECA /* Supporting Files */,
 			);
@@ -162,8 +165,11 @@
 				4A38769E17BBEB1300F95ECA /* ViewController.m */,
 				4FC5AD8217C2838000E3E55D /* pfDetailViewController.h */,
 				4FC5AD8317C2838000E3E55D /* pfDetailViewController.m */,
+				4AF560AC17C3E8E800BCF482 /* PFMapViewController.h */,
+				4AF560AD17C3E8E800BCF482 /* PFMapViewController.m */,
 				4A3876AC17BC444300F95ECA /* pfCustomCell.h */,
 				4A3876AD17BC444300F95ECA /* pfCustomCell.m */,
+				4AF560AB17C3D2AF00BCF482 /* Archive */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -174,6 +180,16 @@
 				4A66264817BDA96000F31785 /* pfDeleteMovieDelegate.h */,
 			);
 			name = Delegates;
+			sourceTree = "<group>";
+		};
+		4AF560AB17C3D2AF00BCF482 /* Archive */ = {
+			isa = PBXGroup;
+			children = (
+				CFFD3C6017C269FE00B4A888 /* DetailedShakeView.h */,
+				CFFD3C6117C269FE00B4A888 /* DetailedShakeView.m */,
+				CFFD3C6317C2770200B4A888 /* OriginalNameIsDetailedShakeView.xib */,
+			);
+			name = Archive;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,6 +268,7 @@
 				4A3876AE17BC444300F95ECA /* pfCustomCell.m in Sources */,
 				CFFD3C6217C269FE00B4A888 /* DetailedShakeView.m in Sources */,
 				4FC5AD8417C2838000E3E55D /* pfDetailViewController.m in Sources */,
+				4AF560AE17C3E8E800BCF482 /* PFMapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

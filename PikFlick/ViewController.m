@@ -7,17 +7,22 @@
 
 #import "ViewController.h"
 #import "Movie.h"
+#import "Constants.h"
 #import "pfCustomCell.h"
 #import "DetailedShakeView.h"
 #import <QuartzCore/QuartzCore.h>
+
 #import "pfDetailViewController.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface ViewController ()
 {
     NSArray                     *moviesArray;
     NSArray                     *moviesShortlist;
     Movie                       *selectedMovie;
-    //    DetailedShakeView           *detailedShakeView;
+    CLLocationManager           *locationManager;
+    
+    
     __weak IBOutlet UITableView *moviesTable;
     __weak IBOutlet UIView *selectedMovieOverlay;
     __weak IBOutlet UIButton *selectedMovieCloseButton;
@@ -34,27 +39,18 @@
 
 @implementation ViewController
 
+
 - (void)viewDidLoad
 {
     // Alloc and init moviesToSeeArray
     moviesShortlist = [[NSArray alloc] init];
-    
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(getMovieGenre:)
-     name:@"GenreFound"
-     object:nil];
-    
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(getPosterThumbnail:)
-     name:@"ThumbnailFound"
-     object:nil];
-    
+
     [super viewDidLoad];
-    
+
+    // Utility methods
     [self getRottenTomatoesDATA];
-    
+    [self listenForNotifications];
+
     // UI Elements
     moviesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     moviesTable.backgroundColor = [UIColor blackColor];
@@ -292,13 +288,13 @@
 }
 
 
-#pragma mark - Get DATA and Utility Methods
+#pragma mark - Get DATA
 - (void)getRottenTomatoesDATA
 {
     // Activate the Network Activity Indicator
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    NSURL *url = [NSURL URLWithString:@"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?page_limit=16&page=1&country=us&apikey=xx88qet7sppj6r7jp7wrnznd"];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?page_limit=16&page=1&country=us&apikey=%@", ROTTEN_TOMATOES_API_KEY]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -326,28 +322,6 @@
         
         [moviesTable reloadData];
     }];
-}
-
-
-- (void)getMovieGenre:(NSNotification *)note
-{
-    Movie *movie = note.object;
-    NSUInteger movieIndex = [moviesArray indexOfObject:movie];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:movieIndex inSection:0];
-    
-    [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    
-}
-
-
-- (void)getPosterThumbnail:(NSNotification *)note
-{
-    Movie *movie = note.object;
-    NSUInteger movieIndex = [moviesArray indexOfObject:movie];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:movieIndex inSection:0];
-    
-    [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    
 }
 
 
@@ -452,5 +426,46 @@
         [startOverButton setHidden:YES];
     }];
 }
+
+
+#pragma mark - LISTEN for Notifications
+- (void)listenForNotifications
+{
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(getMovieGenre:)
+     name:@"GenreFound"
+     object:nil];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(getPosterThumbnail:)
+     name:@"ThumbnailFound"
+     object:nil];
+}
+
+
+#pragma mark - NOTIFICATION Received
+- (void)getMovieGenre:(NSNotification *)note
+{
+    Movie *movie = note.object;
+    NSUInteger movieIndex = [moviesArray indexOfObject:movie];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:movieIndex inSection:0];
+    
+    [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
+}
+
+
+- (void)getPosterThumbnail:(NSNotification *)note
+{
+    Movie *movie = note.object;
+    NSUInteger movieIndex = [moviesArray indexOfObject:movie];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:movieIndex inSection:0];
+    
+    [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
+}
+
 
 @end

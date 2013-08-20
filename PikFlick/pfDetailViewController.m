@@ -8,16 +8,16 @@
 
 #import "pfDetailViewController.h"
 #import "ViewController.h"
+#import "PFMapViewController.h"
 
 @interface pfDetailViewController ()
 {
     CLLocationManager           *locationManager;
     CLLocation                  *currentLocation;
+    NSString                    *startDate;
     NSString                    *latForQuery;
     NSString                    *lngForQuery;
-    
-
-    
+        
     __weak IBOutlet UITableView *myDetailTableView;
 }
 
@@ -43,7 +43,8 @@
     
     [super viewDidLoad];
 
-    // Get current location so we can retrieve theater and showtime info
+    // Get current date and location so we can retrieve theater and showtime info
+    [self getTodaysDate];
     [self getCurrentLocation];
     
 }
@@ -54,10 +55,15 @@
 
 }
 
+
+/*
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     
 }
+*/
 
 - (void)didReceiveMemoryWarning
 {
@@ -72,6 +78,7 @@
 }
 
 
+#pragma mark - UITableViewDataSource
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
@@ -146,7 +153,22 @@
     }
     
     return nil;
- }
+}
+
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"toMapView" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"toMapView"]) {
+        PFMapViewController *mapViewController = segue.destinationViewController;
+
+    }
+    
+}
 
 //-(CGFloat)tableView: (UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *)indexPath
 //{
@@ -193,7 +215,7 @@
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *startDate = [dateFormatter stringFromDate:[NSDate date]];
+    startDate = [dateFormatter stringFromDate:[NSDate date]];
     NSLog(@"Todays Date: %@", startDate);
     return startDate;
 }
@@ -216,6 +238,7 @@
     lngForQuery = [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
     
     [locationManager stopUpdatingLocation];
+    
 }
 
 
@@ -225,7 +248,8 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     // Generate NSURL and perform TMS query
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/showings?startDate=%@&numDays=5&lat=%@&lng=%@&api_key=%@", [self getTodaysDate], latForQuery, lngForQuery, TMS_API_KEY]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/showings?startDate=%@&numDays=1&lat=%@&lng=%@&radius=10&units=mi&api_key=%@", startDate, latForQuery, lngForQuery, TMS_API_KEY]];
+
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         
@@ -234,7 +258,8 @@
         
         // Use NSPredicate so we retrieve data for the movie with the
         // key = incomingMovie.movieTitle
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(title == %@)", incomingMovie.movieTitle];
+
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(title == %@)", self.incomingMovie.movieTitle];
         
         // Filter the array so we grab the single object with the same title as
         // our movie object
@@ -243,13 +268,16 @@
         // Set our incomingMovie property equal to tmsId from TMS data
         incomingMovie.movieTMSID = [[filteredArray objectAtIndex:0] valueForKey:@"tmsId"];
         NSLog(@"tmsID: %@", incomingMovie.movieTMSID);
+        NSDictionary *filteredMovieDictionary = [filteredArray lastObject];
+        if (filteredMovieDictionary) {
+            self.incomingMovie.movieTMSID = filteredMovieDictionary[@"tmsId"];
+        }
+        NSLog(@"tmsID: %@", self.incomingMovie.movieTMSID);
         
         // stop the activity indicator
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
     
 }
-
-
 
 @end
