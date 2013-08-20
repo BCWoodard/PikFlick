@@ -18,5 +18,7 @@
 }
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) NSString *latForQuery;
+@property (strong, nonatomic) NSString *lngForQuery;
 
 @end

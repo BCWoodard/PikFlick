@@ -5,8 +5,10 @@
 //  Created by Brad Woodard on 8/14/13.
 //
 
+#import "AppDelegate.h"
 #import "ViewController.h"
 #import "Movie.h"
+#import "Theater.h"
 #import "Constants.h"
 #import "pfCustomCell.h"
 #import "DetailedShakeView.h"
@@ -21,6 +23,7 @@
     NSArray                     *moviesShortlist;
     Movie                       *selectedMovie;
     CLLocationManager           *locationManager;
+    NSString                    *startDate;
     
     
     __weak IBOutlet UITableView *moviesTable;
@@ -38,6 +41,8 @@
 @end
 
 @implementation ViewController
+@synthesize incomingLatForQuery;
+@synthesize incomingLngForQuery;
 
 
 - (void)viewDidLoad
@@ -50,6 +55,9 @@
     // Utility methods
     [self getRottenTomatoesDATA];
     [self listenForNotifications];
+    
+    // Assign properties
+
 
     // UI Elements
     moviesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -73,6 +81,19 @@
     
     selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
     [selectedMovieOverlay setHidden:YES];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    incomingLatForQuery = [(AppDelegate *)[[UIApplication sharedApplication] delegate] latForQuery];
+    incomingLngForQuery = [(AppDelegate *)[[UIApplication sharedApplication] delegate] lngForQuery];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self getTMSData];
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
@@ -323,6 +344,65 @@
         [moviesTable reloadData];
     }];
 }
+
+
+// #1. Get todays date for TMS query
+- (NSString *)getTodaysDate
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    startDate = [dateFormatter stringFromDate:[NSDate date]];
+    NSLog(@"Todays Date: %@", startDate);
+    return startDate;
+}
+
+
+- (void)getTMSData
+{
+    // Activate the network activity indicator
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    // Generate NSURL and perform TMS query
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/theatres?lat=41.9&lng=-87.62&radius=10&units=mi&api_key=%@", TMS_API_KEY]];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        
+        // Retrieve theater data array from TMS
+        NSArray *tmsTheatersArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+        NSMutableArray *tempTheaters = [[NSMutableArray alloc] initWithCapacity:15];
+
+        for (NSDictionary *dictionary in tmsTheatersArray) {
+            Theater *theater = [[Theater alloc] initWithTheaterDictionary:dictionary];
+            [tempTheaters addObject:theater];
+//            NSLog(@"tempTheaters Count: %i", [tempTheaters count]);
+//            NSLog(@"tempTheaters: %@", tempTheaters);
+        }
+        
+        // Use NSPredicate so we retrieve data for the movie with the
+        // key = incomingMovie.movieTitle
+        
+        //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(title == %@)", self.incomingMovie.movieTitle];
+        
+        // Filter the array so we grab the single object with the same title as
+        // our movie object
+//        NSArray *filteredArray = [tmsMovieArray filteredArrayUsingPredicate:predicate];
+//        NSLog(@"filteredArray: %@", filteredArray);
+//        // Set our incomingMovie property equal to tmsId from TMS data
+//        incomingMovie.movieTMSID = [[filteredArray lastObject] valueForKey:@"tmsId"];
+//        NSDictionary *filteredMovieDictionary = [filteredArray lastObject];
+//        if (filteredMovieDictionary) {
+//            self.incomingMovie.movieTMSID = filteredMovieDictionary[@"tmsId"];
+        //}
+        //NSLog(@"tmsID: %@", self.incomingMovie.movieTMSID);
+        
+        // stop the activity indicator
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+    
+}
+
+
 
 
 #pragma mark - COLOR THE CELLS

@@ -11,5 +11,8 @@
 
 @interface ViewController : UIViewController <pfDeleteMovieDelegate>
 
+@property (strong, nonatomic) NSString *incomingLatForQuery;
+@property (strong, nonatomic) NSString *incomingLngForQuery;
+
 
 @end

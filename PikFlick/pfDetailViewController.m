@@ -56,15 +56,6 @@
 }
 
 
-/*
-- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
-{
->>>>>>> Stashed changes
->>>>>>> Stashed changes
-    
-}
-*/
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -264,7 +255,7 @@
         // Filter the array so we grab the single object with the same title as
         // our movie object
         NSArray *filteredArray = [tmsMovieArray filteredArrayUsingPredicate:predicate];
-        
+        NSLog(@"filteredArray: %@", filteredArray);
         // Set our incomingMovie property equal to tmsId from TMS data
         incomingMovie.movieTMSID = [[filteredArray objectAtIndex:0] valueForKey:@"tmsId"];
         NSDictionary *filteredMovieDictionary = [filteredArray lastObject];

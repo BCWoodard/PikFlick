@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 
 @implementation AppDelegate
+@synthesize latForQuery = _latForQuery;
+@synthesize lngForQuery = _lngForQuery;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -34,9 +36,9 @@
 {
     currentLocation = [[CLLocation alloc] initWithLatitude:newLocation.coordinate.latitude longitude:newLocation.coordinate.longitude];
     
-    latForQuery = [NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude];
-    lngForQuery = [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
-    
+    self.latForQuery = [NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude];
+    self.lngForQuery = [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
+
     [locationManager stopUpdatingLocation];
     
 }
@@ -61,8 +63,6 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    NSLog(@"DidBecomeActive");
-
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
