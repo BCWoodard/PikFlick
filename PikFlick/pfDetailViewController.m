@@ -11,6 +11,12 @@
 
 @interface pfDetailViewController ()
 {
+    CLLocationManager           *locationManager;
+    CLLocation                  *currentLocation;
+    NSString                    *latForQuery;
+    NSString                    *lngForQuery;
+    
+
     
     __weak IBOutlet UITableView *myDetailTableView;
 }
@@ -19,6 +25,7 @@
 @end
 
 @implementation pfDetailViewController
+@synthesize incomingMovie;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,9 +38,25 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+    // Alloc & init
+    locationManager = [[CLLocationManager alloc] init];
     
-	// Do any additional setup after loading the view.
+    [super viewDidLoad];
+
+    // Get current location so we can retrieve theater and showtime info
+    [self getCurrentLocation];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self getTMSData];
+
+}
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,7 +75,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return @"Movie Title";
+        return self.incomingMovie.movieTitle;
     } else if (section ==1) {
         return nil;
         
@@ -140,6 +163,93 @@
 
 
 //tableView:heightForRowAtIndexPath:sizeWithFont:constrainedToSize:
+
+#pragma mark - TMS Data Retrieval -
+/*
+    TMS Connection Info
+    Username: bcwoodard
+    Password: MobileMakers2013
+    API Key:  bbxfsp9fbvywdtwparw9hugt
+ 
+    First Feed: "Movies Playing in Local Theaters"
+    Data to Grab:
+    - Match movie.movieTitle to key "title"
+    - Get TMSID
+    - Get Theater ID
+ 
+    Must pass:
+    - Start date: yyyy-mm-dd
+    - numDays
+    - Latitude
+    - Longitude
+ 
+    Example Query: 
+    http://data.tmsapi.com/v1/movies/showings?startDate=2013-08-19&numDays=5&lat=41.8491&lng=-87.6353&api_key=bbxfsp9fbvywdtwparw9hugt
+ 
+*/
+
+// #1. Get todays date for TMS query
+- (NSString *)getTodaysDate
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *startDate = [dateFormatter stringFromDate:[NSDate date]];
+    NSLog(@"Todays Date: %@", startDate);
+    return startDate;
+}
+
+// #2. Get Current Location
+- (void)getCurrentLocation
+{
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+    [locationManager startUpdatingLocation];
+    
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    currentLocation = [[CLLocation alloc] initWithLatitude:newLocation.coordinate.latitude longitude:newLocation.coordinate.longitude];
+    
+    latForQuery = [NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude];
+    lngForQuery = [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
+    
+    [locationManager stopUpdatingLocation];
+}
+
+
+- (void)getTMSData
+{
+    // Activate the network activity indicator
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    // Generate NSURL and perform TMS query
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/showings?startDate=%@&numDays=5&lat=%@&lng=%@&api_key=%@", [self getTodaysDate], latForQuery, lngForQuery, TMS_API_KEY]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        
+        // Retrieve the data array from TMS
+        NSArray *tmsMovieArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+        
+        // Use NSPredicate so we retrieve data for the movie with the
+        // key = incomingMovie.movieTitle
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(title == %@)", incomingMovie.movieTitle];
+        
+        // Filter the array so we grab the single object with the same title as
+        // our movie object
+        NSArray *filteredArray = [tmsMovieArray filteredArrayUsingPredicate:predicate];
+        
+        // Set our incomingMovie property equal to tmsId from TMS data
+        incomingMovie.movieTMSID = [[filteredArray objectAtIndex:0] valueForKey:@"tmsId"];
+        NSLog(@"tmsID: %@", incomingMovie.movieTMSID);
+        
+        // stop the activity indicator
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+    
+}
+
 
 
 @end
