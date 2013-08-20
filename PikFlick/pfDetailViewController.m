@@ -141,5 +141,33 @@
 
 //tableView:heightForRowAtIndexPath:sizeWithFont:constrainedToSize:
 
+#pragma mark - TMS Data Retrieval
+/*
+    TMS Connection Info
+    Username: bcwoodard
+    Password: MobileMakers2013
+    API Key:  bbxfsp9fbvywdtwparw9hugt
+ 
+    First Feed: "Movies Playing in Local Theaters"
+    Data to Grab:
+    - Match movie.movieTitle to key "title"
+    - Get TMSID
+    - Get Theater ID
+ 
+    Must pass:
+    - Start date: yyyy-mm-dd
+    - numDays
+    - Latitude
+    - Longitude
+ 
+    Example Query: 
+    http://data.tmsapi.com/v1/movies/showings?startDate=2013-08-19&numDays=5&lat=41.8491&lng=-87.6353&api_key=bbxfsp9fbvywdtwparw9hugt
+ 
+*/
+
+- (void)getTMSData
+{
+    
+}
 
 @end
