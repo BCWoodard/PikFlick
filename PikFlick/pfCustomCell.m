@@ -55,7 +55,7 @@ const float UI_CUES_MARGIN = 10.0f;
 const float UI_CUES_WIDTH = 120.0f;
 
 - (void)awakeFromNib {
-
+    [super awakeFromNib];
     // add a layer that overlays the cell adding a subtle gradient effect
     _gradientLayer = [CAGradientLayer layer];
     _gradientLayer.frame = self.bounds;
