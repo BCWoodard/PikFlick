@@ -56,9 +56,6 @@
     [self getRottenTomatoesDATA];
     [self listenForNotifications];
     
-    // Assign properties
-
-
     // UI Elements
     moviesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     moviesTable.backgroundColor = [UIColor blackColor];
@@ -93,7 +90,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self getTMSData];
+    [self getTMSTheaterData];
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
@@ -346,18 +343,7 @@
 }
 
 
-// #1. Get todays date for TMS query
-- (NSString *)getTodaysDate
-{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    startDate = [dateFormatter stringFromDate:[NSDate date]];
-    NSLog(@"Todays Date: %@", startDate);
-    return startDate;
-}
-
-
-- (void)getTMSData
+- (void)getTMSTheaterData
 {
     // Activate the network activity indicator
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -375,34 +361,14 @@
         for (NSDictionary *dictionary in tmsTheatersArray) {
             Theater *theater = [[Theater alloc] initWithTheaterDictionary:dictionary];
             [tempTheaters addObject:theater];
-//            NSLog(@"tempTheaters Count: %i", [tempTheaters count]);
-//            NSLog(@"tempTheaters: %@", tempTheaters);
+
         }
-        
-        // Use NSPredicate so we retrieve data for the movie with the
-        // key = incomingMovie.movieTitle
-        
-        //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(title == %@)", self.incomingMovie.movieTitle];
-        
-        // Filter the array so we grab the single object with the same title as
-        // our movie object
-//        NSArray *filteredArray = [tmsMovieArray filteredArrayUsingPredicate:predicate];
-//        NSLog(@"filteredArray: %@", filteredArray);
-//        // Set our incomingMovie property equal to tmsId from TMS data
-//        incomingMovie.movieTMSID = [[filteredArray lastObject] valueForKey:@"tmsId"];
-//        NSDictionary *filteredMovieDictionary = [filteredArray lastObject];
-//        if (filteredMovieDictionary) {
-//            self.incomingMovie.movieTMSID = filteredMovieDictionary[@"tmsId"];
-        //}
-        //NSLog(@"tmsID: %@", self.incomingMovie.movieTMSID);
         
         // stop the activity indicator
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
     
 }
-
-
 
 
 #pragma mark - COLOR THE CELLS
@@ -549,3 +515,40 @@
 
 
 @end
+
+
+#pragma mark - TMS Data Retrieval -
+/*
+ TMS Connection Info
+ Username: bcwoodard
+ Password: MobileMakers2013
+ API Key:  bbxfsp9fbvywdtwparw9hugt
+ 
+ First Feed: "Movies Playing in Local Theaters"
+ Data to Grab:
+ - Match movie.movieTitle to key "title"
+ - Get TMSID
+ - Get Theater ID
+ 
+ Must pass:
+ - Start date: yyyy-mm-dd
+ - numDays
+ - Latitude
+ - Longitude
+ 
+ Example Query:
+ http://data.tmsapi.com/v1/movies/showings?startDate=2013-08-19&numDays=5&lat=41.8491&lng=-87.6353&api_key=bbxfsp9fbvywdtwparw9hugt
+ 
+ 
+ 
+ // #1. Get todays date for TMS query
+ - (NSString *)getTodaysDate
+ {
+ NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+ [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+ startDate = [dateFormatter stringFromDate:[NSDate date]];
+
+ return startDate;
+ }
+ 
+ */

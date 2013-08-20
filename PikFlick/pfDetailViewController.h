@@ -8,11 +8,9 @@
 
 
 #import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
-#import <MapKit/MapKit.h>
 #import "Movie.h"
 
-@interface pfDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, MKMapViewDelegate>
+@interface pfDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 
 @property (strong, nonatomic) Movie *incomingMovie;
