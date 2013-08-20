@@ -47,7 +47,10 @@
         _title = [theaterDictionary valueForKey:@"name"];
         _theaterLatitude = [[theaterDictionary objectForKey:@"geoCode"] valueForKey:@"latitude"];
         _theaterLongitude = [[theaterDictionary objectForKey:@"geoCode"] valueForKey:@"longitude"];
-        //_movieMPAA = [movieDictionary objectForKey:@"mpaa_rating"];
+        _theaterStreet = [[theaterDictionary objectForKey:@"address"] valueForKey:@"street"];
+        _theaterCity = [[theaterDictionary objectForKey:@"address"] valueForKey:@"city"];
+        _theaterState = [[theaterDictionary objectForKey:@"address"] valueForKey:@"state"];
+        _theaterZip = [[theaterDictionary objectForKey:@"address"] valueForKey:@"postalCode"];
     }
     
     return self;
