@@ -49,9 +49,9 @@
 {
     // Alloc and init moviesToSeeArray
     moviesShortlist = [[NSArray alloc] init];
-
+    
     [super viewDidLoad];
-
+    
     // Utility methods
     [self getRottenTomatoesDATA];
     [self listenForNotifications];
@@ -60,17 +60,9 @@
     moviesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     moviesTable.backgroundColor = [UIColor blackColor];
     
-    
-    
     [startOverButton setHidden:YES];
-    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
-    if (screenSize.height > 480) {
-        moviesTable.frame = CGRectMake(0, 0, 320, 548);
-        selectedMovieOverlay.frame = CGRectMake(0, 0, 320, 548);
-    } else {
-        moviesTable.frame = CGRectMake(0, 0, 320, 460);
-        selectedMovieOverlay.frame = CGRectMake(0, 0, 320, 480);
-    }
+    
+    [[[[UIApplication sharedApplication] delegate] window] addSubview:selectedMovieOverlay];
     
     selectedMoviePoster.layer.shadowColor = [UIColor whiteColor].CGColor;
     selectedMoviePoster.layer.shadowOpacity = 1;
@@ -78,6 +70,10 @@
     
     selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
     [selectedMovieOverlay setHidden:YES];
+    
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    
+    moviesTable.frame = CGRectMake(0, 0, screenSize.width, screenSize.height - 64);
 }
 
 
@@ -92,6 +88,7 @@
 {
 //    [self getTMSMovieInTheaterData];
 }
+
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     
@@ -210,14 +207,24 @@
     }
 }
 
+
 - (void)initialAnimatedOverlay {
     announcementGreeting.text = [self announcementMessage];
     selectedMoviePoster.image = selectedMovie.movieThumbnail;
     selectedMovieTitle.text = selectedMovie.movieTitle;
     
     [UIView animateWithDuration:0.3 animations:^{
-        selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 100, 100);
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+        selectedMovieOverlay.transform = CGAffineTransformIdentity;
+        if (screenSize.height > 480) {
+            selectedMovieOverlay.frame = CGRectMake(0, 20, 320, screenSize.height - 20);
+        } else {
+            selectedMovieOverlay.frame = CGRectMake(0, 20, 320, screenSize.height - 20);
+        }
+        //self.view.bounds.size.height;
         [selectedMovieOverlay setHidden:NO];
+    } completion:^(BOOL finished) {
+//        selectedMovieOverlay.frame = CGRectMake(0, 0, 320, 414);
     }];
 }
 
@@ -232,7 +239,8 @@
 
 
 - (NSString *)announcementMessage {
-    NSArray *announcementMessages = [[NSArray alloc] initWithObjects:@"It is decidedly so", @"It is certain", @"You will see", @"We have decided", @"Without a doubt", @"Take it or leave it", @"Most likely", @"Signs point to", @"Tonight you will see", @"Your fate is", @"Your key to success", @"", nil];
+//    NSArray *announcementMessages = [[NSArray alloc] initWithObjects:@"It is decidedly so", @"It is certain", @"You will see", @"We have decided", @"Without a doubt", @"Take it or leave it", @"Most likely", @"Signs point to", @"Tonight you will see", @"Your fate is", @"Your key to success", @"", nil];
+    NSArray *announcementMessages = [[NSArray alloc] initWithObjects:@"It is so", @"It is certain", @"You will see", @"We have decided", @"Without a doubt", @"Most likely", @"Signs point to", @"Tonight is", @"Your fate is", nil];
     int index = arc4random() % announcementMessages.count;
     return [announcementMessages objectAtIndex:index];
 }
@@ -361,13 +369,13 @@
         // Retrieve theater data array from TMS
         NSArray *tmsTheatersArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
         NSMutableArray *tempTheaters = [[NSMutableArray alloc] initWithCapacity:15];
-
+        
         for (NSDictionary *dictionary in tmsTheatersArray) {
             Theater *theater = [[Theater alloc] initWithTheaterDictionary:dictionary];
             [tempTheaters addObject:theater];
             
         }
-                
+        
         // stop the activity indicator
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
@@ -570,7 +578,7 @@
  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
  [dateFormatter setDateFormat:@"yyyy-MM-dd"];
  startDate = [dateFormatter stringFromDate:[NSDate date]];
-
+ 
  return startDate;
  }
  
