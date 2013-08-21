@@ -90,7 +90,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self getTMSMovieInTheaterData];
+//    [self getTMSMovieInTheaterData];
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
@@ -331,7 +331,7 @@
             [tempArray addObject:movie];
         }
         
-        if ([moviesArray count] == MOVIE_RETRIEVAL_LIMIT) {
+        if ([tempArray count] == MOVIE_RETRIEVAL_LIMIT) {
             [self getTMSMovieInTheaterData];
         }
         
@@ -388,13 +388,12 @@
         // code
         
         NSArray *tempArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-        for (int index = 0; index < [tempArray count]; index++) {
-            NSDictionary *tmsMovie = [tempArray objectAtIndex:index];
-
+        for (NSDictionary *tmsMovie in tempArray) {
             for (Movie *movie in moviesArray) {
                 if ([movie.movieTitle isEqualToString:[tmsMovie valueForKey:@"title"]]) {
                     movie.movieTMSID = [tmsMovie valueForKey:@"tmsId"];
-                    NSLog(@"TMSID: %@", movie.movieTMSID);
+                    NSLog(@"Movie Name: %@, TMSID: %@", movie.movieTitle, movie.movieTMSID);
+                    break;
                 }
             }
         }
