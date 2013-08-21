@@ -90,7 +90,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self getTMSTheaterData];
+    [self getTMSMovieInTheaterData];
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
@@ -101,10 +101,10 @@
             selectedMovie = [moviesShortlist objectAtIndex:arc4random() % [moviesShortlist count]];
             int movieIndex = [moviesShortlist indexOfObject:selectedMovie];
             selectedMovie.shortlisted = NO;
-            NSLog(@"Selected Shortlist Movie: %@", selectedMovie.movieTitle);
-            
-            NSLog(@"movies array%@", moviesArray);
-            NSLog(@"shortlist array%@", moviesShortlist);
+//            NSLog(@"Selected Shortlist Movie: %@", selectedMovie.movieTitle);
+//            
+//            NSLog(@"movies array%@", moviesArray);
+//            NSLog(@"shortlist array%@", moviesShortlist);
             
             // Remove that movie from the shortlist array
             NSMutableArray *tempArray = [moviesShortlist mutableCopy];
@@ -123,7 +123,7 @@
             selectedMovie = [moviesShortlist objectAtIndex:arc4random() % [moviesShortlist count]];
             int movieIndex = [moviesShortlist indexOfObject:selectedMovie];
             selectedMovie.shortlisted = NO;
-            NSLog(@"Selected Shortlist Movie: %@", selectedMovie.movieTitle);
+//            NSLog(@"Selected Shortlist Movie: %@", selectedMovie.movieTitle);
             
             // Remove that movie from the shortlist array
             NSMutableArray *tempArray = [moviesShortlist mutableCopy];
@@ -164,7 +164,7 @@
             if (selectedMovieOverlay.isHidden == YES) {
                 selectedMovie = [moviesArray objectAtIndex:arc4random() % [moviesArray count]];
                 int movieIndex = [moviesArray indexOfObject:selectedMovie];
-                NSLog(@"Selected Movie: %@", selectedMovie.movieTitle);
+//                NSLog(@"Selected Movie: %@", selectedMovie.movieTitle);
                 
                 // Remove that movie from the shortlist array
                 NSMutableArray *tempArray = [moviesArray mutableCopy];
@@ -177,7 +177,7 @@
                 
                 selectedMovie = [moviesArray objectAtIndex:arc4random() % [moviesArray count]];
                 int movieIndex = [moviesArray indexOfObject:selectedMovie];
-                NSLog(@"Selected Movie: %@", selectedMovie.movieTitle);
+//                NSLog(@"Selected Movie: %@", selectedMovie.movieTitle);
                 
                 // Remove that movie from the shortlist array
                 NSMutableArray *tempArray = [moviesArray mutableCopy];
@@ -196,7 +196,7 @@
                 
                 [self initialAnimatedOverlay];
                 
-                NSLog(@"The only remaining movie is %@", selectedMovie.movieTitle);
+//                NSLog(@"The only remaining movie is %@", selectedMovie.movieTitle);
             } else {
                 selectedMovie = [moviesArray objectAtIndex:0];
                 
@@ -204,7 +204,7 @@
                 
                 [self animatedOverlayRemoval];
                 
-                NSLog(@"The only remaining movie is %@", selectedMovie.movieTitle);
+//                NSLog(@"The only remaining movie is %@", selectedMovie.movieTitle);
             }
         }
     }
@@ -312,7 +312,7 @@
     // Activate the Network Activity Indicator
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?page_limit=16&page=1&country=us&apikey=%@", ROTTEN_TOMATOES_API_KEY]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?page_limit=%i&page=1&country=us&apikey=%@", MOVIE_RETRIEVAL_LIMIT, ROTTEN_TOMATOES_API_KEY]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -331,6 +331,10 @@
             [tempArray addObject:movie];
         }
         
+        if ([moviesArray count] == MOVIE_RETRIEVAL_LIMIT) {
+            [self getTMSMovieInTheaterData];
+        }
+        
         // Populate moviesArray with tempArray
         // Again, we do this to protect our arrays from accidental edits, etc.
         moviesArray = [NSArray arrayWithArray:tempArray];
@@ -342,7 +346,7 @@
     }];
 }
 
-
+/*
 - (void)getTMSTheaterData
 {
     // Activate the network activity indicator
@@ -361,7 +365,7 @@
         for (NSDictionary *dictionary in tmsTheatersArray) {
             Theater *theater = [[Theater alloc] initWithTheaterDictionary:dictionary];
             [tempTheaters addObject:theater];
-            NSLog(@"Theater Name: %@\nLat: %@", [theater valueForKey:@"title"], [theater valueForKey:@"theaterLatitude"]);
+            
         }
                 
         // stop the activity indicator
@@ -369,6 +373,34 @@
     }];
     
 }
+*/
+
+
+
+- (void)getTMSMovieInTheaterData
+{
+    NSString *latitude = [(AppDelegate *)[[UIApplication sharedApplication] delegate] latForQuery];
+    NSString *longitude = [(AppDelegate *)[[UIApplication sharedApplication] delegate] lngForQuery];
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/showings?startDate=2013-08-21&lat=%@&lng=%@&radius=%i&units=mi&api_key=%@", latitude, longitude, DISTANCE_FROM_USER, TMS_API_KEY]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        // code
+        
+        NSArray *tempArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+        for (int index = 0; index < [tempArray count]; index++) {
+            NSDictionary *tmsMovie = [tempArray objectAtIndex:index];
+
+            for (Movie *movie in moviesArray) {
+                if ([movie.movieTitle isEqualToString:[tmsMovie valueForKey:@"title"]]) {
+                    movie.movieTMSID = [tmsMovie valueForKey:@"tmsId"];
+                    NSLog(@"TMSID: %@", movie.movieTMSID);
+                }
+            }
+        }
+    }];
+}
+
 
 
 #pragma mark - COLOR THE CELLS
@@ -438,7 +470,6 @@
     NSMutableArray *tempArray = [moviesShortlist mutableCopy];
     [tempArray addObject:movie];
     moviesShortlist = [tempArray copy];
-    NSLog(@"Movies to See: %i", [moviesShortlist count]);
 }
 
 
