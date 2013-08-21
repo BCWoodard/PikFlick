@@ -9,11 +9,38 @@
 #import "AppDelegate.h"
 
 @implementation AppDelegate
+@synthesize latForQuery = _latForQuery;
+@synthesize lngForQuery = _lngForQuery;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    [self getCurrentLocation];
     return YES;
+}
+
+// #2. Get Current Location
+- (void)getCurrentLocation
+{
+    if (!locationManager) {
+        locationManager = [[CLLocationManager alloc] init];
+    }
+    
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+    [locationManager startUpdatingLocation];
+    
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    currentLocation = [[CLLocation alloc] initWithLatitude:newLocation.coordinate.latitude longitude:newLocation.coordinate.longitude];
+    
+    self.latForQuery = [NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude];
+    self.lngForQuery = [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
+
+    [locationManager stopUpdatingLocation];
+    
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -42,5 +69,6 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
 
 @end

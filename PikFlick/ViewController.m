@@ -5,19 +5,27 @@
 //  Created by Brad Woodard on 8/14/13.
 //
 
+#import "AppDelegate.h"
 #import "ViewController.h"
 #import "Movie.h"
+#import "Theater.h"
+#import "Constants.h"
 #import "pfCustomCell.h"
 #import "DetailedShakeView.h"
 #import <QuartzCore/QuartzCore.h>
+
 #import "pfDetailViewController.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface ViewController ()
 {
     NSArray                     *moviesArray;
     NSArray                     *moviesShortlist;
     Movie                       *selectedMovie;
-    //    DetailedShakeView           *detailedShakeView;
+    CLLocationManager           *locationManager;
+    NSString                    *startDate;
+    
+    
     __weak IBOutlet UITableView *moviesTable;
     __weak IBOutlet UIView *selectedMovieOverlay;
     __weak IBOutlet UIButton *selectedMovieCloseButton;
@@ -33,27 +41,20 @@
 @end
 
 @implementation ViewController
+@synthesize incomingLatForQuery;
+@synthesize incomingLngForQuery;
+
 
 - (void)viewDidLoad
 {
     // Alloc and init moviesToSeeArray
     moviesShortlist = [[NSArray alloc] init];
-    
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(getMovieGenre:)
-     name:@"GenreFound"
-     object:nil];
-    
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(getPosterThumbnail:)
-     name:@"ThumbnailFound"
-     object:nil];
-    
+
     [super viewDidLoad];
-    
+
+    // Utility methods
     [self getRottenTomatoesDATA];
+    [self listenForNotifications];
     
     // UI Elements
     moviesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -77,6 +78,19 @@
     
     selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
     [selectedMovieOverlay setHidden:YES];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    incomingLatForQuery = [(AppDelegate *)[[UIApplication sharedApplication] delegate] latForQuery];
+    incomingLngForQuery = [(AppDelegate *)[[UIApplication sharedApplication] delegate] lngForQuery];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self getTMSTheaterData];
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
@@ -292,13 +306,13 @@
 }
 
 
-#pragma mark - Get DATA and Utility Methods
+#pragma mark - Get DATA
 - (void)getRottenTomatoesDATA
 {
     // Activate the Network Activity Indicator
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    NSURL *url = [NSURL URLWithString:@"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?page_limit=16&page=1&country=us&apikey=xx88qet7sppj6r7jp7wrnznd"];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?page_limit=16&page=1&country=us&apikey=%@", ROTTEN_TOMATOES_API_KEY]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -329,24 +343,30 @@
 }
 
 
-- (void)getMovieGenre:(NSNotification *)note
+- (void)getTMSTheaterData
 {
-    Movie *movie = note.object;
-    NSUInteger movieIndex = [moviesArray indexOfObject:movie];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:movieIndex inSection:0];
+    // Activate the network activity indicator
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    // Generate NSURL and perform TMS query
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/theatres?lat=41.9&lng=-87.62&radius=10&units=mi&api_key=%@", TMS_API_KEY]];
     
-}
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        
+        // Retrieve theater data array from TMS
+        NSArray *tmsTheatersArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+        NSMutableArray *tempTheaters = [[NSMutableArray alloc] initWithCapacity:15];
 
-
-- (void)getPosterThumbnail:(NSNotification *)note
-{
-    Movie *movie = note.object;
-    NSUInteger movieIndex = [moviesArray indexOfObject:movie];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:movieIndex inSection:0];
-    
-    [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        for (NSDictionary *dictionary in tmsTheatersArray) {
+            Theater *theater = [[Theater alloc] initWithTheaterDictionary:dictionary];
+            [tempTheaters addObject:theater];
+            NSLog(@"Theater Name: %@\nLat: %@", [theater valueForKey:@"title"], [theater valueForKey:@"theaterLatitude"]);
+        }
+                
+        // stop the activity indicator
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
     
 }
 
@@ -453,4 +473,82 @@
     }];
 }
 
+
+#pragma mark - LISTEN for Notifications
+- (void)listenForNotifications
+{
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(getMovieGenre:)
+     name:@"GenreFound"
+     object:nil];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(getPosterThumbnail:)
+     name:@"ThumbnailFound"
+     object:nil];
+}
+
+
+#pragma mark - NOTIFICATION Received
+- (void)getMovieGenre:(NSNotification *)note
+{
+    Movie *movie = note.object;
+    NSUInteger movieIndex = [moviesArray indexOfObject:movie];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:movieIndex inSection:0];
+    
+    [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
+}
+
+
+- (void)getPosterThumbnail:(NSNotification *)note
+{
+    Movie *movie = note.object;
+    NSUInteger movieIndex = [moviesArray indexOfObject:movie];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:movieIndex inSection:0];
+    
+    [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
+}
+
+
 @end
+
+
+#pragma mark - TMS Data Retrieval -
+/*
+ TMS Connection Info
+ Username: bcwoodard
+ Password: MobileMakers2013
+ API Key:  bbxfsp9fbvywdtwparw9hugt
+ 
+ First Feed: "Movies Playing in Local Theaters"
+ Data to Grab:
+ - Match movie.movieTitle to key "title"
+ - Get TMSID
+ - Get Theater ID
+ 
+ Must pass:
+ - Start date: yyyy-mm-dd
+ - numDays
+ - Latitude
+ - Longitude
+ 
+ Example Query:
+ http://data.tmsapi.com/v1/movies/showings?startDate=2013-08-19&numDays=5&lat=41.8491&lng=-87.6353&api_key=bbxfsp9fbvywdtwparw9hugt
+ 
+ 
+ 
+ // #1. Get todays date for TMS query
+ - (NSString *)getTodaysDate
+ {
+ NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+ [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+ startDate = [dateFormatter stringFromDate:[NSDate date]];
+
+ return startDate;
+ }
+ 
+ */

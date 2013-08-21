@@ -186,7 +186,7 @@ SHAKE AGAIN!!</string>
             </objects>
             <point key="canvasLocation" x="-1604" y="89"/>
         </scene>
-        <!--Pf Detail View Controller-->
+        <!--Pf Detail View Controller - Movie Detail-->
         <scene sceneID="9Qk-RN-gGa">
             <objects>
                 <viewController id="Jkr-0g-g9i" customClass="pfDetailViewController" sceneMemberID="viewController">
@@ -257,14 +257,44 @@ SHAKE AGAIN!!</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Vax-OU-1tb"/>
+                    <navigationItem key="navigationItem" title="Movie Detail" id="Vax-OU-1tb">
+                        <barButtonItem key="backBarButtonItem" title="Detail" id="FNA-qS-KJ8"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="myDetailTableView" destination="HqD-Zn-Rs3" id="hEb-gr-sKq"/>
+                        <segue destination="BlF-RF-4LX" kind="push" identifier="toMapView" id="WCu-cY-1sN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GwX-N6-EwO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1241" y="89"/>
+            <point key="canvasLocation" x="-1220" y="89"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="O6r-n4-E4z">
+            <objects>
+                <viewController id="BlF-RF-4LX" customClass="PFMapViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="abK-nL-nUb">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="mmS-j0-CRf">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BlF-RF-4LX" id="SDg-FL-tz6"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="dIf-LK-WMu"/>
+                    <connections>
+                        <outlet property="mapViewOutlet" destination="mmS-j0-CRf" id="2vY-9Z-WIj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WVb-Ni-7ij" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-797" y="89"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xC1-b9-k4i">
@@ -286,6 +316,12 @@ SHAKE AGAIN!!</string>
         </scene>
     </scenes>
     <classes>
+        <class className="PFMapViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFMapViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mapViewOutlet" candidateClass="MKMapView"/>
+            </relationships>
+        </class>
         <class className="ViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
             <relationships>
