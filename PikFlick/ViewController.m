@@ -451,18 +451,11 @@
     }];
 }
 
-- (IBAction)startOver:(id)sender {
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(getMovieGenre:)
-     name:@"GenreFound"
-     object:nil];
+- (IBAction)startOver:(id)sender
+{
+    // Call existing method listenForNotifications
+    [self listenForNotifications];
     
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(getPosterThumbnail:)
-     name:@"ThumbnailFound"
-     object:nil];
     [self getRottenTomatoesDATA];
     [moviesTable reloadData];
     [UIView animateWithDuration:0.3 animations:^{
