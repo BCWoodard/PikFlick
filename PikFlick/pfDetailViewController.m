@@ -46,28 +46,25 @@
 
 - (int)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 4;
 }
 
 
 #pragma mark - UITableViewDataSource
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (section == 0) {
+    if (section == 1) {
         return self.incomingMovie.movieTitle;
-    } else if (section ==1) {
-        return nil;
-        
-    } else  {
+    } else if (section ==3) {
         return @"Critics Consensus";
-        }
+    } else {
+        return nil;
     }
+}
 
 - (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 1;
-    } else if (section ==1) {
+    if (section == 2) {
         return 2;
     } else {
         return 1;
@@ -77,54 +74,62 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    if (indexPath.section  == 0)
-    {
-    UITableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:@"SectionZero" forIndexPath:indexPath];
+    UITableViewCell *cell;
     
-    //UILabel* myUILabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 296, 0)];
-    
-      cell.textLabel.text = @"Section One";
+    if (indexPath.section ==0){
+        cell = [tableView dequeueReusableCellWithIdentifier:@"SectionZero" forIndexPath:indexPath];
+        cell.imageView.image = [UIImage imageNamed:@"icon"];
+        cell.imageView.frame = CGRectMake(0.0, 5.0f, 80.0, 80.0);
         
-        return cell;
+        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        cell.textLabel.numberOfLines = 0;
         
-//        UILabel *mylabel = [[UILabel alloc] initWithFrame:CGRectMake(5,5, 150, 40)];
-//        [cell.contentView addSubview:mylabel];
-//        
-//        //cell.textLabel = myUILabel;
-//       // cell.textLabel.text = sampleText;
-//        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-//        cell.textLabel.numberOfLines = 0;
-//        cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:12.0];
-//        //[myUILabel sizeToFit];
-//        
-//        CGSize constraintSize = CGSizeMake(255.0f, MAXFLOAT);
-//        CGSize labelSize = [cell.textLabel.text sizeWithFont:cell.textLabel.font constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
+        cell.textLabel.font = [UIFont fontWithName:@"Gill Sans" size:14.2f];
         
-       // mylabel = labelSize;
-        
-        
-        
-    } else if (indexPath.section == 1){
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SectionOne" forIndexPath:indexPath];
-        
-        if (indexPath.row == 0){
-            cell.textLabel.text = @"Where and When";
-        } else {
-        cell.textLabel.text = @"Watch the Trailer";
-        }
-        return  cell;
-        
-    } else {
-        
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SectionTwo" forIndexPath:indexPath];
-        
-        cell.textLabel.text = @"Section Three";
-        return cell;
+        cell.textLabel.text = [NSString stringWithFormat:@"Rated:  %@\nGenre:  %@\nPeer Rating:  %@\nMovie Length:  %@min", incomingMovie.movieMPAA, incomingMovie.movieGenre, incomingMovie.moviePeerRating, incomingMovie.movieRunTime];
         
     }
-    
-    return nil;
+    else if (indexPath.section ==1){
+        cell = [tableView dequeueReusableCellWithIdentifier:@"SectionOne" forIndexPath:indexPath];
+        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        cell.textLabel.numberOfLines = 0;
+        cell.textLabel.text = self.incomingMovie.movieSynopsis;
+        
+        //adjust the label to the new height.
+        CGRect newFrame = cell.textLabel.frame;
+        newFrame.size.height = [self getLabelHeightForIndexPath:indexPath andString:self.incomingMovie.movieSynopsis];
+        cell.textLabel.frame = newFrame;
+        cell.textLabel.font = [UIFont fontWithName:@"Gill Sans" size:14.2f];
+        
+    }
+    else if (indexPath.section == 2){
+        cell = [tableView dequeueReusableCellWithIdentifier:@"SectionTwo" forIndexPath:indexPath];
+        
+        if (indexPath.row == 1){
+            cell.textLabel.text = @"Where and When";
+        } else {
+            cell.textLabel.text = @"Watch the Trailer";
+        }
+    } else {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"SectionThree" forIndexPath:indexPath];
+        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        cell.textLabel.numberOfLines = 0;
+        cell.textLabel.text = self.incomingMovie.movieCriticsConsensus;
+        
+        //adjust the label to the new height.
+        CGRect newFrame = cell.textLabel.frame;
+        newFrame.size.height = [self getLabelHeightForIndexPath:indexPath andString:self.incomingMovie.movieCriticsConsensus];
+        cell.textLabel.frame = newFrame;
+        cell.textLabel.font = [UIFont fontWithName:@"Gill Sans" size:14.2f];
+        
+        //
+        //    CGRect newFrame = cell.textLabel.frame;
+        //    newFrame.size.height = [self getLabelHeightForIndex:self.incomingMovie.movieCriticsConsensus];
+        //    cell.textLabel.frame = newFrame;
+        
+    }
+    return cell;
+
 }
 
 #pragma mark - UITableViewDelegate
@@ -142,20 +147,59 @@
     
 }
 
-//-(CGFloat)tableView: (UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *)indexPath
-//{
-//    
-//    CGSize size = [sampleText sizeWithFont: [UIFont fontWithName:@"Helvetica" size:14.0] constrainedToSize:CGSizeMake(255.0f, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-//    
-//    //        NSLog(@"text: %@, index: %@, size.height: %f, size.width: %f", text2, indexPath, size.height, size.width);
-//    
-//    if((size.height+30.0f) < 80.0)
-//        return 80.0f;
-//    else
-//        return (size.height + 30.0f);
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 1) {
+        float rowHeight = [self getLabelHeightForIndexPath:indexPath andString:self.incomingMovie.movieSynopsis] + 40;
+        NSLog(@"Row Height: %f", rowHeight);
+        
+        return rowHeight;
+        
+    } else if (indexPath.section == 2) {
+        
+        return 44;
+        
+    } else {
+        float rowHeight = [self getLabelHeightForIndexPath:indexPath andString:self.incomingMovie.movieCriticsConsensus] + 40;
+        NSLog(@"Row Height: %f", rowHeight);
+        
+        return rowHeight;
+        
+    }
+}
 
 
-//tableView:heightForRowAtIndexPath:sizeWithFont:constrainedToSize:
+-(CGFloat)getLabelHeightForIndexPath:(NSIndexPath*)indexPath andString:(NSString *)string
+{
+    if (indexPath.section == 1) {
+        //passing a string from heightForRowAtIndexPath
+        CGSize labelSize = [string sizeWithFont:[UIFont fontWithName:@"Gill Sans" size:14.2f]
+                              constrainedToSize:CGSizeMake(300, 2000)
+                                  lineBreakMode:NSLineBreakByWordWrapping];
+        
+        CGFloat labelHeight = labelSize.height;
+        NSLog(@"labelHeight: %f", labelHeight);
+        
+        return labelHeight;
+    }
+    else if (indexPath.section == 2) {
+        return 44;
+        
+    }
+    
+    else {
+        CGSize labelSize = [string sizeWithFont:[UIFont fontWithName:@"Gill Sans" size:14.2f]
+                              constrainedToSize:CGSizeMake(300, 2000)
+                                  lineBreakMode:NSLineBreakByWordWrapping];
+        
+        CGFloat labelHeight = labelSize.height;
+        NSLog(@"labelHeight: %f", labelHeight);
+        
+        return labelHeight;
+    }
+    
+    
+}
+
 
 @end
