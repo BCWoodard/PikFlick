@@ -45,12 +45,12 @@
     if (self) {
         _theaterID = [theaterDictionary valueForKey:@"theaterId"];
         _title = [theaterDictionary valueForKey:@"name"];
-        _theaterLatitude = [[theaterDictionary objectForKey:@"geoCode"] valueForKey:@"latitude"];
-        _theaterLongitude = [[theaterDictionary objectForKey:@"geoCode"] valueForKey:@"longitude"];
-        _theaterStreet = [[theaterDictionary objectForKey:@"address"] valueForKey:@"street"];
-        _theaterCity = [[theaterDictionary objectForKey:@"address"] valueForKey:@"city"];
-        _theaterState = [[theaterDictionary objectForKey:@"address"] valueForKey:@"state"];
-        _theaterZip = [[theaterDictionary objectForKey:@"address"] valueForKey:@"postalCode"];
+        _theaterLatitude = [[[theaterDictionary objectForKey:@"location"] objectForKey:@"geoCode"] valueForKey:@"latitude"];
+        _theaterLongitude = [[[theaterDictionary objectForKey:@"location"] objectForKey:@"geoCode"] valueForKey:@"longitude"];
+        _theaterStreet = [[[theaterDictionary objectForKey:@"location"] objectForKey:@"address"] valueForKey:@"street"];
+        _theaterCity = [[[theaterDictionary objectForKey:@"location"] objectForKey:@"address"] valueForKey:@"city"];
+        _theaterState = [[[theaterDictionary objectForKey:@"location"] objectForKey:@"address"] valueForKey:@"state"];
+        _theaterZip = [[[theaterDictionary objectForKey:@"location"] objectForKey:@"address"] valueForKey:@"postalCode"];
     }
     
     return self;

@@ -361,9 +361,9 @@
         for (NSDictionary *dictionary in tmsTheatersArray) {
             Theater *theater = [[Theater alloc] initWithTheaterDictionary:dictionary];
             [tempTheaters addObject:theater];
-
+            NSLog(@"Theater Name: %@\nLat: %@", [theater valueForKey:@"title"], [theater valueForKey:@"theaterLatitude"]);
         }
-        
+                
         // stop the activity indicator
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
