@@ -20,6 +20,9 @@
         _moviePeerRating = [[[movieDictionary objectForKey:@"ratings"] valueForKey:@"audience_score"] stringValue];
         _movieThumbnailURL = [[movieDictionary objectForKey:@"posters"] valueForKey:@"detailed"];
         _movieMPAA = [movieDictionary objectForKey:@"mpaa_rating"];
+        _movieSynopsis = [movieDictionary objectForKey:@"synopsis"];
+        _movieCriticsConsensus = [movieDictionary objectForKey:@"critics_consensus"];
+        _movieRunTime = [movieDictionary objectForKey:@"runtime"];
     }
     
     return self;

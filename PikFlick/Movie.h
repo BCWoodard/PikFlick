@@ -18,6 +18,9 @@
 @property (strong, nonatomic) UIImage   *movieThumbnail;
 @property (strong, nonatomic) NSString  *movieMPAA;
 @property (strong, nonatomic) NSString  *movieTMSID;
+@property (strong, nonatomic) NSString  *movieSynopsis;
+@property (strong, nonatomic) NSString  *movieCriticsConsensus;
+@property (strong, nonatomic) NSString  *movieRunTime;
 @property BOOL  shortlisted;
 
 // Overwrite init with a method to create our Movie object directly
