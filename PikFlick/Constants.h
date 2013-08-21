@@ -15,4 +15,9 @@
 #define TMS_API_KEY @"bbxfsp9fbvywdtwparw9hugt"
 #define ROTTEN_TOMATOES_API_KEY @"xx88qet7sppj6r7jp7wrnznd"
 
+// Integers
+#define MOVIE_RETRIEVAL_LIMIT   16
+#define DISTANCE_FROM_USER      10
+
+
 @end

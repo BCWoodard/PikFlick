@@ -34,6 +34,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"TMSID: %@", incomingMovie.movieTMSID);
 }
 
 
