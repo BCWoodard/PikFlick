@@ -9,16 +9,19 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate> {
+@interface AppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate, UIAlertViewDelegate>
+{
     CLLocationManager           *locationManager;
     CLLocation                  *currentLocation;
     
     NSString                    *latForQuery;
     NSString                    *lngForQuery;
+    BOOL                        getTMSData;
 }
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) NSString *latForQuery;
 @property (strong, nonatomic) NSString *lngForQuery;
+@property BOOL                         getTMSData;
 
 @end

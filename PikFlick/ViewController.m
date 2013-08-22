@@ -53,6 +53,7 @@
     [super viewDidLoad];
     
     // Utility methods
+    NSLog(@"getTMSData? %i", [(AppDelegate *)[[UIApplication sharedApplication] delegate] getTMSData]);
     [self getRottenTomatoesDATA];
     [self listenForNotifications];
     
@@ -292,6 +293,8 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self getTMSMovieInTheaterData];
+
     [self performSegueWithIdentifier:@"toDetailView" sender:self];
     
 }
@@ -300,8 +303,10 @@
 {
     if ([segue.identifier isEqualToString:@"toDetailView"]) {
         pfDetailViewController *detailViewController = segue.destinationViewController;
-        detailViewController.incomingMovie = [moviesArray objectAtIndex:[moviesTable indexPathForSelectedRow].row];
+        detailViewController.incomingMovie = [moviesArray objectAtIndex:[moviesTable indexPathForSelectedRow].row];        
     }
+    
+
 }
 
 
@@ -387,8 +392,18 @@
 
 - (void)getTMSMovieInTheaterData
 {
+
+//    if (![(AppDelegate *)[[UIApplication sharedApplication] delegate] getTMSData]) {
+//        return;
+//    }
+    
     NSString *latitude = [(AppDelegate *)[[UIApplication sharedApplication] delegate] latForQuery];
     NSString *longitude = [(AppDelegate *)[[UIApplication sharedApplication] delegate] lngForQuery];
+
+    if (latitude == nil || longitude == nil) {
+        return;
+    }
+
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/showings?startDate=2013-08-21&lat=%@&lng=%@&radius=%i&units=mi&api_key=%@", latitude, longitude, DISTANCE_FROM_USER, TMS_API_KEY]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -505,7 +520,7 @@
 }
 
 
-#pragma mark - LISTEN for Notifications
+#pragma mark - NOTIFICATIONS
 - (void)listenForNotifications
 {
     [[NSNotificationCenter defaultCenter]
@@ -521,8 +536,6 @@
      object:nil];
 }
 
-
-#pragma mark - NOTIFICATION Received
 - (void)getMovieGenre:(NSNotification *)note
 {
     Movie *movie = note.object;

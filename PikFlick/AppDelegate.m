@@ -11,6 +11,7 @@
 @implementation AppDelegate
 @synthesize latForQuery = _latForQuery;
 @synthesize lngForQuery = _lngForQuery;
+@synthesize getTMSData;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -38,8 +39,28 @@
     
     self.latForQuery = [NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude];
     self.lngForQuery = [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
+    
+    if (self.latForQuery && self.lngForQuery) {
+        self.getTMSData = YES;
+    }
 
     [locationManager stopUpdatingLocation];
+    
+}
+
+
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    /*
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Are you sure?"
+                                                        message:@"PikFlick can show movies playing near you. To turn on this feature go to your device settings and enable Location Services."
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
+    
+    [alertView show];
+    */
     
 }
 							
