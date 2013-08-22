@@ -82,11 +82,16 @@
     incomingLatForQuery = [(AppDelegate *)[[UIApplication sharedApplication] delegate] latForQuery];
     incomingLngForQuery = [(AppDelegate *)[[UIApplication sharedApplication] delegate] lngForQuery];
     
+    //hide highlighting when returning to table
+    [super viewWillAppear:animated];
+    NSIndexPath *selectedIndexPath = [moviesTable indexPathForSelectedRow];
+    [moviesTable deselectRowAtIndexPath:selectedIndexPath animated:YES];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-//    [self getTMSMovieInTheaterData];
+    //[self getTMSMovieInTheaterData];
 }
 
 
