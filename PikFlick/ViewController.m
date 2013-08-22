@@ -330,14 +330,15 @@
             movie.shortlisted = NO;
             [tempArray addObject:movie];
         }
-        
-        if ([tempArray count] == MOVIE_RETRIEVAL_LIMIT) {
-            [self getTMSMovieInTheaterData];
-        }
-        
+                
         // Populate moviesArray with tempArray
         // Again, we do this to protect our arrays from accidental edits, etc.
         moviesArray = [NSArray arrayWithArray:tempArray];
+        
+        if ([moviesArray count] == MOVIE_RETRIEVAL_LIMIT) {
+            [self getTMSMovieInTheaterData];
+        }
+
         
         // Stop NetworkActivityIndicator
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
