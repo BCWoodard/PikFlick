@@ -117,8 +117,12 @@ const float UI_CUES_WIDTH = 120.0f;
 
 #pragma mark - Horizontal PAN Gesture Handler
 -(BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer {
-    CGPoint translation = [gestureRecognizer translationInView:[self superview]];
-    
+   
+    // Check for gesture other than pan gesture
+    if ([gestureRecognizer class] != [UIPanGestureRecognizer class]) {
+        return NO;
+    }
+     CGPoint translation = [gestureRecognizer translationInView:[self superview]];
     // Check for horizontal gesture
     // The fabs() function computes the absolute value of a floating-point number x.
     // The fabsf() function is a single-precision version of fabs().
