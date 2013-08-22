@@ -11,7 +11,6 @@
 #import "Theater.h"
 #import "Constants.h"
 #import "pfCustomCell.h"
-#import "DetailedShakeView.h"
 #import <QuartzCore/QuartzCore.h>
 
 #import "pfDetailViewController.h"
@@ -47,6 +46,7 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"View Controller Loaded");
     // Alloc and init moviesToSeeArray
     moviesShortlist = [[NSArray alloc] init];
     
