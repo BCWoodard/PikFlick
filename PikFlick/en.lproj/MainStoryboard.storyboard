@@ -80,7 +80,7 @@
                                 </connections>
                             </tableView>
                             <view alpha="0.84999999999999998" contentMode="scaleToFill" id="4G0-AZ-Sap">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                                <rect key="frame" x="0.0" y="-3" width="320" height="548"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GwL-4a-IAP">
@@ -99,27 +99,25 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="Ecl-Uq-MGg">
-                                        <rect key="frame" x="92.5" y="74.5" width="135" height="193"/>
+                                        <rect key="frame" x="92.5" y="57.5" width="135" height="193"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UHn-xL-fCq">
-                                        <rect key="frame" x="47" y="9" width="228" height="53"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Magic 8-Ball Message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UHn-xL-fCq">
+                                        <rect key="frame" x="47" y="3" width="228" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <string key="text">Magic 8-Ball Message
-(label is 2 lines long)</string>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Movie Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xuu-U6-5Sp">
-                                        <rect key="frame" x="29" y="267.5" width="263" height="64.5"/>
+                                        <rect key="frame" x="29" y="258.5" width="263" height="64.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zDj-a0-sfd">
-                                        <rect key="frame" x="80" y="337" width="163" height="51"/>
+                                        <rect key="frame" x="80" y="330" width="163" height="51"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <string key="text">Not Thrilled?
 SHAKE AGAIN!!</string>
@@ -128,14 +126,14 @@ SHAKE AGAIN!!</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Or.." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="w6s-p5-WF5">
-                                        <rect key="frame" x="123" y="414" width="42" height="29"/>
+                                        <rect key="frame" x="139" y="388" width="42" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
                                         <color key="textColor" red="0.6927224864" green="0.6927224864" blue="0.6927224864" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="btD-m9-YsZ">
-                                        <rect key="frame" x="196" y="407" width="104" height="44"/>
+                                        <rect key="frame" x="196" y="381" width="104" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Movie Details">
@@ -147,7 +145,7 @@ SHAKE AGAIN!!</string>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zif-O6-1m7">
-                                        <rect key="frame" x="8" y="407" width="97" height="44"/>
+                                        <rect key="frame" x="20" y="381" width="97" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Start Over">
@@ -167,9 +165,9 @@ SHAKE AGAIN!!</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="PikFlick" id="odN-c2-kaP">
-                        <barButtonItem key="backBarButtonItem" title="Flicks" id="GXd-aP-BAs"/>
-                        <barButtonItem key="rightBarButtonItem" title="Sets" id="Ior-uy-CTv"/>
+                    <navigationItem key="navigationItem" title="PikFlick" id="boL-Cz-GuH">
+                        <barButtonItem key="backBarButtonItem" title="Flicks" id="VSh-xo-5IG"/>
+                        <barButtonItem key="rightBarButtonItem" title="Sets" id="Ij4-h9-HDT"/>
                     </navigationItem>
                     <connections>
                         <outlet property="announcementGreeting" destination="UHn-xL-fCq" id="e8v-az-KQ6"/>
