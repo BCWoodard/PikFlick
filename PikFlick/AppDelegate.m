@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "Constants.h"
 
 @implementation AppDelegate
 @synthesize latForQuery = _latForQuery;
@@ -14,6 +15,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // TestFlight methods
+    // NOTE: Do not use setDeviceIdentifier in PRODUCTION!!
+    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+    [TestFlight takeOff:TESTFLIGHT_APP_TOKEN];
+    
     [self getCurrentLocation];
     return YES;
 }
