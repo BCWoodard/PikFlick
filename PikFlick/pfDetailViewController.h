@@ -8,9 +8,10 @@
 
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 #import "Movie.h"
 
-@interface pfDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface pfDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
 
 
 @property (strong, nonatomic) Movie *incomingMovie;

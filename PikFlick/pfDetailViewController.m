@@ -9,13 +9,13 @@
 #import "pfDetailViewController.h"
 #import "ViewController.h"
 #import "PFMapViewController.h"
+#import <Accounts/Accounts.h>
+#import <Social/Social.h>
 
 @interface pfDetailViewController ()
 {
     __weak IBOutlet UITableView *myDetailTableView;
-    
 }
-
 
 @end
 
@@ -130,7 +130,7 @@
         
     }
     return cell;
-
+    
 }
 
 #pragma mark - UITableViewDelegate
@@ -143,7 +143,7 @@
 {
     if ([segue.identifier isEqualToString:@"toMapView"]) {
         PFMapViewController *mapViewController = segue.destinationViewController;
-
+        
     }
     
 }
@@ -201,6 +201,110 @@
     
     
 }
+
+
+//  Using shake instead of a button as I do not want to touch Storyboards at the moment.  Will delete shake action later.
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    
+    if (motion == UIEventSubtypeMotionShake) {
+        
+        MFMailComposeViewController *mailComposeViewController = [MFMailComposeViewController new];
+        [mailComposeViewController setMailComposeDelegate:self];
+        
+        [mailComposeViewController setSubject:[NSString stringWithFormat:@"Going to see %@", incomingMovie.movieTitle]];
+        [mailComposeViewController setMessageBody:[NSString stringWithFormat:@"PickFlick helped me choose to see %@.", incomingMovie.movieTitle] isHTML:NO];
+        [self presentViewController:mailComposeViewController animated:YES completion:nil];
+    }
+}
+
+//  Delete canBecomeFirstResponder if temp shake motion method is no longer being used.
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+
+//  This is the code for our Facebook post share button.
+- (void)                InsertThisCodeIntoButtonForFacebookPosting {
+    SLComposeViewController *slComposerSheet;
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+        slComposerSheet = [SLComposeViewController new];
+        slComposerSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+        [slComposerSheet addImage:incomingMovie.movieThumbnail];
+        [slComposerSheet setInitialText:[NSString stringWithFormat:@"PickFlick help me choose to see %@.",  incomingMovie.movieTitle]];
+        [self presentViewController:slComposerSheet animated:YES completion:nil];
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Facebook Account Unavailable" message:@"Please add a Facebook account under Settings." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+}
+
+
+//  This is the code for our SMS share button.
+- (void)                InsertThisCodeIntoBottonForTextSharing {
+    MFMessageComposeViewController *composeViewController = [MFMessageComposeViewController new];
+    [composeViewController setMessageComposeDelegate:self];
+    
+    if ([MFMessageComposeViewController canSendText]) {
+        [composeViewController setBody:[NSString stringWithFormat:@"PickFlick helped me choose to see %@.", incomingMovie.movieTitle]];
+        [self presentViewController:composeViewController animated:YES completion:nil];
+    }
+}
+
+//  This dismisses the Messages View Controller.  No further editing needed when adding buttons in later Storyboard work.
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+//  This dismisses the Email View Controller.  No further editing needed when adding buttons in later Storyboard work.
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+//- (BOOL) setMFMailFieldAsFirstResponder:(UIView*)view mfMailField:(NSString*)field{
+//
+//    for (UIView *subview in view.subviews) {
+//        
+//        
+//        
+//        NSString *className = [NSString stringWithFormat:@"%@", [subview class]];
+//        NSLog(@"SubView -- %@ --- %@",className,field);
+//        
+//        if ([className isEqualToString:field])
+//            
+//        {
+//            
+//            //Found the sub view we need to set as first responder
+//            
+//            [subview becomeFirstResponder];
+//            
+//            return YES;
+//            
+//        }
+//        
+//        
+//        
+//        if ([subview.subviews count] > 0) {
+//            
+//            if ([self setMFMailFieldAsFirstResponder:subview mfMailField:field]){
+//                
+//                //Field was found and made first responder in a subview
+//                
+//                return YES;
+//                
+//            }
+//            
+//        }
+//        
+//    }
+//    
+//    
+//    
+//    //field not found in this view.
+//    
+//    return NO;
+//}
 
 
 @end

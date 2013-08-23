@@ -31,6 +31,9 @@
 		4AF560B117C4257900BCF482 /* Theater.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF560B017C4257900BCF482 /* Theater.m */; };
 		4FC5AD8417C2838000E3E55D /* pfDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC5AD8317C2838000E3E55D /* pfDetailViewController.m */; };
 		CF71DD6C17C6837B00531FF9 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF71DD6B17C6837B00531FF9 /* HomeViewController.m */; };
+		CF71DD6E17C7FC9100531FF9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF71DD6D17C7FC9100531FF9 /* Social.framework */; };
+		CF71DD7017C7FCFD00531FF9 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF71DD6F17C7FCFD00531FF9 /* Accounts.framework */; };
+		CF71DD7217C80C3E00531FF9 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF71DD7117C80C3E00531FF9 /* MessageUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +77,9 @@
 		4FC5AD8317C2838000E3E55D /* pfDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pfDetailViewController.m; sourceTree = "<group>"; };
 		CF71DD6A17C6837B00531FF9 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		CF71DD6B17C6837B00531FF9 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		CF71DD6D17C7FC9100531FF9 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		CF71DD6F17C7FCFD00531FF9 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		CF71DD7117C80C3E00531FF9 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		CFFD3C6017C269FE00B4A888 /* DetailedShakeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailedShakeView.h; path = "/Users/Kamiccolo/Documents/Mobile Makers/PickFlick/PikFlickWeek2/PikFlick/DetailedShakeView.h"; sourceTree = "<absolute>"; };
 		CFFD3C6117C269FE00B4A888 /* DetailedShakeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailedShakeView.m; path = "/Users/Kamiccolo/Documents/Mobile Makers/PickFlick/PikFlickWeek2/PikFlick/DetailedShakeView.m"; sourceTree = "<absolute>"; };
 		CFFD3C6317C2770200B4A888 /* OriginalNameIsDetailedShakeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OriginalNameIsDetailedShakeView.xib; path = "/Users/Kamiccolo/Documents/Mobile Makers/PickFlick/PikFlickWeek2/PikFlick/OriginalNameIsDetailedShakeView.xib"; sourceTree = "<absolute>"; };
@@ -84,6 +90,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF71DD7217C80C3E00531FF9 /* MessageUI.framework in Frameworks */,
+				CF71DD7017C7FCFD00531FF9 /* Accounts.framework in Frameworks */,
+				CF71DD6E17C7FC9100531FF9 /* Social.framework in Frameworks */,
 				4AB5374917C70018005CA37C /* libz.dylib in Frameworks */,
 				4AF560A917C3016C00BCF482 /* MapKit.framework in Frameworks */,
 				4AF560A717C2FA0200BCF482 /* CoreLocation.framework in Frameworks */,
@@ -101,6 +110,9 @@
 		4A38767617BBEB1300F95ECA = {
 			isa = PBXGroup;
 			children = (
+				CF71DD7117C80C3E00531FF9 /* MessageUI.framework */,
+				CF71DD6F17C7FCFD00531FF9 /* Accounts.framework */,
+				CF71DD6D17C7FC9100531FF9 /* Social.framework */,
 				4A38768817BBEB1300F95ECA /* PikFlick */,
 				4A38768117BBEB1300F95ECA /* Frameworks */,
 				4A38768017BBEB1300F95ECA /* Products */,
