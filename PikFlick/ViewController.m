@@ -12,7 +12,10 @@
 #import "Constants.h"
 #import "pfCustomCell.h"
 #import "DetailedShakeView.h"
+#import "Reachability.h"
+
 #import <QuartzCore/QuartzCore.h>
+
 
 #import "pfDetailViewController.h"
 #import <CoreLocation/CoreLocation.h>
@@ -24,6 +27,7 @@
     Movie                       *selectedMovie;
     CLLocationManager           *locationManager;
     NSString                    *startDate;
+    BOOL                        canReachInternet;
     
     
     __weak IBOutlet UITableView *moviesTable;
@@ -53,9 +57,15 @@
     [super viewDidLoad];
     
     // Utility methods
-    NSLog(@"getTMSData? %i", [(AppDelegate *)[[UIApplication sharedApplication] delegate] getTMSData]);
-    [self getRottenTomatoesDATA];
+    [self checkForNetwork];
+    
+    if (canReachInternet) {
+        [self getRottenTomatoesDATA];
+    }
+    
     [self listenForNotifications];
+
+
     
     // UI Elements
     moviesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -405,7 +415,7 @@
     }
 
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/showings?startDate=2013-08-21&lat=%@&lng=%@&radius=%i&units=mi&api_key=%@", latitude, longitude, DISTANCE_FROM_USER, TMS_API_KEY]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/showings?startDate=2013-08-22&lat=%@&lng=%@&radius=%i&units=mi&api_key=%@", latitude, longitude, DISTANCE_FROM_USER, TMS_API_KEY]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         // code
@@ -557,6 +567,45 @@
     
 }
 
+#pragma mark - REACHABILITY CHECK
+- (void)checkForNetwork
+{
+    // check if we've got network connectivity
+    Reachability *myNetwork = [Reachability reachabilityWithHostname:@"google.com"];
+    NetworkStatus myStatus = [myNetwork currentReachabilityStatus];
+    
+    switch (myStatus) {
+        case NotReachable:
+            NSLog(@"There's no internet connection at all. Display error message now.");
+            [self displayAlertView];
+            break;
+            
+        case ReachableViaWWAN:
+            NSLog(@"We have a 3G connection");
+            canReachInternet = YES;
+            break;
+            
+        case ReachableViaWiFi:
+            NSLog(@"We have WiFi.");
+            canReachInternet = YES;
+            break;
+            
+        default:
+            break;
+    }
+}
+
+
+- (void)displayAlertView
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Network Error"
+                                                        message:@"PikFlick is unable to reach the Internet. Please check your WiFi or network provider data connections."
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
+    [alertView show];
+    
+}
 
 @end
 
