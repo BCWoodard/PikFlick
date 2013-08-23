@@ -23,6 +23,8 @@
 		4A3876B017BC447800F95ECA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A3876AF17BC447800F95ECA /* QuartzCore.framework */; };
 		4A3876B317BC7D7200F95ECA /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A3876B117BC7D7200F95ECA /* icon.png */; };
 		4A3876B417BC7D7200F95ECA /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A3876B217BC7D7200F95ECA /* icon@2x.png */; };
+		4AB5374617C6FFAE005CA37C /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB5374217C6FFAE005CA37C /* libTestFlight.a */; };
+		4AB5374917C70018005CA37C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB5374817C70018005CA37C /* libz.dylib */; };
 		4AF560A717C2FA0200BCF482 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A617C2FA0200BCF482 /* CoreLocation.framework */; };
 		4AF560A917C3016C00BCF482 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A817C3016C00BCF482 /* MapKit.framework */; };
 		4AF560AE17C3E8E800BCF482 /* PFMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF560AD17C3E8E800BCF482 /* PFMapViewController.m */; };
@@ -57,6 +59,11 @@
 		4A3876B117BC7D7200F95ECA /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		4A3876B217BC7D7200F95ECA /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		4A66264817BDA96000F31785 /* pfDeleteMovieDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pfDeleteMovieDelegate.h; sourceTree = "<group>"; };
+		4AB5374217C6FFAE005CA37C /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = PikFlick/libTestFlight.a; sourceTree = "<group>"; };
+		4AB5374317C6FFAE005CA37C /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		4AB5374417C6FFAE005CA37C /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
+		4AB5374517C6FFAE005CA37C /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
+		4AB5374817C70018005CA37C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		4AF560A617C2FA0200BCF482 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4AF560A817C3016C00BCF482 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		4AF560AA17C30D4E00BCF482 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -76,12 +83,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AB5374917C70018005CA37C /* libz.dylib in Frameworks */,
 				4AF560A917C3016C00BCF482 /* MapKit.framework in Frameworks */,
 				4AF560A717C2FA0200BCF482 /* CoreLocation.framework in Frameworks */,
 				4A3876B017BC447800F95ECA /* QuartzCore.framework in Frameworks */,
 				4A38768317BBEB1300F95ECA /* UIKit.framework in Frameworks */,
 				4A38768517BBEB1300F95ECA /* Foundation.framework in Frameworks */,
 				4A38768717BBEB1300F95ECA /* CoreGraphics.framework in Frameworks */,
+				4AB5374617C6FFAE005CA37C /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +117,8 @@
 		4A38768117BBEB1300F95ECA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4AB5374217C6FFAE005CA37C /* libTestFlight.a */,
+				4AB5374817C70018005CA37C /* libz.dylib */,
 				4A38768617BBEB1300F95ECA /* CoreGraphics.framework */,
 				4AF560A617C2FA0200BCF482 /* CoreLocation.framework */,
 				4A38768417BBEB1300F95ECA /* Foundation.framework */,
@@ -121,6 +132,7 @@
 		4A38768817BBEB1300F95ECA /* PikFlick */ = {
 			isa = PBXGroup;
 			children = (
+				4AB5374717C6FFBE005CA37C /* TestFlight */,
 				4A38769117BBEB1300F95ECA /* AppDelegate.h */,
 				4A38769217BBEB1300F95ECA /* AppDelegate.m */,
 				4A38769A17BBEB1300F95ECA /* MainStoryboard.storyboard */,
@@ -185,6 +197,16 @@
 				4A66264817BDA96000F31785 /* pfDeleteMovieDelegate.h */,
 			);
 			name = Delegates;
+			sourceTree = "<group>";
+		};
+		4AB5374717C6FFBE005CA37C /* TestFlight */ = {
+			isa = PBXGroup;
+			children = (
+				4AB5374317C6FFAE005CA37C /* TestFlight.h */,
+				4AB5374417C6FFAE005CA37C /* TestFlight+AsyncLogging.h */,
+				4AB5374517C6FFAE005CA37C /* TestFlight+ManualSessions.h */,
+			);
+			name = TestFlight;
 			sourceTree = "<group>";
 		};
 		4AF560AB17C3D2AF00BCF482 /* Archive */ = {
@@ -362,6 +384,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PikFlick/PikFlick-Prefix.pch";
 				INFOPLIST_FILE = "PikFlick/PikFlick-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PikFlick\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -373,6 +399,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PikFlick/PikFlick-Prefix.pch";
 				INFOPLIST_FILE = "PikFlick/PikFlick-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PikFlick\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

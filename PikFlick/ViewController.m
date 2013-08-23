@@ -161,7 +161,6 @@
             if (selectedMovieOverlay.isHidden == YES) {
                 selectedMovie = [moviesArray objectAtIndex:arc4random() % [moviesArray count]];
                 int movieIndex = [moviesArray indexOfObject:selectedMovie];
-//                NSLog(@"Selected Movie: %@", selectedMovie.movieTitle);
                 
                 // Remove that movie from the shortlist array
                 NSMutableArray *tempArray = [moviesArray mutableCopy];
@@ -170,11 +169,10 @@
                 
                 [self initialAnimatedOverlay];
                 [moviesTable reloadData];
-            } else {
                 
+            } else {
                 selectedMovie = [moviesArray objectAtIndex:arc4random() % [moviesArray count]];
                 int movieIndex = [moviesArray indexOfObject:selectedMovie];
-//                NSLog(@"Selected Movie: %@", selectedMovie.movieTitle);
                 
                 // Remove that movie from the shortlist array
                 NSMutableArray *tempArray = [moviesArray mutableCopy];
@@ -183,25 +181,18 @@
                 
                 [self animatedOverlayRemoval];
                 [moviesTable reloadData];
+                
             }
         } else {
             if (selectedMovieOverlay.isHidden == YES) {
-                
                 selectedMovie = [moviesArray objectAtIndex:0];
-                
                 [startOverButton setHidden:NO];
-                
                 [self initialAnimatedOverlay];
                 
-//                NSLog(@"The only remaining movie is %@", selectedMovie.movieTitle);
             } else {
                 selectedMovie = [moviesArray objectAtIndex:0];
-                
                 [startOverButton setHidden:NO];
-                
                 [self animatedOverlayRemoval];
-                
-//                NSLog(@"The only remaining movie is %@", selectedMovie.movieTitle);
             }
         }
     }
@@ -383,19 +374,29 @@
 }
 */
 
+// #1. Get todays date for TMS query
+- (NSString *)getTodaysDate
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    startDate = [dateFormatter stringFromDate:[NSDate date]];
+    
+    return startDate;
+}
 
 
 - (void)getTMSMovieInTheaterData
 {
     NSString *latitude = [(AppDelegate *)[[UIApplication sharedApplication] delegate] latForQuery];
     NSString *longitude = [(AppDelegate *)[[UIApplication sharedApplication] delegate] lngForQuery];
+    NSString *todaysDate = [self getTodaysDate];
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/showings?startDate=2013-08-21&lat=%@&lng=%@&radius=%i&units=mi&api_key=%@", latitude, longitude, DISTANCE_FROM_USER, TMS_API_KEY]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/showings?startDate=%@&lat=%@&lng=%@&radius=%i&units=mi&api_key=%@", todaysDate, latitude, longitude, DISTANCE_FROM_USER, TMS_API_KEY]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        // code
         
         NSArray *tempArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+        
         for (NSDictionary *tmsMovie in tempArray) {
             for (Movie *movie in moviesArray) {
                 if ([movie.movieTitle isEqualToString:[tmsMovie valueForKey:@"title"]]) {
