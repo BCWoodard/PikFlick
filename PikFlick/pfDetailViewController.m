@@ -207,13 +207,7 @@
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     
     if (motion == UIEventSubtypeMotionShake) {
-        
-        MFMailComposeViewController *mailComposeViewController = [MFMailComposeViewController new];
-        [mailComposeViewController setMailComposeDelegate:self];
-        
-        [mailComposeViewController setSubject:[NSString stringWithFormat:@"Going to see %@", incomingMovie.movieTitle]];
-        [mailComposeViewController setMessageBody:[NSString stringWithFormat:@"PickFlick helped me choose to see %@.", incomingMovie.movieTitle] isHTML:NO];
-        [self presentViewController:mailComposeViewController animated:YES completion:nil];
+
     }
 }
 
@@ -250,6 +244,23 @@
     }
 }
 
+//  This is the code for our email share button.
+- (void)                InsertThisCodeIntoBottonForEmailSharing {
+    MFMailComposeViewController *mailComposeViewController = [MFMailComposeViewController new];
+    [mailComposeViewController setMailComposeDelegate:self];
+    
+    [mailComposeViewController setSubject:[NSString stringWithFormat:@"Going to see %@", incomingMovie.movieTitle]];
+    [mailComposeViewController setMessageBody:[NSString stringWithFormat:@"PickFlick helped me choose to see %@.", incomingMovie.movieTitle] isHTML:NO];
+    [self presentViewController:mailComposeViewController animated:YES completion:nil];
+}
+
+//  This is the code for our contact us action sheet button.
+- (void)                InsertThisCodeIntoActionSheetButton {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Send us an email." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Contact Us", nil];
+    
+    [actionSheet showInView:self.view];
+}
+
 //  This dismisses the Messages View Controller.  No further editing needed when adding buttons in later Storyboard work.
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -261,50 +272,16 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
-//- (BOOL) setMFMailFieldAsFirstResponder:(UIView*)view mfMailField:(NSString*)field{
-//
-//    for (UIView *subview in view.subviews) {
-//        
-//        
-//        
-//        NSString *className = [NSString stringWithFormat:@"%@", [subview class]];
-//        NSLog(@"SubView -- %@ --- %@",className,field);
-//        
-//        if ([className isEqualToString:field])
-//            
-//        {
-//            
-//            //Found the sub view we need to set as first responder
-//            
-//            [subview becomeFirstResponder];
-//            
-//            return YES;
-//            
-//        }
-//        
-//        
-//        
-//        if ([subview.subviews count] > 0) {
-//            
-//            if ([self setMFMailFieldAsFirstResponder:subview mfMailField:field]){
-//                
-//                //Field was found and made first responder in a subview
-//                
-//                return YES;
-//                
-//            }
-//            
-//        }
-//        
-//    }
-//    
-//    
-//    
-//    //field not found in this view.
-//    
-//    return NO;
-//}
+//  Code necessary for action sheet contact button.  No further editing needed when adding buttons in later Storyboard work.
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        MFMailComposeViewController *mailComposeViewController = [MFMailComposeViewController new];
+        [mailComposeViewController setMailComposeDelegate:self];
+        
+        [mailComposeViewController setToRecipients:[NSArray arrayWithObject:@"developer@developer.com"]];
+        [self presentViewController:mailComposeViewController animated:YES completion:nil];
+    }
+}
 
 
 @end
