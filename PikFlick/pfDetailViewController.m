@@ -209,21 +209,6 @@
 }
 
 
-//  Using shake instead of a button as I do not want to touch Storyboards at the moment.  Will delete shake action later.
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    
-    if (motion == UIEventSubtypeMotionShake) {
-        
-        
-    }
-}
-
-//  Delete canBecomeFirstResponder if temp shake motion method is no longer being used.
-- (BOOL)canBecomeFirstResponder {
-    return YES;
-}
-
-
 //  Two methods that will later be put into button actions once Storyboards can be editted.
 - (void)                ShareButtonAndContactButton {
     [shareActionSheet showInView:self.view];
