@@ -6,11 +6,12 @@
 //  Copyright (c) 2013 Brad Woodard. All rights reserved.
 //
 
+#import <Accounts/Accounts.h>
+#import <Social/Social.h>
 #import "pfDetailViewController.h"
 #import "ViewController.h"
 #import "PFMapViewController.h"
-#import <Accounts/Accounts.h>
-#import <Social/Social.h>
+#import "Movie.h"
 
 @interface pfDetailViewController ()
 {
@@ -21,6 +22,7 @@
 
 @implementation pfDetailViewController
 @synthesize incomingMovie;
+@synthesize delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -207,7 +209,13 @@
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     
     if (motion == UIEventSubtypeMotionShake) {
-
+        
+//        [delegate deleteMovieFromLists:self.movie];
+        NSLog(@"Movie TItle To Delete %@", incomingMovie.movieTitle);
+        [delegate deleteMovieFromLists:self.movie];
+//        NSLog(@"movie: %@", movie);
+        [self.navigationController popViewControllerAnimated:YES];
+        
     }
 }
 
