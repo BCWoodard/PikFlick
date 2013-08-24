@@ -258,13 +258,29 @@ SHAKE AGAIN!!</string>
                                 <rect key="frame" x="0.0" y="460" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem title="Item" width="50" id="OAC-tx-Q4h"/>
+                                    <barButtonItem title="Item" width="50" id="OAC-tx-Q4h">
+                                        <connections>
+                                            <action selector="addToShortlist:" destination="Jkr-0g-g9i" id="dK7-gg-Czd"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="YSu-MU-ugf"/>
-                                    <barButtonItem title="Item" id="XwJ-Gj-NGw"/>
+                                    <barButtonItem title="Item" id="XwJ-Gj-NGw">
+                                        <connections>
+                                            <action selector="removeMovie:" destination="Jkr-0g-g9i" id="6wg-tq-Yxq"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Qm8-nj-EqW"/>
-                                    <barButtonItem title="Item" id="H1Q-VZ-WOG"/>
+                                    <barButtonItem title="Item" id="H1Q-VZ-WOG">
+                                        <connections>
+                                            <action selector="shareMovie:" destination="Jkr-0g-g9i" id="p2O-ht-Orq"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="22p-jB-Lgb"/>
-                                    <barButtonItem title="Item" id="BEg-28-Mtl"/>
+                                    <barButtonItem title="Item" id="BEg-28-Mtl">
+                                        <connections>
+                                            <action selector="contactUs:" destination="Jkr-0g-g9i" id="zMk-vY-HhL"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -274,7 +290,11 @@ SHAKE AGAIN!!</string>
                         <barButtonItem key="backBarButtonItem" title="Detail" id="FNA-qS-KJ8"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="addToShortlistButton" destination="OAC-tx-Q4h" id="yDL-ir-grr"/>
+                        <outlet property="contactUsButton" destination="BEg-28-Mtl" id="1St-aw-hpu"/>
                         <outlet property="myDetailTableView" destination="HqD-Zn-Rs3" id="hEb-gr-sKq"/>
+                        <outlet property="removeMovieButton" destination="XwJ-Gj-NGw" id="DCa-L1-9RV"/>
+                        <outlet property="shareMovieButton" destination="H1Q-VZ-WOG" id="2b9-Up-UrV"/>
                         <segue destination="BlF-RF-4LX" kind="push" identifier="toMapView" id="WCu-cY-1sN"/>
                     </connections>
                 </viewController>
@@ -482,6 +502,7 @@ SHAKE AGAIN!!</string>
                 <relationship kind="action" name="submitCustomLocation:"/>
                 <relationship kind="outlet" name="cityTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="stateTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="useMapsAutoCompleteSearch" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="zipTextField" candidateClass="UITextField"/>
             </relationships>
         </class>
@@ -518,7 +539,10 @@ SHAKE AGAIN!!</string>
         <class className="pfDetailViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/pfDetailViewController.h"/>
             <relationships>
+                <relationship kind="action" name="addToShortlist:"/>
+                <relationship kind="outlet" name="addToShortlistButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="myDetailTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="removeMovieButton" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
     </classes>

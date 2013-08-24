@@ -17,7 +17,15 @@
     UIActionSheet *shareActionSheet;
     UIActionSheet *contactUsActionSheet;
     __weak IBOutlet UITableView *myDetailTableView;
+    __weak IBOutlet UIBarButtonItem *addToShortlistButton;
+    __weak IBOutlet UIBarButtonItem *removeMovieButton;
+    __weak IBOutlet UIBarButtonItem *shareMovieButton;
+    __weak IBOutlet UIBarButtonItem *contactUsButton;
 }
+- (IBAction)addToShortlist:(id)sender;
+- (IBAction)removeMovie:(id)sender;
+- (IBAction)shareMovie:(id)sender;
+- (IBAction)contactUs:(id)sender;
 
 @end
 
@@ -36,7 +44,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Tell Your Friends!" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share On Facebook", @"Share On Twitter", @"Share With Text", @"Share With Email", nil];
+    
+    addToShortlistButton.title = @"Add";
+    removeMovieButton.title = @"Remove";
+    shareMovieButton.title = @"Share";
+    contactUsButton.title = @"Contact";
+    
+    shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Tell Your Friends!" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Facebook", @"Tweet", @"Text", @"Email", nil];
     
     contactUsActionSheet = [[UIActionSheet alloc] initWithTitle:@"Send us an email." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Contact Us", nil];
     
@@ -209,13 +223,6 @@
 }
 
 
-//  Two methods that will later be put into button actions once Storyboards can be editted.
-- (void)                ShareButtonAndContactButton {
-    [shareActionSheet showInView:self.view];
-    [contactUsActionSheet showInView:self.view];
-}
-
-
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (actionSheet == shareActionSheet) {
         if (buttonIndex == 0) {
@@ -304,4 +311,17 @@
 }
 
 
+- (IBAction)addToShortlist:(id)sender {
+}
+
+- (IBAction)removeMovie:(id)sender {
+}
+
+- (IBAction)shareMovie:(id)sender {
+    [shareActionSheet showInView:self.view];
+}
+
+- (IBAction)contactUs:(id)sender {
+    [contactUsActionSheet showInView:self.view];
+}
 @end
