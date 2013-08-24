@@ -11,10 +11,11 @@
 #import "pfDetailViewController.h"
 #import "ViewController.h"
 #import "PFMapViewController.h"
-#import "Movie.h"
 
 @interface pfDetailViewController ()
 {
+    UIActionSheet *shareActionSheet;
+    UIActionSheet *contactUsActionSheet;
     __weak IBOutlet UITableView *myDetailTableView;
 }
 
@@ -22,7 +23,6 @@
 
 @implementation pfDetailViewController
 @synthesize incomingMovie;
-@synthesize delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,6 +36,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Tell Your Friends!" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share On Facebook", @"Share On Twitter", @"Share With Text", @"Share With Email", nil];
+    
+    contactUsActionSheet = [[UIActionSheet alloc] initWithTitle:@"Send us an email." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Contact Us", nil];
+    
     NSLog(@"TMSID: %@", incomingMovie.movieTMSID);
 }
 
@@ -210,11 +214,6 @@
     
     if (motion == UIEventSubtypeMotionShake) {
         
-//        [delegate deleteMovieFromLists:self.movie];
-        NSLog(@"Movie TItle To Delete %@", incomingMovie.movieTitle);
-        [delegate deleteMovieFromLists:self.movie];
-//        NSLog(@"movie: %@", movie);
-        [self.navigationController popViewControllerAnimated:YES];
         
     }
 }
@@ -225,8 +224,40 @@
 }
 
 
-//  This is the code for our Facebook post share button.
-- (void)                InsertThisCodeIntoButtonForFacebookPosting {
+//  Two methods that will later be put into button actions once Storyboards can be editted.
+- (void)                ShareButtonAndContactButton {
+    [shareActionSheet showInView:self.view];
+    [contactUsActionSheet showInView:self.view];
+}
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (actionSheet == shareActionSheet) {
+        if (buttonIndex == 0) {
+            [self postToFacebook];
+        }
+        if (buttonIndex ==  1) {
+            [self postOnTwitter];
+        }
+        if (buttonIndex == 2) {
+            [self shareThroughText];
+        }
+        if (buttonIndex == 3) {
+            [self shareThroughEmail];
+        }
+    } else if (actionSheet == contactUsActionSheet) {
+        if (buttonIndex == 0) {
+            MFMailComposeViewController *mailComposeViewController = [MFMailComposeViewController new];
+            [mailComposeViewController setMailComposeDelegate:self];
+            
+            [mailComposeViewController setToRecipients:[NSArray arrayWithObject:@"developer@developer.com"]];
+            [self presentViewController:mailComposeViewController animated:YES completion:nil];
+        }
+    }
+}
+
+
+- (void) postToFacebook {
     SLComposeViewController *slComposerSheet;
     if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
         slComposerSheet = [SLComposeViewController new];
@@ -241,8 +272,23 @@
 }
 
 
-//  This is the code for our SMS share button.
-- (void)                InsertThisCodeIntoBottonForTextSharing {
+- (void) postOnTwitter {
+    SLComposeViewController *slComposerSheet;
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+        slComposerSheet = [SLComposeViewController new];
+        slComposerSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+        [slComposerSheet addImage:incomingMovie.movieThumbnail];
+        [slComposerSheet setInitialText:[NSString stringWithFormat:@"PickFlick help me choose to see %@.",  incomingMovie.movieTitle]];
+        [self presentViewController:slComposerSheet animated:YES completion:nil];
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Twitter Account Unavailable" message:@"Please add a Twitter account under Settings." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+    
+}
+
+
+- (void) shareThroughText {
     MFMessageComposeViewController *composeViewController = [MFMessageComposeViewController new];
     [composeViewController setMessageComposeDelegate:self];
     
@@ -252,8 +298,8 @@
     }
 }
 
-//  This is the code for our email share button.
-- (void)                InsertThisCodeIntoBottonForEmailSharing {
+
+- (void) shareThroughEmail {
     MFMailComposeViewController *mailComposeViewController = [MFMailComposeViewController new];
     [mailComposeViewController setMailComposeDelegate:self];
     
@@ -262,33 +308,14 @@
     [self presentViewController:mailComposeViewController animated:YES completion:nil];
 }
 
-//  This is the code for our contact us action sheet button.
-- (void)                InsertThisCodeIntoActionSheetButton {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Send us an email." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Contact Us", nil];
-    
-    [actionSheet showInView:self.view];
-}
 
-//  This dismisses the Messages View Controller.  No further editing needed when adding buttons in later Storyboard work.
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
-//  This dismisses the Email View Controller.  No further editing needed when adding buttons in later Storyboard work.
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-//  Code necessary for action sheet contact button.  No further editing needed when adding buttons in later Storyboard work.
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-        MFMailComposeViewController *mailComposeViewController = [MFMailComposeViewController new];
-        [mailComposeViewController setMailComposeDelegate:self];
-        
-        [mailComposeViewController setToRecipients:[NSArray arrayWithObject:@"developer@developer.com"]];
-        [self presentViewController:mailComposeViewController animated:YES completion:nil];
-    }
 }
 
 
