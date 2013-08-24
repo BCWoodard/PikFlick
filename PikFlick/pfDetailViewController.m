@@ -6,16 +6,26 @@
 //  Copyright (c) 2013 Brad Woodard. All rights reserved.
 //
 
+#import <Accounts/Accounts.h>
+#import <Social/Social.h>
 #import "pfDetailViewController.h"
 #import "ViewController.h"
 #import "PFMapViewController.h"
 
 @interface pfDetailViewController ()
 {
+    UIActionSheet *shareActionSheet;
+    UIActionSheet *contactUsActionSheet;
     __weak IBOutlet UITableView *myDetailTableView;
-    
+    __weak IBOutlet UIBarButtonItem *addToShortlistButton;
+    __weak IBOutlet UIBarButtonItem *removeMovieButton;
+    __weak IBOutlet UIBarButtonItem *shareMovieButton;
+    __weak IBOutlet UIBarButtonItem *contactUsButton;
 }
-
+- (IBAction)addToShortlist:(id)sender;
+- (IBAction)removeMovie:(id)sender;
+- (IBAction)shareMovie:(id)sender;
+- (IBAction)contactUs:(id)sender;
 
 @end
 
@@ -34,6 +44,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    addToShortlistButton.title = @"Add";
+    removeMovieButton.title = @"Remove";
+    shareMovieButton.title = @"Share";
+    contactUsButton.title = @"Contact";
+    
+    shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Tell Your Friends!" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Facebook", @"Tweet", @"Text", @"Email", nil];
+    
+    contactUsActionSheet = [[UIActionSheet alloc] initWithTitle:@"Send us an email." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Contact Us", nil];
+    
     NSLog(@"TMSID: %@", incomingMovie.movieTMSID);
 }
 
@@ -130,7 +150,7 @@
         
     }
     return cell;
-
+    
 }
 
 #pragma mark - UITableViewDelegate
@@ -143,7 +163,7 @@
 {
     if ([segue.identifier isEqualToString:@"toMapView"]) {
         PFMapViewController *mapViewController = segue.destinationViewController;
-
+        
     }
     
 }
@@ -203,4 +223,105 @@
 }
 
 
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (actionSheet == shareActionSheet) {
+        if (buttonIndex == 0) {
+            [self postToFacebook];
+        }
+        if (buttonIndex ==  1) {
+            [self postOnTwitter];
+        }
+        if (buttonIndex == 2) {
+            [self shareThroughText];
+        }
+        if (buttonIndex == 3) {
+            [self shareThroughEmail];
+        }
+    } else if (actionSheet == contactUsActionSheet) {
+        if (buttonIndex == 0) {
+            MFMailComposeViewController *mailComposeViewController = [MFMailComposeViewController new];
+            [mailComposeViewController setMailComposeDelegate:self];
+            
+            [mailComposeViewController setToRecipients:[NSArray arrayWithObject:@"developer@developer.com"]];
+            [self presentViewController:mailComposeViewController animated:YES completion:nil];
+        }
+    }
+}
+
+
+- (void) postToFacebook {
+    SLComposeViewController *slComposerSheet;
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+        slComposerSheet = [SLComposeViewController new];
+        slComposerSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+        [slComposerSheet addImage:incomingMovie.movieThumbnail];
+        [slComposerSheet setInitialText:[NSString stringWithFormat:@"PickFlick help me choose to see %@.",  incomingMovie.movieTitle]];
+        [self presentViewController:slComposerSheet animated:YES completion:nil];
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Facebook Account Unavailable" message:@"Please add a Facebook account under Settings." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+}
+
+
+- (void) postOnTwitter {
+    SLComposeViewController *slComposerSheet;
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+        slComposerSheet = [SLComposeViewController new];
+        slComposerSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+        [slComposerSheet addImage:incomingMovie.movieThumbnail];
+        [slComposerSheet setInitialText:[NSString stringWithFormat:@"PickFlick help me choose to see %@.",  incomingMovie.movieTitle]];
+        [self presentViewController:slComposerSheet animated:YES completion:nil];
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Twitter Account Unavailable" message:@"Please add a Twitter account under Settings." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+    
+}
+
+
+- (void) shareThroughText {
+    MFMessageComposeViewController *composeViewController = [MFMessageComposeViewController new];
+    [composeViewController setMessageComposeDelegate:self];
+    
+    if ([MFMessageComposeViewController canSendText]) {
+        [composeViewController setBody:[NSString stringWithFormat:@"PickFlick helped me choose to see %@.", incomingMovie.movieTitle]];
+        [self presentViewController:composeViewController animated:YES completion:nil];
+    }
+}
+
+
+- (void) shareThroughEmail {
+    MFMailComposeViewController *mailComposeViewController = [MFMailComposeViewController new];
+    [mailComposeViewController setMailComposeDelegate:self];
+    
+    [mailComposeViewController setSubject:[NSString stringWithFormat:@"Going to see %@", incomingMovie.movieTitle]];
+    [mailComposeViewController setMessageBody:[NSString stringWithFormat:@"PickFlick helped me choose to see %@.", incomingMovie.movieTitle] isHTML:NO];
+    [self presentViewController:mailComposeViewController animated:YES completion:nil];
+}
+
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (IBAction)addToShortlist:(id)sender {
+}
+
+- (IBAction)removeMovie:(id)sender {
+}
+
+- (IBAction)shareMovie:(id)sender {
+    [shareActionSheet showInView:self.view];
+}
+
+- (IBAction)contactUs:(id)sender {
+    [contactUsActionSheet showInView:self.view];
+}
 @end
