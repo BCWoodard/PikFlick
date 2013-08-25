@@ -10,6 +10,7 @@
 #import "Constants.h"
 #import "PFMapViewController.h"
 #import "Movie.h"
+#import "Theater.h"
 
 
 @interface PFMapViewController ()
@@ -20,6 +21,7 @@
 @end
 
 @implementation PFMapViewController
+@synthesize incomingTheaters;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,10 +36,23 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
-    // Grab TMS data
-    //[self getTMSMovieInTheaterData];
-    
+//    
+//    for (int index = 0; index < [incomingTheaters count]; index++)
+//    {
+//        CLLocationCoordinate2D theaterCoordinate;
+//        theaterCoordinate.latitude = [[[incomingTheaters objectAtIndex:index] theaterLatitude] doubleValue];
+//        theaterCoordinate.longitude = [[[incomingTheaters objectAtIndex:index] theaterLongitude] doubleValue];
+//
+//        MKPointAnnotation *theaterAnnotation = [[MKPointAnnotation alloc] init];
+//        theaterAnnotation.coordinate = theaterCoordinate;
+//        theaterAnnotation.title = [[incomingTheaters objectAtIndex:index] title];
+//        
+//        [mapViewOutlet addAnnotation:theaterAnnotation];
+//        
+//    }
+    NSLog(@"incomingTheaters count: %i", incomingTheaters.count);
+
+
 
     /*
      http://data.tmsapi.com/v1/movies/showings?startDate=2013-08-21&lat=41.9&lng=-87.62&radius=5&units=mi&api_key=bbxfsp9fbvywdtwparw9hugt
@@ -64,6 +79,24 @@
     
     mapViewOutlet.showsUserLocation = YES;
     mapViewOutlet.region = startRegion;
+    
+    CLLocationCoordinate2D theaterCoord;
+    
+    for (int index = 0; index < [incomingTheaters count]; index++) {
+        
+        Theater *tempTheater = [incomingTheaters objectAtIndex:index];
+        
+        theaterCoord.latitude = [tempTheater.theaterLatitude doubleValue];
+        theaterCoord.longitude = [tempTheater.theaterLongitude doubleValue];
+        
+        MKPointAnnotation *annotationPoint = [[MKPointAnnotation alloc] init];
+        annotationPoint.coordinate = theaterCoord;
+        annotationPoint.title = [[incomingTheaters objectAtIndex:index] title];
+        annotationPoint.subtitle = [NSString stringWithFormat:@"%@ %@, %@", tempTheater.theaterStreet, tempTheater.theaterCity, tempTheater.theaterState];
+        
+        [mapViewOutlet addAnnotation:annotationPoint];
+    }
+    
 }
 
 /*

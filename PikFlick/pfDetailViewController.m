@@ -21,6 +21,7 @@
 
 @implementation pfDetailViewController
 @synthesize incomingMovie;
+@synthesize incomingTheaters;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,7 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"TMSID: %@", incomingMovie.movieTMSID);
+    
 }
 
 
@@ -143,6 +144,7 @@
 {
     if ([segue.identifier isEqualToString:@"toMapView"]) {
         PFMapViewController *mapViewController = segue.destinationViewController;
+        mapViewController.incomingTheaters = incomingTheaters;
 
     }
     

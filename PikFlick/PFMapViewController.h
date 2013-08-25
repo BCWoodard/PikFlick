@@ -12,4 +12,6 @@
 
 @interface PFMapViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate>
 
+@property (strong, nonatomic) NSArray   *incomingTheaters;
+
 @end
