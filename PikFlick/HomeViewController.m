@@ -7,6 +7,7 @@
 //
 
 #import "HomeViewController.h"
+#import "Reachability.h"
 
 @interface HomeViewController () {
     
@@ -57,4 +58,37 @@
 
 - (IBAction)submitCustomLocation:(id)sender {
 }
+
+
+#pragma mark - REACHABILITY Methods
+- (void)checkForNetwork
+{
+    // check if we've got network connectivity
+    Reachability *myNetwork = [Reachability reachabilityWithHostname:@"google.com"];
+    NetworkStatus myStatus = [myNetwork currentReachabilityStatus];
+    
+    switch (myStatus) {
+        case NotReachable:
+            NSLog(@"There's no internet connection at all. Display error message now.");
+            break;
+            
+        case ReachableViaWWAN:
+            NSLog(@"We have a 3G connection");
+            break;
+            
+        case ReachableViaWiFi:
+            NSLog(@"We have WiFi.");
+            break;
+            
+        default:
+            break;
+    }
+}
+
+
+- (void)showReachabilityAlertView
+{
+    
+}
+
 @end
