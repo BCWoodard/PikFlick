@@ -315,6 +315,8 @@
 }
 
 - (IBAction)removeMovie:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)shareMovie:(id)sender {
