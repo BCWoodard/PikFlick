@@ -25,6 +25,8 @@
 		4A3876B417BC7D7200F95ECA /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A3876B217BC7D7200F95ECA /* icon@2x.png */; };
 		4AB5374617C6FFAE005CA37C /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB5374217C6FFAE005CA37C /* libTestFlight.a */; };
 		4AB5374917C70018005CA37C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB5374817C70018005CA37C /* libz.dylib */; };
+		4AC0C92C17C9952E00714C28 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC0C92B17C9952E00714C28 /* SystemConfiguration.framework */; };
+		4AC0C92F17C9954F00714C28 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC0C92E17C9954F00714C28 /* Reachability.m */; };
 		4AF560A717C2FA0200BCF482 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A617C2FA0200BCF482 /* CoreLocation.framework */; };
 		4AF560A917C3016C00BCF482 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A817C3016C00BCF482 /* MapKit.framework */; };
 		4AF560AE17C3E8E800BCF482 /* PFMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF560AD17C3E8E800BCF482 /* PFMapViewController.m */; };
@@ -63,6 +65,9 @@
 		4AB5374417C6FFAE005CA37C /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
 		4AB5374517C6FFAE005CA37C /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
 		4AB5374817C70018005CA37C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		4AC0C92B17C9952E00714C28 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		4AC0C92D17C9954F00714C28 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		4AC0C92E17C9954F00714C28 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		4AF560A617C2FA0200BCF482 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4AF560A817C3016C00BCF482 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		4AF560AA17C30D4E00BCF482 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -84,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AC0C92C17C9952E00714C28 /* SystemConfiguration.framework in Frameworks */,
 				4AB5374917C70018005CA37C /* libz.dylib in Frameworks */,
 				4AF560A917C3016C00BCF482 /* MapKit.framework in Frameworks */,
 				4AF560A717C2FA0200BCF482 /* CoreLocation.framework in Frameworks */,
@@ -103,6 +109,8 @@
 			children = (
 				4A38768817BBEB1300F95ECA /* PikFlick */,
 				4A38768117BBEB1300F95ECA /* Frameworks */,
+				4AC0C93017C9955400714C28 /* Reachability */,
+				4AB5374717C6FFBE005CA37C /* TestFlight */,
 				4A38768017BBEB1300F95ECA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -118,6 +126,7 @@
 		4A38768117BBEB1300F95ECA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4AC0C92B17C9952E00714C28 /* SystemConfiguration.framework */,
 				4AB5374217C6FFAE005CA37C /* libTestFlight.a */,
 				4AB5374817C70018005CA37C /* libz.dylib */,
 				4A38768617BBEB1300F95ECA /* CoreGraphics.framework */,
@@ -133,7 +142,6 @@
 		4A38768817BBEB1300F95ECA /* PikFlick */ = {
 			isa = PBXGroup;
 			children = (
-				4AB5374717C6FFBE005CA37C /* TestFlight */,
 				4A38769117BBEB1300F95ECA /* AppDelegate.h */,
 				4A38769217BBEB1300F95ECA /* AppDelegate.m */,
 				4A38769A17BBEB1300F95ECA /* MainStoryboard.storyboard */,
@@ -210,6 +218,17 @@
 				4AB5374517C6FFAE005CA37C /* TestFlight+ManualSessions.h */,
 			);
 			name = TestFlight;
+			path = PikFlick;
+			sourceTree = "<group>";
+		};
+		4AC0C93017C9955400714C28 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				4AC0C92D17C9954F00714C28 /* Reachability.h */,
+				4AC0C92E17C9954F00714C28 /* Reachability.m */,
+			);
+			name = Reachability;
+			path = PikFlick;
 			sourceTree = "<group>";
 		};
 		4AF560AB17C3D2AF00BCF482 /* Archive */ = {
@@ -296,6 +315,7 @@
 				4AF560AE17C3E8E800BCF482 /* PFMapViewController.m in Sources */,
 				4AF560B117C4257900BCF482 /* Theater.m in Sources */,
 				CF71DD6C17C6837B00531FF9 /* HomeViewController.m in Sources */,
+				4AC0C92F17C9954F00714C28 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
