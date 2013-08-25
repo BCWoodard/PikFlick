@@ -36,7 +36,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	
+    // Reachability check
+    [self checkForInternet];
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -61,7 +64,7 @@
 
 
 #pragma mark - REACHABILITY Methods
-- (void)checkForNetwork
+- (void)checkForInternet
 {
     // check if we've got network connectivity
     Reachability *myNetwork = [Reachability reachabilityWithHostname:@"google.com"];
@@ -69,7 +72,8 @@
     
     switch (myStatus) {
         case NotReachable:
-            NSLog(@"There's no internet connection at all. Display error message now.");
+            [self showReachabilityAlertView];
+            NSLog(@"There's no internet connection at all.");
             break;
             
         case ReachableViaWWAN:
@@ -88,6 +92,12 @@
 
 - (void)showReachabilityAlertView
 {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Internet Connection!"
+                                                        message:@"PikFlick is unable to reach the Internet. Please check your device settings or try later."
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
+    [alertView show];
     
 }
 
