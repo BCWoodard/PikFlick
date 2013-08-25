@@ -35,32 +35,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-//    
-//    for (int index = 0; index < [incomingTheaters count]; index++)
-//    {
-//        CLLocationCoordinate2D theaterCoordinate;
-//        theaterCoordinate.latitude = [[[incomingTheaters objectAtIndex:index] theaterLatitude] doubleValue];
-//        theaterCoordinate.longitude = [[[incomingTheaters objectAtIndex:index] theaterLongitude] doubleValue];
-//
-//        MKPointAnnotation *theaterAnnotation = [[MKPointAnnotation alloc] init];
-//        theaterAnnotation.coordinate = theaterCoordinate;
-//        theaterAnnotation.title = [[incomingTheaters objectAtIndex:index] title];
-//        
-//        [mapViewOutlet addAnnotation:theaterAnnotation];
-//        
-//    }
-    NSLog(@"incomingTheaters count: %i", incomingTheaters.count);
 
-
-
-    /*
-     http://data.tmsapi.com/v1/movies/showings?startDate=2013-08-21&lat=41.9&lng=-87.62&radius=5&units=mi&api_key=bbxfsp9fbvywdtwparw9hugt
-    */
-    
-    
-
-    [self setupInitialMap];
+    if (incomingTheaters) {
+        [self setupInitialMap];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -93,6 +71,8 @@
         annotationPoint.coordinate = theaterCoord;
         annotationPoint.title = [[incomingTheaters objectAtIndex:index] title];
         annotationPoint.subtitle = [NSString stringWithFormat:@"%@ %@, %@", tempTheater.theaterStreet, tempTheater.theaterCity, tempTheater.theaterState];
+        
+        NSLog(@"Theater ID: %@", tempTheater.theaterID);
         
         [mapViewOutlet addAnnotation:annotationPoint];
     }
