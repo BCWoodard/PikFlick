@@ -26,6 +26,7 @@
 		4AB5374617C6FFAE005CA37C /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB5374217C6FFAE005CA37C /* libTestFlight.a */; };
 		4AB5374917C70018005CA37C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB5374817C70018005CA37C /* libz.dylib */; };
 		4AC0C92117C9832900714C28 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC0C92017C9832900714C28 /* Reachability.m */; };
+		4AC0C92417C9840100714C28 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC0C92317C9840100714C28 /* SystemConfiguration.framework */; };
 		4AF560A717C2FA0200BCF482 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A617C2FA0200BCF482 /* CoreLocation.framework */; };
 		4AF560A917C3016C00BCF482 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A817C3016C00BCF482 /* MapKit.framework */; };
 		4AF560AE17C3E8E800BCF482 /* PFMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF560AD17C3E8E800BCF482 /* PFMapViewController.m */; };
@@ -66,6 +67,7 @@
 		4AB5374817C70018005CA37C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		4AC0C91F17C9832900714C28 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		4AC0C92017C9832900714C28 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		4AC0C92317C9840100714C28 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4AF560A617C2FA0200BCF482 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4AF560A817C3016C00BCF482 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		4AF560AA17C30D4E00BCF482 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AC0C92417C9840100714C28 /* SystemConfiguration.framework in Frameworks */,
 				4AB5374917C70018005CA37C /* libz.dylib in Frameworks */,
 				4AF560A917C3016C00BCF482 /* MapKit.framework in Frameworks */,
 				4AF560A717C2FA0200BCF482 /* CoreLocation.framework in Frameworks */,
@@ -122,13 +125,14 @@
 		4A38768117BBEB1300F95ECA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4AB5374217C6FFAE005CA37C /* libTestFlight.a */,
-				4AB5374817C70018005CA37C /* libz.dylib */,
 				4A38768617BBEB1300F95ECA /* CoreGraphics.framework */,
 				4AF560A617C2FA0200BCF482 /* CoreLocation.framework */,
 				4A38768417BBEB1300F95ECA /* Foundation.framework */,
+				4AB5374217C6FFAE005CA37C /* libTestFlight.a */,
+				4AB5374817C70018005CA37C /* libz.dylib */,
 				4AF560A817C3016C00BCF482 /* MapKit.framework */,
 				4A3876AF17BC447800F95ECA /* QuartzCore.framework */,
+				4AC0C92317C9840100714C28 /* SystemConfiguration.framework */,
 				4A38768217BBEB1300F95ECA /* UIKit.framework */,
 			);
 			name = Frameworks;

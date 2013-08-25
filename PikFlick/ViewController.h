@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Reachability.h"
 #import "pfDeleteMovieDelegate.h"
 
 @interface ViewController : UIViewController <pfDeleteMovieDelegate>
