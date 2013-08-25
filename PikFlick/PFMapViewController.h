@@ -13,5 +13,8 @@
 @interface PFMapViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate>
 
 @property (strong, nonatomic) NSArray   *incomingTheaters;
+@property (strong, nonatomic) NSString  *incomingTMSID;
+@property (strong, nonatomic) NSString  *incomingLatForQuery;
+@property (strong, nonatomic) NSString  *incomingLngForQuery;
 
 @end

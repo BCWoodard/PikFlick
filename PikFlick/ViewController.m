@@ -395,7 +395,6 @@
 }
 
 
-
  - (void)getTMSTheaterData
  {
      // Activate the network activity indicator

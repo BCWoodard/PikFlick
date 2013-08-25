@@ -13,6 +13,7 @@
 @interface pfDetailViewController ()
 {
     __weak IBOutlet UITableView *myDetailTableView;
+    int row;
     
 }
 
@@ -137,6 +138,7 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    row = indexPath.row;
     [self performSegueWithIdentifier:@"toMapView" sender:self];
 }
 
@@ -145,6 +147,7 @@
     if ([segue.identifier isEqualToString:@"toMapView"]) {
         PFMapViewController *mapViewController = segue.destinationViewController;
         mapViewController.incomingTheaters = incomingTheaters;
+        mapViewController.incomingTMSID = incomingMovie.movieTMSID;
 
     }
     
