@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "ViewController.h"
+#import "Reachability.h"
 
-@interface HomeViewController : UIViewController
+@interface HomeViewController : UIViewController <UIAlertViewDelegate>
 
 @end
