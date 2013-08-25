@@ -107,9 +107,10 @@
 		4A38767617BBEB1300F95ECA = {
 			isa = PBXGroup;
 			children = (
-				4AC0C92217C9833200714C28 /* Reachability */,
 				4A38768817BBEB1300F95ECA /* PikFlick */,
 				4A38768117BBEB1300F95ECA /* Frameworks */,
+				4AC0C92217C9833200714C28 /* Reachability */,
+				4AB5374717C6FFBE005CA37C /* TestFlight */,
 				4A38768017BBEB1300F95ECA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -141,7 +142,6 @@
 		4A38768817BBEB1300F95ECA /* PikFlick */ = {
 			isa = PBXGroup;
 			children = (
-				4AB5374717C6FFBE005CA37C /* TestFlight */,
 				4A38769117BBEB1300F95ECA /* AppDelegate.h */,
 				4A38769217BBEB1300F95ECA /* AppDelegate.m */,
 				4A38769A17BBEB1300F95ECA /* MainStoryboard.storyboard */,
@@ -172,8 +172,6 @@
 		4A38771717BDA4D700F95ECA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				CF71DD6A17C6837B00531FF9 /* HomeViewController.h */,
-				CF71DD6B17C6837B00531FF9 /* HomeViewController.m */,
 				4A3876A917BC00B700F95ECA /* Movie.h */,
 				4A3876AA17BC00B700F95ECA /* Movie.m */,
 				4AF560AF17C4257900BCF482 /* Theater.h */,
@@ -189,6 +187,8 @@
 		4A38771817BDA4E800F95ECA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CF71DD6A17C6837B00531FF9 /* HomeViewController.h */,
+				CF71DD6B17C6837B00531FF9 /* HomeViewController.m */,
 				4A38769D17BBEB1300F95ECA /* ViewController.h */,
 				4A38769E17BBEB1300F95ECA /* ViewController.m */,
 				4FC5AD8217C2838000E3E55D /* pfDetailViewController.h */,
@@ -218,6 +218,7 @@
 				4AB5374517C6FFAE005CA37C /* TestFlight+ManualSessions.h */,
 			);
 			name = TestFlight;
+			path = PikFlick;
 			sourceTree = "<group>";
 		};
 		4AC0C92217C9833200714C28 /* Reachability */ = {
