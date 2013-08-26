@@ -32,6 +32,10 @@
 		4AF560AE17C3E8E800BCF482 /* PFMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF560AD17C3E8E800BCF482 /* PFMapViewController.m */; };
 		4AF560B117C4257900BCF482 /* Theater.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF560B017C4257900BCF482 /* Theater.m */; };
 		4FC5AD8417C2838000E3E55D /* pfDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC5AD8317C2838000E3E55D /* pfDetailViewController.m */; };
+		CF13A68217CA9CF200BB2958 /* green.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CF13A67E17CA9CF200BB2958 /* green.jpg */; };
+		CF13A68317CA9CF200BB2958 /* green@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CF13A67F17CA9CF200BB2958 /* green@2x.jpg */; };
+		CF13A68417CA9CF200BB2958 /* grey.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CF13A68017CA9CF200BB2958 /* grey.jpg */; };
+		CF13A68517CA9CF200BB2958 /* grey@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CF13A68117CA9CF200BB2958 /* grey@2x.jpg */; };
 		CF71DD6C17C6837B00531FF9 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF71DD6B17C6837B00531FF9 /* HomeViewController.m */; };
 		CF71DD6E17C7FC9100531FF9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF71DD6D17C7FC9100531FF9 /* Social.framework */; };
 		CF71DD7017C7FCFD00531FF9 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF71DD6F17C7FCFD00531FF9 /* Accounts.framework */; };
@@ -80,6 +84,10 @@
 		4AF560B017C4257900BCF482 /* Theater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theater.m; sourceTree = "<group>"; };
 		4FC5AD8217C2838000E3E55D /* pfDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pfDetailViewController.h; sourceTree = "<group>"; };
 		4FC5AD8317C2838000E3E55D /* pfDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pfDetailViewController.m; sourceTree = "<group>"; };
+		CF13A67E17CA9CF200BB2958 /* green.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = green.jpg; sourceTree = "<group>"; };
+		CF13A67F17CA9CF200BB2958 /* green@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "green@2x.jpg"; sourceTree = "<group>"; };
+		CF13A68017CA9CF200BB2958 /* grey.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = grey.jpg; sourceTree = "<group>"; };
+		CF13A68117CA9CF200BB2958 /* grey@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grey@2x.jpg"; sourceTree = "<group>"; };
 		CF71DD6A17C6837B00531FF9 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		CF71DD6B17C6837B00531FF9 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		CF71DD6D17C7FC9100531FF9 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -171,6 +179,10 @@
 		4A38768917BBEB1300F95ECA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CF13A67E17CA9CF200BB2958 /* green.jpg */,
+				CF13A67F17CA9CF200BB2958 /* green@2x.jpg */,
+				CF13A68017CA9CF200BB2958 /* grey.jpg */,
+				CF13A68117CA9CF200BB2958 /* grey@2x.jpg */,
 				4A3876B117BC7D7200F95ECA /* icon.png */,
 				4A3876B217BC7D7200F95ECA /* icon@2x.png */,
 				4A38768A17BBEB1300F95ECA /* PikFlick-Info.plist */,
@@ -311,6 +323,10 @@
 				4A38769C17BBEB1300F95ECA /* MainStoryboard.storyboard in Resources */,
 				4A3876B317BC7D7200F95ECA /* icon.png in Resources */,
 				4A3876B417BC7D7200F95ECA /* icon@2x.png in Resources */,
+				CF13A68217CA9CF200BB2958 /* green.jpg in Resources */,
+				CF13A68317CA9CF200BB2958 /* green@2x.jpg in Resources */,
+				CF13A68417CA9CF200BB2958 /* grey.jpg in Resources */,
+				CF13A68517CA9CF200BB2958 /* grey@2x.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
