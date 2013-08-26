@@ -40,7 +40,7 @@
     self.cellPeerRating.text = movie.moviePeerRating;
     self.cellTitle.textColor = [UIColor whiteColor];
     self.cellTitle.text = movie.movieTitle;
-    self.cellMPAA.text = [NSString stringWithFormat:@"MPAA %@", movie.movieMPAA];
+    self.cellMPAA.text = movie.movieMPAA;
     self.cellGenre.text = movie.movieGenre;
     
     // Show the cell as SHORTLISTED or NOT
