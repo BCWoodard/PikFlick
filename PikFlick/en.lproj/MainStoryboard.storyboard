@@ -111,35 +111,35 @@ SHAKE AGAIN!!</string>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Rating:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rhK-F1-n3t">
-                                                    <rect key="frame" x="224" y="81" width="63" height="16"/>
+                                                    <rect key="frame" x="213" y="82" width="63" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="left" text="MPAA" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cJ6-Ir-Rkm">
-                                                    <rect key="frame" x="78" y="11" width="91" height="16"/>
+                                                    <rect key="frame" x="78" y="81" width="91" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="left" text="Genre" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xNb-KC-qYm">
-                                                    <rect key="frame" x="78" y="82" width="137" height="16"/>
+                                                    <rect key="frame" x="78" y="57" width="137" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="##" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hzr-8O-5aQ">
-                                                    <rect key="frame" x="275" y="81" width="22" height="16"/>
+                                                    <rect key="frame" x="264" y="82" width="22" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" text="Label" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DQl-tb-gCH">
-                                                    <rect key="frame" x="76" y="27" width="217" height="56"/>
+                                                    <rect key="frame" x="76" y="-1" width="217" height="56"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -154,6 +154,7 @@ SHAKE AGAIN!!</string>
                                             <outlet property="cellMPAA" destination="cJ6-Ir-Rkm" id="4th-YY-NJd"/>
                                             <outlet property="cellPeerRating" destination="hzr-8O-5aQ" id="DQ7-Ln-hQc"/>
                                             <outlet property="cellTitle" destination="DQl-tb-gCH" id="BW5-sl-jps"/>
+                                            <outlet property="rawRatingText" destination="rhK-F1-n3t" id="fnJ-0a-8mK"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -167,7 +168,11 @@ SHAKE AGAIN!!</string>
                     </view>
                     <navigationItem key="navigationItem" title="PikFlick" id="boL-Cz-GuH">
                         <barButtonItem key="backBarButtonItem" title="Flicks" id="VSh-xo-5IG"/>
-                        <barButtonItem key="rightBarButtonItem" title="Sets" id="Ij4-h9-HDT"/>
+                        <barButtonItem key="rightBarButtonItem" title="Settings" id="Ij4-h9-HDT">
+                            <connections>
+                                <segue destination="DsT-So-n9i" kind="push" id="QOe-pJ-nqu"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="announcementGreeting" destination="UHn-xL-fCq" id="e8v-az-KQ6"/>
@@ -183,6 +188,33 @@ SHAKE AGAIN!!</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1604" y="89"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="2JJ-k7-eZL">
+            <objects>
+                <viewController id="DsT-So-n9i" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="o0R-rH-LtV">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="kYS-Fr-JRe">
+                                <rect key="frame" x="20" y="230" width="280" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="10 mi."/>
+                                    <segment title="20 mi."/>
+                                    <segment title="30 mi."/>
+                                    <segment title="50 mi."/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="MgN-bC-eSR"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qj0-1I-mar" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1526" y="785"/>
         </scene>
         <!--Pf Detail View Controller - Movie Detail-->
         <scene sceneID="9Qk-RN-gGa">
@@ -353,7 +385,7 @@ SHAKE AGAIN!!</string>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FnY-DY-xWC">
-                                <rect key="frame" x="72" y="50" width="177" height="44"/>
+                                <rect key="frame" x="72" y="20" width="177" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Use Current Location">
@@ -369,7 +401,7 @@ SHAKE AGAIN!!</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kTw-AV-p3x">
-                                <rect key="frame" x="83" y="143" width="155" height="44"/>
+                                <rect key="frame" x="83" y="113" width="155" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Enter My Location">
@@ -384,7 +416,7 @@ SHAKE AGAIN!!</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Nrb-3q-C5C">
-                                <rect key="frame" x="210" y="353" width="75" height="44"/>
+                                <rect key="frame" x="210" y="283" width="75" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Submit">
@@ -400,60 +432,60 @@ SHAKE AGAIN!!</string>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="q4q-ob-9N6">
-                                <rect key="frame" x="51" y="248" width="97" height="30"/>
+                                <rect key="frame" x="51" y="178" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="ZVq-lS-lpo">
-                                <rect key="frame" x="188" y="248" width="97" height="30"/>
+                                <rect key="frame" x="188" y="178" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="UvH-47-m3O">
-                                <rect key="frame" x="112" y="320" width="97" height="30"/>
+                                <rect key="frame" x="112" y="250" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Or" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AVw-gW-fvG">
-                                <rect key="frame" x="151" y="283" width="19" height="21"/>
+                                <rect key="frame" x="151" y="213" width="19" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Or" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5wL-UJ-ChN">
-                                <rect key="frame" x="151" y="107" width="19" height="21"/>
+                                <rect key="frame" x="151" y="77" width="19" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="ZIP" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Paf-od-SHS">
-                                <rect key="frame" x="139" y="358" width="27" height="21"/>
+                                <rect key="frame" x="139" y="288" width="27" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="City" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wWj-X2-POj">
-                                <rect key="frame" x="72" y="286" width="30" height="21"/>
+                                <rect key="frame" x="72" y="216" width="30" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="State" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gtM-6b-2jn">
-                                <rect key="frame" x="227" y="283" width="40" height="21"/>
+                                <rect key="frame" x="227" y="213" width="40" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="eEc-9l-o11">
-                                <rect key="frame" x="112" y="404" width="97" height="30"/>
+                                <rect key="frame" x="112" y="334" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -534,15 +566,21 @@ SHAKE AGAIN!!</string>
                 <relationship kind="outlet" name="cellMPAA" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="cellPeerRating" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="cellTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="rawRatingText" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="pfDetailViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/pfDetailViewController.h"/>
             <relationships>
                 <relationship kind="action" name="addToShortlist:"/>
+                <relationship kind="action" name="contactUs:"/>
+                <relationship kind="action" name="removeMovie:"/>
+                <relationship kind="action" name="shareMovie:"/>
                 <relationship kind="outlet" name="addToShortlistButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="contactUsButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="myDetailTableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="removeMovieButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="shareMovieButton" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
     </classes>

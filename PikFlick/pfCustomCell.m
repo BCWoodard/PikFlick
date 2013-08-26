@@ -18,6 +18,7 @@
 @property (strong, nonatomic) IBOutlet UILabel      *cellTitle;
 @property (strong, nonatomic) IBOutlet UILabel      *cellMPAA;
 @property (strong, nonatomic) IBOutlet UILabel      *cellGenre;
+@property (weak, nonatomic) IBOutlet UILabel *rawRatingText;
 
 @end
 
@@ -38,9 +39,17 @@
 - (void)loadMovie:(Movie *)movie {
     self.cellImage.image = movie.movieThumbnail;
     self.cellPeerRating.text = movie.moviePeerRating;
+    if (movie.moviePeerRating.intValue >= 60) {
+        self.cellPeerRating.textColor = [UIColor colorWithRed:0.28552353 green:0.98823529 blue:0.11372549 alpha:1];
+        self.rawRatingText.textColor = [UIColor colorWithRed:0.28552353 green:0.98823529 blue:0.11372549 alpha:1];
+    } else {
+        self.cellPeerRating.textColor = [UIColor colorWithRed:1 green:0.12941176 blue:0.12941176 alpha:1];
+        self.rawRatingText.textColor = [UIColor colorWithRed:1 green:0.12941176 blue:0.12941176 alpha:1];
+    }
     self.cellTitle.textColor = [UIColor whiteColor];
     self.cellTitle.text = movie.movieTitle;
-    self.cellMPAA.text = [NSString stringWithFormat:@"MPAA %@", movie.movieMPAA];
+    self.cellMPAA.textColor = [UIColor whiteColor];
+    self.cellMPAA.text = movie.movieMPAA;
     self.cellGenre.text = movie.movieGenre;
     
     // Show the cell as SHORTLISTED or NOT
