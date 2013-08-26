@@ -11,13 +11,10 @@
 
 @interface HomeViewController () {
     
-    __weak IBOutlet UITextField *cityTextField;
-    __weak IBOutlet UITextField *stateTextField;
-    __weak IBOutlet UITextField *zipTextField;
-    __weak IBOutlet UITextField *useMapsAutoCompleteSearch;
+    BOOL                        clearText;
+    __weak IBOutlet UITextField *locationField;
 }
 - (IBAction)findCurrentLocation:(id)sender;
-- (IBAction)enterCurrentLocation:(id)sender;
 - (IBAction)submitCustomLocation:(id)sender;
 
 @end
@@ -39,11 +36,10 @@
 	
     // Reachability check
     [self checkForInternet];
-    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    ViewController *viewController = segue.destinationViewController;
+//    ViewController *viewController = segue.destinationViewController;
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,11 +49,9 @@
 }
 
 - (IBAction)findCurrentLocation:(id)sender {
-    [self performSegueWithIdentifier:@"Use Current Location" sender:self];
+    [self performSegueWithIdentifier:@"Location" sender:self];
 }
 
-- (IBAction)enterCurrentLocation:(id)sender {
-}
 
 - (IBAction)submitCustomLocation:(id)sender {
 }

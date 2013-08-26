@@ -65,9 +65,9 @@
     
     [[[[UIApplication sharedApplication] delegate] window] addSubview:selectedMovieOverlay];
     
-//    selectedMoviePoster.layer.shadowColor = [UIColor whiteColor].CGColor;
-//    selectedMoviePoster.layer.shadowOpacity = 1;
-//    selectedMoviePoster.layer.shadowRadius = 15;
+    selectedMoviePoster.layer.shadowColor = [UIColor whiteColor].CGColor;
+    selectedMoviePoster.layer.shadowOpacity = 1;
+    selectedMoviePoster.layer.shadowRadius = 15;
     
     selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
     [selectedMovieOverlay setHidden:YES];

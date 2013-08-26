@@ -96,9 +96,6 @@
 		CF71DD6D17C7FC9100531FF9 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		CF71DD6F17C7FCFD00531FF9 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		CF71DD7117C80C3E00531FF9 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		CFFD3C6017C269FE00B4A888 /* DetailedShakeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailedShakeView.h; path = "/Users/Kamiccolo/Documents/Mobile Makers/PickFlick/PikFlickWeek2/PikFlick/DetailedShakeView.h"; sourceTree = "<absolute>"; };
-		CFFD3C6117C269FE00B4A888 /* DetailedShakeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailedShakeView.m; path = "/Users/Kamiccolo/Documents/Mobile Makers/PickFlick/PikFlickWeek2/PikFlick/DetailedShakeView.m"; sourceTree = "<absolute>"; };
-		CFFD3C6317C2770200B4A888 /* OriginalNameIsDetailedShakeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OriginalNameIsDetailedShakeView.xib; path = "/Users/Kamiccolo/Documents/Mobile Makers/PickFlick/PikFlickWeek2/PikFlick/OriginalNameIsDetailedShakeView.xib"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,9 +200,6 @@
 				4A3876AA17BC00B700F95ECA /* Movie.m */,
 				4AF560AF17C4257900BCF482 /* Theater.h */,
 				4AF560B017C4257900BCF482 /* Theater.m */,
-				CFFD3C6017C269FE00B4A888 /* DetailedShakeView.h */,
-				CFFD3C6117C269FE00B4A888 /* DetailedShakeView.m */,
-				CFFD3C6317C2770200B4A888 /* OriginalNameIsDetailedShakeView.xib */,
 				4AF560AA17C30D4E00BCF482 /* Constants.h */,
 			);
 			name = Classes;
