@@ -27,6 +27,7 @@
 @synthesize incomingTheaters;
 @synthesize incomingLatForQuery;
 @synthesize incomingLngForQuery;
+@synthesize incomingMovieTitle;
 @synthesize incomingTMSID;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -44,7 +45,8 @@
     
     [super viewDidLoad];
 
-    
+    // UI Elements
+    self.navigationItem.title = incomingMovieTitle;
     // Get data to show specific theaters
     [self getTheatersShowingMovie];
     

@@ -174,6 +174,7 @@
     if ([segue.identifier isEqualToString:@"toMapView"]) {
         PFMapViewController *mapViewController = segue.destinationViewController;
         mapViewController.incomingTheaters = incomingTheaters;
+        mapViewController.incomingMovieTitle = incomingMovie.movieTitle;
         mapViewController.incomingTMSID = incomingMovie.movieTMSID;
     }
     
