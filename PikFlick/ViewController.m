@@ -65,9 +65,9 @@
     
     [[[[UIApplication sharedApplication] delegate] window] addSubview:selectedMovieOverlay];
     
-    selectedMoviePoster.layer.shadowColor = [UIColor whiteColor].CGColor;
-    selectedMoviePoster.layer.shadowOpacity = 1;
-    selectedMoviePoster.layer.shadowRadius = 15;
+//    selectedMoviePoster.layer.shadowColor = [UIColor whiteColor].CGColor;
+//    selectedMoviePoster.layer.shadowOpacity = 1;
+//    selectedMoviePoster.layer.shadowRadius = 15;
     
     selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
     [selectedMovieOverlay setHidden:YES];
@@ -279,6 +279,8 @@
     cell.delegate = self;
     cell.movie = movie;
     
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"grey@2x.jpg"]];
+    
     return cell;
 }
 
@@ -301,8 +303,9 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 108.0f;
+    return 110;
 }
+
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     cell.backgroundColor = [self colorForIndex:indexPath.row];

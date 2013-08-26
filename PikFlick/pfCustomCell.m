@@ -23,7 +23,7 @@
 
 @implementation pfCustomCell
 {
-    CAGradientLayer             *_gradientLayer;
+    CALayer                     *_defaultBackgroundLayer;
     CALayer                     *_movieToSeeLayer;
     CGPoint                     _originalCellCenter;
     BOOL                        _deleteCellOnDragRelease;
@@ -40,7 +40,7 @@
     self.cellPeerRating.text = movie.moviePeerRating;
     self.cellTitle.textColor = [UIColor whiteColor];
     self.cellTitle.text = movie.movieTitle;
-    self.cellMPAA.text = movie.movieMPAA;
+    self.cellMPAA.text = [NSString stringWithFormat:@"MPAA %@", movie.movieMPAA];
     self.cellGenre.text = movie.movieGenre;
     
     // Show the cell as SHORTLISTED or NOT
@@ -56,16 +56,7 @@ const float UI_CUES_WIDTH = 120.0f;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // add a layer that overlays the cell adding a subtle gradient effect
-    _gradientLayer = [CAGradientLayer layer];
-    _gradientLayer.frame = self.bounds;
-    _gradientLayer.colors = @[(id)[[UIColor colorWithWhite:1.0f alpha:0.2f] CGColor],
-                              (id)[[UIColor colorWithWhite:0.8f alpha:0.1f] CGColor],
-                              (id)[[UIColor clearColor] CGColor],
-                              (id)[[UIColor colorWithWhite:0.2f alpha:1.0f] CGColor]];
-    _gradientLayer.locations = @[@0.00f, @0.01f, @0.99f, @1.00f];
-    [self.layer insertSublayer:_gradientLayer atIndex:0];
-
+        
     // Add the DELETE context and SHORTLIST context
     movieToSeeLabel = [self createCueLabel];
     movieToSeeLabel.numberOfLines = 0;
@@ -78,11 +69,30 @@ const float UI_CUES_WIDTH = 120.0f;
     deleteMovieLabel.textAlignment = NSTextAlignmentLeft;
     [self addSubview:deleteMovieLabel];
     
+    
     _movieToSeeLayer = [CALayer layer];
-    _movieToSeeLayer.backgroundColor = [[[UIColor alloc] initWithRed:0.0f green:0.8f blue:0.0f alpha:1.0f] CGColor];
+    _defaultBackgroundLayer = [CALayer layer];
+    if ([[UIScreen mainScreen] bounds].origin.y > 480) {
+        _movieToSeeLayer.contents = (id) [[UIImage imageNamed:@"green@2x.jpg"] CGImage];
+        _defaultBackgroundLayer.contents = (id) [[UIImage imageNamed:@"grey@2x.jpg"] CGImage];
+    } else {
+        _movieToSeeLayer.contents = (id) [[UIImage imageNamed:@"green.jpg"] CGImage];
+        _defaultBackgroundLayer.contents = (id) [[UIImage imageNamed:@"grey.jpg"] CGImage];
+    }
+    _movieToSeeLayer.bounds = CGRectMake(0, 0, 320, 120);
     _movieToSeeLayer.hidden = YES;
-    [self.layer insertSublayer:_movieToSeeLayer atIndex:0];
+    
+//  The code for creating a shadow appears to make the tableView lag.
+//    _defaultBackgroundLayer.shadowColor = [UIColor whiteColor].CGColor;
+//    _defaultBackgroundLayer.shadowOpacity = 1;
+//    _defaultBackgroundLayer.shadowRadius = 5;
 
+    
+    [self.layer insertSublayer:_movieToSeeLayer atIndex:0];
+    _defaultBackgroundLayer.bounds = CGRectMake(0, 0, 320, 120);
+    [self.layer insertSublayer:_defaultBackgroundLayer atIndex:0];    
+    
+    
     // add a pan recognizer
     recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
     recognizer.delegate = self;
@@ -94,15 +104,15 @@ const float UI_CUES_WIDTH = 120.0f;
 -(void) layoutSubviews {
     [super layoutSubviews];
     // ensure the gradient movieToSee layers occupies the full bounds
-    _gradientLayer.frame = self.bounds;
+    _defaultBackgroundLayer.frame = self.bounds;
     _movieToSeeLayer.frame = self.bounds;
     
     // Contextual cues
     movieToSeeLabel.frame = CGRectMake(-UI_CUES_WIDTH - UI_CUES_MARGIN, 0,
-                                  UI_CUES_WIDTH, self.bounds.size.height);
+                                       UI_CUES_WIDTH, self.bounds.size.height);
     deleteMovieLabel.frame = CGRectMake(self.bounds.size.width + UI_CUES_MARGIN, 0,
-                                   UI_CUES_WIDTH, self.bounds.size.height);
-
+                                        UI_CUES_WIDTH, self.bounds.size.height);
+    
 }
 
 // Create the contextual cues
@@ -117,12 +127,12 @@ const float UI_CUES_WIDTH = 120.0f;
 
 #pragma mark - Horizontal PAN Gesture Handler
 -(BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer {
-   
+    
     // Check for gesture other than pan gesture
     if ([gestureRecognizer class] != [UIPanGestureRecognizer class]) {
         return NO;
     }
-     CGPoint translation = [gestureRecognizer translationInView:[self superview]];
+    CGPoint translation = [gestureRecognizer translationInView:[self superview]];
     // Check for horizontal gesture
     // The fabs() function computes the absolute value of a floating-point number x.
     // The fabsf() function is a single-precision version of fabs().
@@ -165,20 +175,20 @@ const float UI_CUES_WIDTH = 120.0f;
         CGRect originalFrame = CGRectMake(0, self.frame.origin.y,
                                           self.bounds.size.width, self.bounds.size.height);
         
-        // if the item is not being deleted, snap back to the original location        
+        // if the item is not being deleted, snap back to the original location
         if (!_deleteCellOnDragRelease) {
             [UIView animateWithDuration:0.2
                              animations:^{
                                  self.frame = originalFrame;
-            }];
+                             }];
         }
         
         // notify the delegate that this item should be deleted
         if (_deleteCellOnDragRelease) {
             [delegate deleteMovieFromLists:self.movie];
-
+            
 		}
-
+        
         // If the item is not being added to the shortlist, snap back to the original location
         if (!_addToMovieQueueOnDragRelease) {
             [UIView animateWithDuration:0.2
