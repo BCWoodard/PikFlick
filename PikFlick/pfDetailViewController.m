@@ -17,10 +17,15 @@
     UIActionSheet *shareActionSheet;
     UIActionSheet *contactUsActionSheet;
     __weak IBOutlet UITableView *myDetailTableView;
+<<<<<<< HEAD
     __weak IBOutlet UIBarButtonItem *addToShortlistButton;
     __weak IBOutlet UIBarButtonItem *removeMovieButton;
     __weak IBOutlet UIBarButtonItem *shareMovieButton;
     __weak IBOutlet UIBarButtonItem *contactUsButton;
+=======
+    int row;
+    
+>>>>>>> master
 }
 - (IBAction)addToShortlist:(id)sender;
 - (IBAction)removeMovie:(id)sender;
@@ -31,6 +36,7 @@
 
 @implementation pfDetailViewController
 @synthesize incomingMovie;
+@synthesize incomingTheaters;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,6 +51,7 @@
 {
     [super viewDidLoad];
     
+<<<<<<< HEAD
     addToShortlistButton.title = @"Add";
     removeMovieButton.title = @"Remove";
     shareMovieButton.title = @"Share";
@@ -55,6 +62,8 @@
     contactUsActionSheet = [[UIActionSheet alloc] initWithTitle:@"Send us an email." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Contact Us", nil];
     
     NSLog(@"TMSID: %@", incomingMovie.movieTMSID);
+=======
+>>>>>>> master
 }
 
 
@@ -156,6 +165,7 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    row = indexPath.row;
     [self performSegueWithIdentifier:@"toMapView" sender:self];
 }
 
@@ -163,7 +173,13 @@
 {
     if ([segue.identifier isEqualToString:@"toMapView"]) {
         PFMapViewController *mapViewController = segue.destinationViewController;
+<<<<<<< HEAD
         
+=======
+        mapViewController.incomingTheaters = incomingTheaters;
+        mapViewController.incomingTMSID = incomingMovie.movieTMSID;
+
+>>>>>>> master
     }
     
 }

@@ -13,6 +13,7 @@
 
 @interface pfDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate>
 
-@property (strong, nonatomic) Movie *incomingMovie;
+@property (strong, nonatomic) Movie     *incomingMovie;
+@property (strong, nonatomic) NSArray   *incomingTheaters;
 
 @end

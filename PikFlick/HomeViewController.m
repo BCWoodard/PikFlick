@@ -7,6 +7,7 @@
 //
 
 #import "HomeViewController.h"
+#import "Reachability.h"
 
 @interface HomeViewController () {
     
@@ -35,7 +36,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	
+    // Reachability check
+    [self checkForInternet];
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -57,4 +61,44 @@
 
 - (IBAction)submitCustomLocation:(id)sender {
 }
+
+
+#pragma mark - REACHABILITY Methods
+- (void)checkForInternet
+{
+    // check if we've got network connectivity
+    Reachability *myNetwork = [Reachability reachabilityWithHostname:@"google.com"];
+    NetworkStatus myStatus = [myNetwork currentReachabilityStatus];
+    
+    switch (myStatus) {
+        case NotReachable:
+            [self showReachabilityAlertView];
+            NSLog(@"There's no internet connection at all.");
+            break;
+            
+        case ReachableViaWWAN:
+            NSLog(@"We have a 3G connection");
+            break;
+            
+        case ReachableViaWiFi:
+            NSLog(@"We have WiFi.");
+            break;
+            
+        default:
+            break;
+    }
+}
+
+
+- (void)showReachabilityAlertView
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Internet Connection!"
+                                                        message:@"PikFlick is unable to reach the Internet. Please check your device settings or try later."
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
+    [alertView show];
+    
+}
+
 @end

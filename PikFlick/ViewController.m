@@ -20,6 +20,7 @@
 {
     NSArray                     *moviesArray;
     NSArray                     *moviesShortlist;
+    NSArray                     *theatersArray;
     Movie                       *selectedMovie;
     CLLocationManager           *locationManager;
     NSString                    *startDate;
@@ -46,7 +47,6 @@
 
 - (void)viewDidLoad
 {
-    NSLog(@"View Controller Loaded");
     // Alloc and init moviesToSeeArray
     moviesShortlist = [[NSArray alloc] init];
     
@@ -54,8 +54,9 @@
     
     // Utility methods
     [self getRottenTomatoesDATA];
+    [self getTMSTheaterData];
     [self listenForNotifications];
-    
+        
     // UI Elements
     moviesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     moviesTable.backgroundColor = [UIColor blackColor];
@@ -79,9 +80,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    incomingLatForQuery = [(AppDelegate *)[[UIApplication sharedApplication] delegate] latForQuery];
-    incomingLngForQuery = [(AppDelegate *)[[UIApplication sharedApplication] delegate] lngForQuery];
-    
     //hide highlighting when returning to table
     [super viewWillAppear:animated];
     NSIndexPath *selectedIndexPath = [moviesTable indexPathForSelectedRow];
@@ -297,6 +295,7 @@
     if ([segue.identifier isEqualToString:@"toDetailView"]) {
         pfDetailViewController *detailViewController = segue.destinationViewController;
         detailViewController.incomingMovie = [moviesArray objectAtIndex:[moviesTable indexPathForSelectedRow].row];
+        detailViewController.incomingTheaters = theatersArray;
     }
 }
 
@@ -351,36 +350,7 @@
     }];
 }
 
-/*
-- (void)getTMSTheaterData
-{
-    // Activate the network activity indicator
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    
-    // Generate NSURL and perform TMS query
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/theatres?lat=41.9&lng=-87.62&radius=10&units=mi&api_key=%@", TMS_API_KEY]];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        
-        // Retrieve theater data array from TMS
-        NSArray *tmsTheatersArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-        NSMutableArray *tempTheaters = [[NSMutableArray alloc] initWithCapacity:15];
-        
-        for (NSDictionary *dictionary in tmsTheatersArray) {
-            Theater *theater = [[Theater alloc] initWithTheaterDictionary:dictionary];
-            [tempTheaters addObject:theater];
-            
-        }
-        
-        // stop the activity indicator
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    }];
-    
-}
-*/
-
-// #1. Get todays date for TMS query
+// Get todays date for TMS query
 - (NSString *)getTodaysDate
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -390,14 +360,23 @@
     return startDate;
 }
 
+- (void)getLatAndLngForTMS
+{
+    // Get Latitude and Longitude for device
+    incomingLatForQuery = [(AppDelegate *)[[UIApplication sharedApplication] delegate] latForQuery];
+    incomingLngForQuery = [(AppDelegate *)[[UIApplication sharedApplication] delegate] lngForQuery];
+    //NSLog(@"Lat: %@, Lng: %@", incomingLatForQuery, incomingLngForQuery);
+}
+
 
 - (void)getTMSMovieInTheaterData
 {
-    NSString *latitude = [(AppDelegate *)[[UIApplication sharedApplication] delegate] latForQuery];
-    NSString *longitude = [(AppDelegate *)[[UIApplication sharedApplication] delegate] lngForQuery];
+//    NSString *latitude = [(AppDelegate *)[[UIApplication sharedApplication] delegate] latForQuery];
+//    NSString *longitude = [(AppDelegate *)[[UIApplication sharedApplication] delegate] lngForQuery];
+    [self getLatAndLngForTMS];
     NSString *todaysDate = [self getTodaysDate];
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/showings?startDate=%@&lat=%@&lng=%@&radius=%i&units=mi&api_key=%@", todaysDate, latitude, longitude, DISTANCE_FROM_USER, TMS_API_KEY]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/showings?startDate=%@&lat=%@&lng=%@&radius=%i&units=mi&api_key=%@", todaysDate, incomingLatForQuery, incomingLngForQuery, DISTANCE_FROM_USER, TMS_API_KEY]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         
@@ -413,6 +392,38 @@
             }
         }
     }];
+}
+
+
+ - (void)getTMSTheaterData
+ {
+     // Activate the network activity indicator
+     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
+     // Get latitude and longitude values
+     [self getLatAndLngForTMS];
+     
+     // Generate NSURL and perform TMS query
+     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/theatres?lat=%@&lng=%@&radius=10&units=mi&api_key=%@", incomingLatForQuery, incomingLngForQuery, TMS_API_KEY]];
+     
+     NSURLRequest *request = [NSURLRequest requestWithURL:url];
+     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+         
+         // Retrieve theater data array from TMS
+         NSArray *tmsTheatersArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+         NSMutableArray *tempTheaters = [[NSMutableArray alloc] initWithCapacity:25];
+
+         for (NSDictionary *dictionary in tmsTheatersArray) {
+             Theater *theater = [[Theater alloc] initWithTheaterDictionary:dictionary];
+             [tempTheaters addObject:theater];
+          }
+         
+         theatersArray = tempTheaters;
+         
+     // stop the activity indicator
+     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+         
+     }];
 }
 
 
@@ -553,40 +564,3 @@
 
 
 @end
-
-
-#pragma mark - TMS Data Retrieval -
-/*
- TMS Connection Info
- Username: bcwoodard
- Password: MobileMakers2013
- API Key:  bbxfsp9fbvywdtwparw9hugt
- 
- First Feed: "Movies Playing in Local Theaters"
- Data to Grab:
- - Match movie.movieTitle to key "title"
- - Get TMSID
- - Get Theater ID
- 
- Must pass:
- - Start date: yyyy-mm-dd
- - numDays
- - Latitude
- - Longitude
- 
- Example Query:
- http://data.tmsapi.com/v1/movies/showings?startDate=2013-08-19&numDays=5&lat=41.8491&lng=-87.6353&api_key=bbxfsp9fbvywdtwparw9hugt
- 
- 
- 
- // #1. Get todays date for TMS query
- - (NSString *)getTodaysDate
- {
- NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
- [dateFormatter setDateFormat:@"yyyy-MM-dd"];
- startDate = [dateFormatter stringFromDate:[NSDate date]];
- 
- return startDate;
- }
- 
- */
