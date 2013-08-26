@@ -158,6 +158,13 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (!incomingMovie.movieTMSID) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Not Showing Near You" message:[NSString stringWithFormat:@"\"%@\" is not showing within %i miles of you", incomingMovie.movieTitle, DISTANCE_FROM_USER] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        
+        [alertView show];
+        
+    }
+    
     row = indexPath.row;
     [self performSegueWithIdentifier:@"toMapView" sender:self];
 }

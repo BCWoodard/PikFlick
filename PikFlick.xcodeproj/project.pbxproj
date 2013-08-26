@@ -103,13 +103,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
 				CF71DD7217C80C3E00531FF9 /* MessageUI.framework in Frameworks */,
 				CF71DD7017C7FCFD00531FF9 /* Accounts.framework in Frameworks */,
 				CF71DD6E17C7FC9100531FF9 /* Social.framework in Frameworks */,
-=======
 				4AC0C92C17C9952E00714C28 /* SystemConfiguration.framework in Frameworks */,
->>>>>>> master
 				4AB5374917C70018005CA37C /* libz.dylib in Frameworks */,
 				4AF560A917C3016C00BCF482 /* MapKit.framework in Frameworks */,
 				4AF560A717C2FA0200BCF482 /* CoreLocation.framework in Frameworks */,

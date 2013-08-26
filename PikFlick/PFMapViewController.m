@@ -154,6 +154,9 @@
     [self getTodaysDate];
     [self getLatAndLngForTMS];
     
+    if (!incomingTMSID) {
+        NSLog(@"No TMSID");
+    } else {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/%@/showings?startDate=%@&numDays=1&lat=%@&lng=%@&api_key=%@", incomingTMSID, startDate, incomingLatForQuery, incomingLngForQuery, TMS_API_KEY]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -161,26 +164,37 @@
         // Activity indicator
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         
-        NSArray *allDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-        [allDataArray enumerateObjectsUsingBlock:^(NSDictionary *showtimeDict, NSUInteger idx, BOOL *stop) {
-            showtimeDict = [allDataArray objectAtIndex:idx];
-            NSArray *showtimesArray = [showtimeDict objectForKey:@"showtimes"];
-            [showtimesArray enumerateObjectsUsingBlock:^(NSDictionary *theatreDict, NSUInteger idx, BOOL *stop) {
-                theatreDict = [showtimesArray objectAtIndex:idx];
-                NSString *theaterID = [[theatreDict objectForKey:@"theatre"] valueForKey:@"id"];
-                
-                [theatersShowingMovie addObject:theaterID];
-                
-                
+//       if ([data isKindOfClass:[NSDictionary class]]) {
+//           NSLog(@"TMS Error: %@", data.description);
+//           
+//        } else if ([data isKindOfClass:[NSArray class]]) {
+            NSArray *allDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            if ([data length] > 0 && error == nil) {
+                [allDataArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    if ([[[allDataArray objectAtIndex:idx] valueForKey:@"errorCode"] isEqualToString:@"1008"]) {
+                        NSLog(@"No showtime dictionary for selection");
+                        *stop = YES;
+                    } else {
+                        NSDictionary *showtimeDict = [allDataArray objectAtIndex:idx];
+                        NSArray *showtimesArray = [showtimeDict objectForKey:@"showtimes"];
+                        [showtimesArray enumerateObjectsUsingBlock:^(NSDictionary *theatreDict, NSUInteger idx, BOOL *stop) {
+                            theatreDict = [showtimesArray objectAtIndex:idx];
+                            NSString *theaterID = [[theatreDict objectForKey:@"theatre"] valueForKey:@"id"];
+                            [theatersShowingMovie addObject:theaterID];
+                        }];
+                    }
             }];
-        }];
-        
+            } else {
+                NSLog(@"Error retrieving data from TMS");
+            }
+        //}
         // Send notification that our download is complete
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DownloadComplete" object:self];
         
         // Stop activity indicator
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
+    }
 }
 
 @end
