@@ -74,10 +74,7 @@
     [selectedMovieOverlay setHidden:YES];
     
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
-<<<<<<< HEAD
-    
-=======
->>>>>>> Location
+
     moviesTable.frame = CGRectMake(0, 0, screenSize.width, screenSize.height - 64);
 }
 
@@ -88,45 +85,27 @@
     [super viewWillAppear:animated];
     NSIndexPath *selectedIndexPath = [moviesTable indexPathForSelectedRow];
     [moviesTable deselectRowAtIndexPath:selectedIndexPath animated:YES];
-<<<<<<< HEAD
-    
-=======
->>>>>>> Location
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-<<<<<<< HEAD
-    BOOL hasBeenLaunched = [[NSUserDefaults standardUserDefaults] boolForKey:@"firstTime"];
-    
-    if (hasBeenLaunched) {
-=======
+
     //[self getTMSMovieInTheaterData];
     BOOL hasBeenLaunched = [[NSUserDefaults standardUserDefaults] boolForKey:@"firstTime"];
     
     if (!hasBeenLaunched) {
->>>>>>> Location
         [self tutorialOverlay];
     } else {
         [tutorialOverlay setHidden:YES];
     }
-<<<<<<< HEAD
-=======
 }
 
 - (void)tutorialOverlay {
     [tutorialOverlay setHidden:NO];
     tutorialOverlay.image = [UIImage imageNamed:@"overlay.png"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTime"];
->>>>>>> Location
 }
 
-- (void)tutorialOverlay
-{
-    [tutorialOverlay setHidden:NO];
-    tutorialOverlay.image = [UIImage imageNamed:@"overlay"];
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTime"];
-}
 
 #pragma mark - Shaking and Movie Selection
 - (void)preselectRandomMovie
@@ -137,7 +116,6 @@
         selectedMovie = [self randomMovieFromArray:moviesArray];
     }
     
-<<<<<<< HEAD
     [selectedMovie fetchPoster];
 }
 
@@ -145,15 +123,8 @@
 {
     if (![array count]) {
         return nil;
-=======
-    if ([touch view] == tutorialOverlay) {
-        [UIView animateWithDuration:0.15 animations:^{
-            tutorialOverlay.transform = CGAffineTransformScale(tutorialOverlay.transform, 0.01, 0.01);
-        } completion:^(BOOL finished) {
-            [tutorialOverlay setHidden:YES];
-        }];
->>>>>>> Location
     }
+
     return [array objectAtIndex:arc4random() % [array count]];
 }
 
@@ -430,13 +401,9 @@
 - (void)dealloc
 {
     // dealloc our notification centers
-<<<<<<< HEAD
     [[NSNotificationCenter defaultCenter] removeObserver:self name:GENRE_FOUND_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:THUMBNAIL_FOUND_NOTIFICATION object:nil];
-=======
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"GenreFound" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ThumbnailFound" object:nil];
->>>>>>> Location
+
 }
 
 #pragma mark - DELEGATE IMPLEMENTATION
@@ -517,9 +484,8 @@
     }];
 }
 
-<<<<<<< HEAD
-=======
-- (IBAction)showMovieDetails:(id)sender {
+
+    - (IBAction)showMovieDetails:(id)sender {
     selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
     [selectedMovieOverlay setHidden:YES];
     [self performSegueWithIdentifier:@"toDetailView" sender:self];
@@ -529,12 +495,10 @@
     [self performSegueWithIdentifier:@"userSettings" sender:self];
 }
 
->>>>>>> Location
-
+    
 #pragma mark - LISTEN for Notifications
 - (void)listenForNotifications
 {
-<<<<<<< HEAD
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(getMovieGenre:)
                                                  name:GENRE_FOUND_NOTIFICATION
@@ -544,19 +508,7 @@
                                              selector:@selector(getPosterThumbnail:)
                                                  name:THUMBNAIL_FOUND_NOTIFICATION
                                                object:nil];
-=======
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(getMovieGenre:)
-     name:@"GenreFound"
-     object:nil];
-    
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(getPosterThumbnail:)
-     name:@"ThumbnailFound"
-     object:nil];
->>>>>>> Location
+
 }
 
 
