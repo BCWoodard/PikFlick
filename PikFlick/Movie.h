@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+#define THUMBNAIL_FOUND_NOTIFICATION @"ThumbnailFound"
+#define GENRE_FOUND_NOTIFICATION @"GenreFound"
+#define POSTER_FOUND_NOTIFICATION @"PosterFound"
+
 @interface Movie : NSObject
 
 @property (strong, nonatomic) NSString  *movieID;
@@ -16,6 +20,8 @@
 @property (strong, nonatomic) NSString  *moviePeerRating;
 @property (strong, nonatomic) NSString  *movieThumbnailURL;
 @property (strong, nonatomic) UIImage   *movieThumbnail;
+@property (strong, nonatomic) NSString  *moviePosterURL;
+@property (strong, nonatomic) UIImage   *moviePoster;
 @property (strong, nonatomic) NSString  *movieMPAA;
 @property (strong, nonatomic) NSString  *movieTMSID;
 @property (strong, nonatomic) NSString  *movieSynopsis;
