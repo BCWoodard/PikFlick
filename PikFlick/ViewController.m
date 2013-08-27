@@ -12,14 +12,12 @@
 #import "Constants.h"
 #import "pfCustomCell.h"
 #import <QuartzCore/QuartzCore.h>
-#import "UserSettingsViewController.h"
 
 #import "pfDetailViewController.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface ViewController ()
 {
-    BOOL                        firstTime;
     NSArray                     *moviesArray;
     NSArray                     *moviesShortlist;
     NSArray                     *theatersArray;
@@ -40,8 +38,6 @@
 }
 - (IBAction)closeSelectedMovieOverlay:(id)sender;
 - (IBAction)startOver:(id)sender;
-- (IBAction)showMovieDetails:(id)sender;
-- (IBAction)goToSettings:(id)sender;
 
 @end
 
@@ -78,9 +74,8 @@
     [selectedMovieOverlay setHidden:YES];
     
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
-    moviesTable.frame = CGRectMake(0, 0, screenSize.width, screenSize.height - 64);
     
-    firstTime = YES;
+    moviesTable.frame = CGRectMake(0, 0, screenSize.width, screenSize.height - 64);
 }
 
 
@@ -90,153 +85,89 @@
     [super viewWillAppear:animated];
     NSIndexPath *selectedIndexPath = [moviesTable indexPathForSelectedRow];
     [moviesTable deselectRowAtIndexPath:selectedIndexPath animated:YES];
-
-    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
-    if (firstTime == YES) {
-        if (moviesArray.count > 0) {
-            [startOverButton setHidden:YES];
-        }
-        if (screenSize.height > 480) {
-            tutorialOverlay.image = [UIImage imageNamed:@"overlay@2x.png"];
-        } else {
-            tutorialOverlay.image = [UIImage imageNamed:@"overlay.png"];
-        }
-        firstTime = NO;
-    }
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    //[self getTMSMovieInTheaterData];
-}
-
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = [touches anyObject];
+    BOOL hasBeenLaunched = [[NSUserDefaults standardUserDefaults] boolForKey:@"firstTime"];
     
-    if ([touch view] == tutorialOverlay) {
-        tutorialOverlay.userInteractionEnabled = NO;
-        [UIView animateWithDuration:0.15 animations:^{
-            tutorialOverlay.transform = CGAffineTransformScale(tutorialOverlay.transform, 0.01, 0.01);
-        } completion:^(BOOL finished) {
-            [tutorialOverlay setHidden:YES];
-        }];
+    if (hasBeenLaunched) {
+        [self tutorialOverlay];
+    } else {
+        [tutorialOverlay setHidden:YES];
     }
 }
 
+- (void)tutorialOverlay
+{
+    [tutorialOverlay setHidden:NO];
+    tutorialOverlay.image = [UIImage imageNamed:@"overlay"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTime"];
+}
+
+#pragma mark - Shaking and Movie Selection
+- (void)preselectRandomMovie
+{
+    if ([moviesShortlist count]) {
+        selectedMovie = [self randomMovieFromArray:moviesShortlist];
+    } else if ([moviesArray count]) {
+        selectedMovie = [self randomMovieFromArray:moviesArray];
+    }
+    
+    [selectedMovie fetchPoster];
+}
+
+- (Movie *)randomMovieFromArray:(NSArray *)array
+{
+    if (![array count]) {
+        return nil;
+    }
+    return [array objectAtIndex:arc4random() % [array count]];
+}
+
+- (void)removeSelectedMovieAndReloadTableView
+{
+    selectedMovie.shortlisted = NO;
+    
+    moviesShortlist = [self removeObject:selectedMovie fromArray:moviesShortlist];
+    moviesArray = [self removeObject:selectedMovie fromArray:moviesArray];
+    
+    [moviesTable reloadData];
+    [self preselectRandomMovie];
+}
+
+- (NSArray *)removeObject:(id)objectToRemove fromArray:(NSArray *)array
+{
+    if (![array containsObject:objectToRemove]) {
+        return array;
+    }
+    NSMutableArray *tempArray = [array mutableCopy];
+    [tempArray removeObject:objectToRemove];
+    return [tempArray copy];
+}
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     
-    if (motion == UIEventSubtypeMotionShake) {
-        
-        if (([moviesShortlist count] > 0) && (selectedMovieOverlay.isHidden == YES)) {
-            selectedMovie = [moviesShortlist objectAtIndex:arc4random() % [moviesShortlist count]];
-            int movieIndex = [moviesShortlist indexOfObject:selectedMovie];
-            selectedMovie.shortlisted = NO;
-            //            NSLog(@"Selected Shortlist Movie: %@", selectedMovie.movieTitle);
-            //
-            //            NSLog(@"movies array%@", moviesArray);
-            //            NSLog(@"shortlist array%@", moviesShortlist);
-            
-            // Remove that movie from the shortlist array
-            NSMutableArray *tempArray = [moviesShortlist mutableCopy];
-            NSObject *removeObject = [tempArray objectAtIndex:movieIndex];
-            [tempArray removeObjectAtIndex:movieIndex];
-            moviesShortlist = tempArray;
-            NSMutableArray *tempMovieArray = [moviesArray mutableCopy];
-            [tempMovieArray removeObject:removeObject];
-            moviesArray = tempMovieArray;
-            
-            [self initialAnimatedOverlay];
-            [moviesTable reloadData];
-            
-        } else if (([moviesShortlist count] > 0) && (selectedMovieOverlay.isHidden == NO)) {
-            
-            selectedMovie = [moviesShortlist objectAtIndex:arc4random() % [moviesShortlist count]];
-            int movieIndex = [moviesShortlist indexOfObject:selectedMovie];
-            selectedMovie.shortlisted = NO;
-            //            NSLog(@"Selected Shortlist Movie: %@", selectedMovie.movieTitle);
-            
-            // Remove that movie from the shortlist array
-            NSMutableArray *tempArray = [moviesShortlist mutableCopy];
-            NSObject *removeObject = [tempArray objectAtIndex:movieIndex];
-            [tempArray removeObjectAtIndex:movieIndex];
-            moviesShortlist = tempArray;
-            NSMutableArray *tempMovieArray = [moviesArray mutableCopy];
-            [tempMovieArray removeObject:removeObject];
-            moviesArray = tempMovieArray;
-            
-            
-            [self animatedOverlayRemoval];
-            
-            [moviesTable reloadData];
-        }
-        /*        else if (([moviesShortlist count] == 1) && (selectedMovieOverlay.isHidden == YES)) {
-         selectedMovie = [moviesShortlist objectAtIndex:0];
-         
-         [self initialAnimatedOverlay];
-         
-         selectedMovie.shortlisted = NO;
-         NSLog(@"Only shortlist movie remaining is %@", selectedMovie.movieTitle);
-         
-         // Throw up an alertView or other notification that this is the last movie
-         // in their shortlist and prompt for returning to the full list.
-         // Maybe we retrieve more movies if this happens?
-         
-         } else if (([moviesShortlist count] == 1) && (selectedMovieOverlay.isHidden == NO)) {
-         
-         selectedMovie = [moviesShortlist objectAtIndex:0];
-         [self animatedOverlayRemoval];
-         selectedMovie.shortlisted = NO;
-         
-         NSLog(@"Only shortlist movie remaining is %@", selectedMovie.movieTitle);
-         
-         } */
-        else if (([moviesShortlist count] == 0) && ([moviesArray count] > 1)) {
-            if (selectedMovieOverlay.isHidden == YES) {
-                selectedMovie = [moviesArray objectAtIndex:arc4random() % [moviesArray count]];
-                int movieIndex = [moviesArray indexOfObject:selectedMovie];
-                
-                // Remove that movie from the shortlist array
-                NSMutableArray *tempArray = [moviesArray mutableCopy];
-                [tempArray removeObjectAtIndex:movieIndex];
-                moviesArray = tempArray;
-                
-                [self initialAnimatedOverlay];
-                [moviesTable reloadData];
-                
-            } else {
-                selectedMovie = [moviesArray objectAtIndex:arc4random() % [moviesArray count]];
-                int movieIndex = [moviesArray indexOfObject:selectedMovie];
-                
-                // Remove that movie from the shortlist array
-                NSMutableArray *tempArray = [moviesArray mutableCopy];
-                [tempArray removeObjectAtIndex:movieIndex];
-                moviesArray = tempArray;
-                
-                [self animatedOverlayRemoval];
-                [moviesTable reloadData];
-                
-            }
-        } else {
-            if (selectedMovieOverlay.isHidden == YES) {
-                selectedMovie = [moviesArray objectAtIndex:0];
-                [startOverButton setHidden:NO];
-                [self initialAnimatedOverlay];
-                
-            } else {
-                selectedMovie = [moviesArray objectAtIndex:0];
-                [startOverButton setHidden:NO];
-                [self animatedOverlayRemoval];
-            }
-        }
+    if (motion != UIEventSubtypeMotionShake) {
+        return;
     }
+    
+    if (selectedMovieOverlay.isHidden == YES) {
+        [self initialAnimatedOverlay];
+    } else {
+        [self animatedOverlayRemovalAndReplacement];
+    }
+    [self removeSelectedMovieAndReloadTableView];
 }
 
 
 - (void)initialAnimatedOverlay {
+    if (!selectedMovie) {
+        [self preselectRandomMovie];
+    }
     announcementGreeting.text = [self announcementMessage];
-    selectedMoviePoster.image = selectedMovie.movieThumbnail;
+    selectedMoviePoster.image = selectedMovie.moviePoster;
     selectedMovieTitle.text = selectedMovie.movieTitle;
     
     [UIView animateWithDuration:0.3 animations:^{
@@ -255,7 +186,7 @@
 }
 
 
-- (void)animatedOverlayRemoval {
+- (void)animatedOverlayRemovalAndReplacement {
     [UIView animateWithDuration:0.3 animations:^{
         selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
     } completion:^(BOOL finished) {
@@ -271,17 +202,9 @@
     return [announcementMessages objectAtIndex:index];
 }
 
-
 - (BOOL)canBecomeFirstResponder {
     return YES;
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 #pragma  mark - UITableViewDataSource
 - (int)numberOfSectionsInTableView:(UITableView *)tableView
@@ -372,6 +295,7 @@
         // Populate moviesArray with tempArray
         // Again, we do this to protect our arrays from accidental edits, etc.
         moviesArray = [NSArray arrayWithArray:tempArray];
+        [self preselectRandomMovie];
         
         if ([moviesArray count] == MOVIE_RETRIEVAL_LIMIT) {
             [self getTMSMovieInTheaterData];
@@ -400,14 +324,11 @@
     // Get Latitude and Longitude for device
     incomingLatForQuery = [(AppDelegate *)[[UIApplication sharedApplication] delegate] latForQuery];
     incomingLngForQuery = [(AppDelegate *)[[UIApplication sharedApplication] delegate] lngForQuery];
-    //NSLog(@"Lat: %@, Lng: %@", incomingLatForQuery, incomingLngForQuery);
 }
 
 
 - (void)getTMSMovieInTheaterData
 {
-    //    NSString *latitude = [(AppDelegate *)[[UIApplication sharedApplication] delegate] latForQuery];
-    //    NSString *longitude = [(AppDelegate *)[[UIApplication sharedApplication] delegate] lngForQuery];
     [self getLatAndLngForTMS];
     NSString *todaysDate = [self getTodaysDate];
     
@@ -476,7 +397,8 @@
 - (void)dealloc
 {
     // dealloc our notification centers
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ThumbnailFound" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:GENRE_FOUND_NOTIFICATION object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:THUMBNAIL_FOUND_NOTIFICATION object:nil];
 }
 
 #pragma mark - DELEGATE IMPLEMENTATION
@@ -506,7 +428,6 @@
             NSUInteger tempShortlistIndex = [tempShortlist indexOfObject:movie];
             [tempShortlist removeObjectAtIndex:tempShortlistIndex];
             moviesShortlist = [tempShortlist copy];
-            
         }
         
         NSMutableArray *tempArray = [moviesArray mutableCopy];  // 2
@@ -516,8 +437,8 @@
         [moviesTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:	UITableViewRowAnimationFade];   // 6
         moviesArray = tempArray;                                // 7
         [moviesTable endUpdates];                               // 8
-        
     }
+    [self preselectRandomMovie];
 }
 
 - (void)addMovieToShortlist:(Movie *)movie
@@ -529,6 +450,8 @@
     NSMutableArray *tempArray = [moviesShortlist mutableCopy];
     [tempArray addObject:movie];
     moviesShortlist = [tempArray copy];
+    
+    [self preselectRandomMovie];
 }
 
 
@@ -556,29 +479,32 @@
     }];
 }
 
-- (IBAction)showMovieDetails:(id)sender {
-    selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
-    [selectedMovieOverlay setHidden:YES];
-    [self performSegueWithIdentifier:@"toDetailView" sender:self];
-}
-
-- (IBAction)goToSettings:(id)sender {
-    [self performSegueWithIdentifier:@"Settings" sender:self];
-}
-
 
 #pragma mark - LISTEN for Notifications
 - (void)listenForNotifications
 {
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(getPosterThumbnail:)
-     name:@"ThumbnailFound"
-     object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(getMovieGenre:)
+                                                 name:GENRE_FOUND_NOTIFICATION
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(getPosterThumbnail:)
+                                                 name:THUMBNAIL_FOUND_NOTIFICATION
+                                               object:nil];
 }
 
 
 #pragma mark - NOTIFICATION Received
+- (void)getMovieGenre:(NSNotification *)note
+{
+    Movie *movie = note.object;
+    NSUInteger movieIndex = [moviesArray indexOfObject:movie];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:movieIndex inSection:0];
+    
+    [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
+}
 
 - (void)getPosterThumbnail:(NSNotification *)note
 {

@@ -174,7 +174,7 @@ SHAKE AGAIN!!</string>
                         <outlet property="selectedMoviePoster" destination="Ecl-Uq-MGg" id="Cc3-fH-rt2"/>
                         <outlet property="selectedMovieTitle" destination="xuu-U6-5Sp" id="PPI-YG-H05"/>
                         <outlet property="startOverButton" destination="zif-O6-1m7" id="q00-6Q-Sf9"/>
-                        <outlet property="tutorialOverlay" destination="XJn-1n-WWh" id="Xya-oO-BWC"/>
+                        <outlet property="tutorialOverlay" destination="XJn-1n-WWh" id="FYQ-NG-ho9"/>
                         <segue destination="Jkr-0g-g9i" kind="push" identifier="toDetailView" id="e9e-41-X4a"/>
                     </connections>
                 </viewController>
@@ -504,8 +504,6 @@ SHAKE AGAIN!!</string>
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
             <relationships>
                 <relationship kind="action" name="closeSelectedMovieOverlay:"/>
-                <relationship kind="action" name="goToSettings:"/>
-                <relationship kind="action" name="showMovieDetails:"/>
                 <relationship kind="action" name="startOver:"/>
                 <relationship kind="outlet" name="announcementGreeting" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="moviesTable" candidateClass="UITableView"/>
