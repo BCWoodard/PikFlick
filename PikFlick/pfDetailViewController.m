@@ -76,7 +76,7 @@
 #pragma mark - UITableViewDataSource
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (section == 1) {
+    if (section == 0) {
         return self.incomingMovie.movieTitle;
     } else if (section ==3) {
         return @"Critics Consensus";
@@ -144,11 +144,7 @@
         newFrame.size.height = [self getLabelHeightForIndexPath:indexPath andString:self.incomingMovie.movieCriticsConsensus];
         cell.textLabel.frame = newFrame;
         cell.textLabel.font = [UIFont fontWithName:@"Gill Sans" size:14.2f];
-        
-        //
-        //    CGRect newFrame = cell.textLabel.frame;
-        //    newFrame.size.height = [self getLabelHeightForIndex:self.incomingMovie.movieCriticsConsensus];
-        //    cell.textLabel.frame = newFrame;
+
         
     }
     return cell;
