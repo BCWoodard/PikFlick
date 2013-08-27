@@ -15,6 +15,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     // TestFlight methods
     // NOTE: Do not use setDeviceIdentifier in PRODUCTION!!
     [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
