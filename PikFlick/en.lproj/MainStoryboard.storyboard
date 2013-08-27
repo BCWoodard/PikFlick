@@ -400,7 +400,8 @@ SHAKE AGAIN!!</string>
                 <navigationController id="8qi-Ic-M4C" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="1eG-PP-lNu"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="i5i-6E-qfL">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackOpaque" id="i5i-6E-qfL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
