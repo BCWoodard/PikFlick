@@ -510,6 +510,7 @@ SHAKE AGAIN!!</string>
                 <relationship kind="action" name="changeTheatreDistance:"/>
                 <relationship kind="action" name="getHelp:"/>
                 <relationship kind="action" name="saveSettings:"/>
+                <relationship kind="outlet" name="theatreDistanceControl" candidateClass="UISegmentedControl"/>
             </relationships>
         </class>
         <class className="ViewController" superclassName="UIViewController">
