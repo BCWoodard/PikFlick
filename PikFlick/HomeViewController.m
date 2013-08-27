@@ -12,6 +12,7 @@
 @interface HomeViewController () {
     
     BOOL                        clearText;
+    BOOL                        needHelp;
     __weak IBOutlet UITextField *locationField;
 }
 - (IBAction)findCurrentLocation:(id)sender;
@@ -60,6 +61,7 @@
 }
 
 - (IBAction)findCurrentLocation:(id)sender {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"useCurrentLocation"];
     [self performSegueWithIdentifier:@"Location" sender:self];
 }
 

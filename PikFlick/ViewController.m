@@ -13,20 +13,17 @@
 #import "pfCustomCell.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UserSettingsViewController.h"
-
 #import "pfDetailViewController.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface ViewController ()
 {
-    BOOL                        firstTime;
     NSArray                     *moviesArray;
     NSArray                     *moviesShortlist;
     NSArray                     *theatersArray;
     Movie                       *selectedMovie;
     CLLocationManager           *locationManager;
     NSString                    *startDate;
-    
     
     __weak IBOutlet UIImageView *tutorialOverlay;
     __weak IBOutlet UITableView *moviesTable;
@@ -79,8 +76,6 @@
     
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
     moviesTable.frame = CGRectMake(0, 0, screenSize.width, screenSize.height - 64);
-    
-    firstTime = YES;
 }
 
 
@@ -90,24 +85,24 @@
     [super viewWillAppear:animated];
     NSIndexPath *selectedIndexPath = [moviesTable indexPathForSelectedRow];
     [moviesTable deselectRowAtIndexPath:selectedIndexPath animated:YES];
-    
-    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
-    if (firstTime == YES) {
-        if (moviesArray.count > 0) {
-            [startOverButton setHidden:YES];
-        }
-        if (screenSize.height > 480) {
-            tutorialOverlay.image = [UIImage imageNamed:@"overlay@2x.png"];
-        } else {
-            tutorialOverlay.image = [UIImage imageNamed:@"overlay.png"];
-        }
-        firstTime = NO;
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     //[self getTMSMovieInTheaterData];
+    BOOL hasBeenLaunched = [[NSUserDefaults standardUserDefaults] boolForKey:@"firstTime"];
+    
+    if (!hasBeenLaunched) {
+        [self tutorialOverlay];
+    } else {
+        [tutorialOverlay setHidden:YES];
+    }
+}
+
+- (void)tutorialOverlay {
+    [tutorialOverlay setHidden:NO];
+    tutorialOverlay.image = [UIImage imageNamed:@"overlay.png"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTime"];
 }
 
 
@@ -115,7 +110,6 @@
     UITouch *touch = [touches anyObject];
     
     if ([touch view] == tutorialOverlay) {
-        tutorialOverlay.userInteractionEnabled = NO;
         [UIView animateWithDuration:0.15 animations:^{
             tutorialOverlay.transform = CGAffineTransformScale(tutorialOverlay.transform, 0.01, 0.01);
         } completion:^(BOOL finished) {
@@ -566,7 +560,7 @@
 }
 
 - (IBAction)goToSettings:(id)sender {
-    [self performSegueWithIdentifier:@"Settings" sender:self];
+    [self performSegueWithIdentifier:@"userSettings" sender:self];
 }
 
 
