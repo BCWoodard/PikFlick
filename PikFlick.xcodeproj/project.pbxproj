@@ -13,9 +13,6 @@
 		4A38768D17BBEB1300F95ECA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A38768B17BBEB1300F95ECA /* InfoPlist.strings */; };
 		4A38768F17BBEB1300F95ECA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A38768E17BBEB1300F95ECA /* main.m */; };
 		4A38769317BBEB1300F95ECA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A38769217BBEB1300F95ECA /* AppDelegate.m */; };
-		4A38769517BBEB1300F95ECA /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A38769417BBEB1300F95ECA /* Default.png */; };
-		4A38769717BBEB1300F95ECA /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A38769617BBEB1300F95ECA /* Default@2x.png */; };
-		4A38769917BBEB1300F95ECA /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A38769817BBEB1300F95ECA /* Default-568h@2x.png */; };
 		4A38769C17BBEB1300F95ECA /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A38769A17BBEB1300F95ECA /* MainStoryboard.storyboard */; };
 		4A38769F17BBEB1300F95ECA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A38769E17BBEB1300F95ECA /* ViewController.m */; };
 		4A3876AB17BC00B700F95ECA /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3876AA17BC00B700F95ECA /* Movie.m */; };
@@ -28,12 +25,17 @@
 		4A95DD1517CD4EF400774D60 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD0E17CD4EF400774D60 /* icon@2x.png */; };
 		4A95DD1617CD4EF400774D60 /* pikflick-icons-Appstore.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD0F17CD4EF400774D60 /* pikflick-icons-Appstore.png */; };
 		4A95DD1717CD4EF400774D60 /* pikflick-icons-Appstore@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD1017CD4EF400774D60 /* pikflick-icons-Appstore@2x.png */; };
+		4A95DD1D17CD5C9C00774D60 /* PikFlick-logo-18.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD1917CD5C9C00774D60 /* PikFlick-logo-18.png */; };
+		4A95DD1E17CD5C9C00774D60 /* PikFlick-logo-18@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD1A17CD5C9C00774D60 /* PikFlick-logo-18@2x.png */; };
+		4A95DD1F17CD5C9C00774D60 /* PikFlick-logo-19.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD1B17CD5C9C00774D60 /* PikFlick-logo-19.png */; };
+		4A95DD2017CD5C9C00774D60 /* PikFlick-logo-19@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD1C17CD5C9C00774D60 /* PikFlick-logo-19@2x.png */; };
+		4A95DD2317CD5ECA00774D60 /* PikFlick-navbar-10.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD2117CD5ECA00774D60 /* PikFlick-navbar-10.png */; };
+		4A95DD2417CD5ECA00774D60 /* PikFlick-navbar-10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD2217CD5ECA00774D60 /* PikFlick-navbar-10@2x.png */; };
+		4A95DD2717CD5EFE00774D60 /* PFKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95DD2617CD5EFE00774D60 /* PFKNavigationController.m */; };
 		4AB5374617C6FFAE005CA37C /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB5374217C6FFAE005CA37C /* libTestFlight.a */; };
 		4AB5374917C70018005CA37C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB5374817C70018005CA37C /* libz.dylib */; };
 		4AC0C92C17C9952E00714C28 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC0C92B17C9952E00714C28 /* SystemConfiguration.framework */; };
 		4AC0C92F17C9954F00714C28 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC0C92E17C9954F00714C28 /* Reachability.m */; };
-		4AD800FD17CD0ABC00841B96 /* overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AD800FB17CD0ABC00841B96 /* overlay.png */; };
-		4AD800FE17CD0ABC00841B96 /* overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AD800FC17CD0ABC00841B96 /* overlay@2x.png */; };
 		4AF560A717C2FA0200BCF482 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A617C2FA0200BCF482 /* CoreLocation.framework */; };
 		4AF560A917C3016C00BCF482 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A817C3016C00BCF482 /* MapKit.framework */; };
 		4AF560AE17C3E8E800BCF482 /* PFMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF560AD17C3E8E800BCF482 /* PFMapViewController.m */; };
@@ -44,8 +46,6 @@
 		CF13A68417CA9CF200BB2958 /* grey.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CF13A68017CA9CF200BB2958 /* grey.jpg */; };
 		CF13A68517CA9CF200BB2958 /* grey@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CF13A68117CA9CF200BB2958 /* grey@2x.jpg */; };
 		CF13A68B17CBDB3400BB2958 /* UserSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF13A68A17CBDB3400BB2958 /* UserSettingsViewController.m */; };
-		CF13A69017CC205000BB2958 /* overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = CF13A68E17CC205000BB2958 /* overlay.png */; };
-		CF13A69117CC205000BB2958 /* overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CF13A68F17CC205000BB2958 /* overlay@2x.png */; };
 		CF71DD6C17C6837B00531FF9 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF71DD6B17C6837B00531FF9 /* HomeViewController.m */; };
 		CF71DD6E17C7FC9100531FF9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF71DD6D17C7FC9100531FF9 /* Social.framework */; };
 		CF71DD7017C7FCFD00531FF9 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF71DD6F17C7FCFD00531FF9 /* Accounts.framework */; };
@@ -63,9 +63,6 @@
 		4A38769017BBEB1300F95ECA /* PikFlick-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PikFlick-Prefix.pch"; sourceTree = "<group>"; };
 		4A38769117BBEB1300F95ECA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4A38769217BBEB1300F95ECA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4A38769417BBEB1300F95ECA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		4A38769617BBEB1300F95ECA /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		4A38769817BBEB1300F95ECA /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		4A38769B17BBEB1300F95ECA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		4A38769D17BBEB1300F95ECA /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		4A38769E17BBEB1300F95ECA /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
@@ -82,6 +79,14 @@
 		4A95DD0E17CD4EF400774D60 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		4A95DD0F17CD4EF400774D60 /* pikflick-icons-Appstore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pikflick-icons-Appstore.png"; sourceTree = "<group>"; };
 		4A95DD1017CD4EF400774D60 /* pikflick-icons-Appstore@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pikflick-icons-Appstore@2x.png"; sourceTree = "<group>"; };
+		4A95DD1917CD5C9C00774D60 /* PikFlick-logo-18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PikFlick-logo-18.png"; sourceTree = "<group>"; };
+		4A95DD1A17CD5C9C00774D60 /* PikFlick-logo-18@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PikFlick-logo-18@2x.png"; sourceTree = "<group>"; };
+		4A95DD1B17CD5C9C00774D60 /* PikFlick-logo-19.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PikFlick-logo-19.png"; sourceTree = "<group>"; };
+		4A95DD1C17CD5C9C00774D60 /* PikFlick-logo-19@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PikFlick-logo-19@2x.png"; sourceTree = "<group>"; };
+		4A95DD2117CD5ECA00774D60 /* PikFlick-navbar-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PikFlick-navbar-10.png"; sourceTree = "<group>"; };
+		4A95DD2217CD5ECA00774D60 /* PikFlick-navbar-10@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PikFlick-navbar-10@2x.png"; sourceTree = "<group>"; };
+		4A95DD2517CD5EFE00774D60 /* PFKNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFKNavigationController.h; sourceTree = "<group>"; };
+		4A95DD2617CD5EFE00774D60 /* PFKNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFKNavigationController.m; sourceTree = "<group>"; };
 		4AB5374217C6FFAE005CA37C /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = PikFlick/libTestFlight.a; sourceTree = "<group>"; };
 		4AB5374317C6FFAE005CA37C /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		4AB5374417C6FFAE005CA37C /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
@@ -90,8 +95,6 @@
 		4AC0C92B17C9952E00714C28 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4AC0C92D17C9954F00714C28 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		4AC0C92E17C9954F00714C28 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		4AD800FB17CD0ABC00841B96 /* overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay.png; sourceTree = "<group>"; };
-		4AD800FC17CD0ABC00841B96 /* overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlay@2x.png"; sourceTree = "<group>"; };
 		4AF560A617C2FA0200BCF482 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4AF560A817C3016C00BCF482 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		4AF560AA17C30D4E00BCF482 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -107,8 +110,6 @@
 		CF13A68117CA9CF200BB2958 /* grey@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grey@2x.jpg"; sourceTree = "<group>"; };
 		CF13A68917CBDB3400BB2958 /* UserSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSettingsViewController.h; sourceTree = "<group>"; };
 		CF13A68A17CBDB3400BB2958 /* UserSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSettingsViewController.m; sourceTree = "<group>"; };
-		CF13A68E17CC205000BB2958 /* overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay.png; sourceTree = "<group>"; };
-		CF13A68F17CC205000BB2958 /* overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlay@2x.png"; sourceTree = "<group>"; };
 		CF71DD6A17C6837B00531FF9 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		CF71DD6B17C6837B00531FF9 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		CF71DD6D17C7FC9100531FF9 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -194,22 +195,18 @@
 		4A38768917BBEB1300F95ECA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4A95DD2117CD5ECA00774D60 /* PikFlick-navbar-10.png */,
+				4A95DD2217CD5ECA00774D60 /* PikFlick-navbar-10@2x.png */,
+				4A95DD1817CD5C8800774D60 /* Logos */,
 				4A95DD0917CD4EF400774D60 /* Icons */,
-				4AD800FB17CD0ABC00841B96 /* overlay.png */,
-				4AD800FC17CD0ABC00841B96 /* overlay@2x.png */,
 				CF13A67E17CA9CF200BB2958 /* green.jpg */,
 				CF13A67F17CA9CF200BB2958 /* green@2x.jpg */,
-				CF13A68E17CC205000BB2958 /* overlay.png */,
-				CF13A68F17CC205000BB2958 /* overlay@2x.png */,
 				CF13A68017CA9CF200BB2958 /* grey.jpg */,
 				CF13A68117CA9CF200BB2958 /* grey@2x.jpg */,
 				4A38768A17BBEB1300F95ECA /* PikFlick-Info.plist */,
 				4A38768B17BBEB1300F95ECA /* InfoPlist.strings */,
 				4A38768E17BBEB1300F95ECA /* main.m */,
 				4A38769017BBEB1300F95ECA /* PikFlick-Prefix.pch */,
-				4A38769417BBEB1300F95ECA /* Default.png */,
-				4A38769617BBEB1300F95ECA /* Default@2x.png */,
-				4A38769817BBEB1300F95ECA /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -229,6 +226,8 @@
 		4A38771817BDA4E800F95ECA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4A95DD2517CD5EFE00774D60 /* PFKNavigationController.h */,
+				4A95DD2617CD5EFE00774D60 /* PFKNavigationController.m */,
 				CF71DD6A17C6837B00531FF9 /* HomeViewController.h */,
 				CF71DD6B17C6837B00531FF9 /* HomeViewController.m */,
 				4A38769D17BBEB1300F95ECA /* ViewController.h */,
@@ -266,6 +265,17 @@
 				4A95DD1017CD4EF400774D60 /* pikflick-icons-Appstore@2x.png */,
 			);
 			path = Icons;
+			sourceTree = "<group>";
+		};
+		4A95DD1817CD5C8800774D60 /* Logos */ = {
+			isa = PBXGroup;
+			children = (
+				4A95DD1917CD5C9C00774D60 /* PikFlick-logo-18.png */,
+				4A95DD1A17CD5C9C00774D60 /* PikFlick-logo-18@2x.png */,
+				4A95DD1B17CD5C9C00774D60 /* PikFlick-logo-19.png */,
+				4A95DD1C17CD5C9C00774D60 /* PikFlick-logo-19@2x.png */,
+			);
+			name = Logos;
 			sourceTree = "<group>";
 		};
 		4AB5374717C6FFBE005CA37C /* TestFlight */ = {
@@ -348,18 +358,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A38768D17BBEB1300F95ECA /* InfoPlist.strings in Resources */,
-				4A38769517BBEB1300F95ECA /* Default.png in Resources */,
-				4A38769717BBEB1300F95ECA /* Default@2x.png in Resources */,
-				4A38769917BBEB1300F95ECA /* Default-568h@2x.png in Resources */,
 				4A38769C17BBEB1300F95ECA /* MainStoryboard.storyboard in Resources */,
 				CF13A68217CA9CF200BB2958 /* green.jpg in Resources */,
 				CF13A68317CA9CF200BB2958 /* green@2x.jpg in Resources */,
 				CF13A68417CA9CF200BB2958 /* grey.jpg in Resources */,
 				CF13A68517CA9CF200BB2958 /* grey@2x.jpg in Resources */,
-				CF13A69017CC205000BB2958 /* overlay.png in Resources */,
-				CF13A69117CC205000BB2958 /* overlay@2x.png in Resources */,
-				4AD800FD17CD0ABC00841B96 /* overlay.png in Resources */,
-				4AD800FE17CD0ABC00841B96 /* overlay@2x.png in Resources */,
 				4A95DD1117CD4EF400774D60 /* Default-568h@2x.png in Resources */,
 				4A95DD1217CD4EF400774D60 /* Default.png in Resources */,
 				4A95DD1317CD4EF400774D60 /* Default@2x.png in Resources */,
@@ -367,6 +370,12 @@
 				4A95DD1517CD4EF400774D60 /* icon@2x.png in Resources */,
 				4A95DD1617CD4EF400774D60 /* pikflick-icons-Appstore.png in Resources */,
 				4A95DD1717CD4EF400774D60 /* pikflick-icons-Appstore@2x.png in Resources */,
+				4A95DD1D17CD5C9C00774D60 /* PikFlick-logo-18.png in Resources */,
+				4A95DD1E17CD5C9C00774D60 /* PikFlick-logo-18@2x.png in Resources */,
+				4A95DD1F17CD5C9C00774D60 /* PikFlick-logo-19.png in Resources */,
+				4A95DD2017CD5C9C00774D60 /* PikFlick-logo-19@2x.png in Resources */,
+				4A95DD2317CD5ECA00774D60 /* PikFlick-navbar-10.png in Resources */,
+				4A95DD2417CD5ECA00774D60 /* PikFlick-navbar-10@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +397,7 @@
 				CF71DD6C17C6837B00531FF9 /* HomeViewController.m in Sources */,
 				4AC0C92F17C9954F00714C28 /* Reachability.m in Sources */,
 				CF13A68B17CBDB3400BB2958 /* UserSettingsViewController.m in Sources */,
+				4A95DD2717CD5EFE00774D60 /* PFKNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
