@@ -27,6 +27,7 @@
 		4AB5374917C70018005CA37C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB5374817C70018005CA37C /* libz.dylib */; };
 		4AC0C92C17C9952E00714C28 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC0C92B17C9952E00714C28 /* SystemConfiguration.framework */; };
 		4AC0C92F17C9954F00714C28 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC0C92E17C9954F00714C28 /* Reachability.m */; };
+		4AD800C117CCE36100841B96 /* PFKCustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD800C017CCE36100841B96 /* PFKCustomAnnotationView.m */; };
 		4AF560A717C2FA0200BCF482 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A617C2FA0200BCF482 /* CoreLocation.framework */; };
 		4AF560A917C3016C00BCF482 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A817C3016C00BCF482 /* MapKit.framework */; };
 		4AF560AE17C3E8E800BCF482 /* PFMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF560AD17C3E8E800BCF482 /* PFMapViewController.m */; };
@@ -75,6 +76,8 @@
 		4AC0C92B17C9952E00714C28 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4AC0C92D17C9954F00714C28 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		4AC0C92E17C9954F00714C28 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		4AD800BF17CCE36100841B96 /* PFKCustomAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFKCustomAnnotationView.h; sourceTree = "<group>"; };
+		4AD800C017CCE36100841B96 /* PFKCustomAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFKCustomAnnotationView.m; sourceTree = "<group>"; };
 		4AF560A617C2FA0200BCF482 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4AF560A817C3016C00BCF482 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		4AF560AA17C30D4E00BCF482 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -204,6 +207,8 @@
 				CFFD3C6117C269FE00B4A888 /* DetailedShakeView.m */,
 				CFFD3C6317C2770200B4A888 /* OriginalNameIsDetailedShakeView.xib */,
 				4AF560AA17C30D4E00BCF482 /* Constants.h */,
+				4AD800BF17CCE36100841B96 /* PFKCustomAnnotationView.h */,
+				4AD800C017CCE36100841B96 /* PFKCustomAnnotationView.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -344,6 +349,7 @@
 				4AF560B117C4257900BCF482 /* Theater.m in Sources */,
 				CF71DD6C17C6837B00531FF9 /* HomeViewController.m in Sources */,
 				4AC0C92F17C9954F00714C28 /* Reachability.m in Sources */,
+				4AD800C117CCE36100841B96 /* PFKCustomAnnotationView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

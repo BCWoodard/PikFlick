@@ -80,12 +80,16 @@
 - (void)setupInitialMap
 {
     // Set up map and span
-    CLLocationCoordinate2D startCoordinate = CLLocationCoordinate2DMake(41.90, -87.65);
+    // Get Latitude and Longitude for device
+    [self getLatAndLngForTMS];
+//    incomingLatForQuery = [(AppDelegate *)[[UIApplication sharedApplication] delegate] latForQuery];
+//    incomingLngForQuery = [(AppDelegate *)[[UIApplication sharedApplication] delegate] lngForQuery];
+    CLLocationCoordinate2D startCoordinate = CLLocationCoordinate2DMake([incomingLatForQuery floatValue], [incomingLngForQuery floatValue]);
     MKCoordinateSpan startSpan = MKCoordinateSpanMake(0.3, 0.3);
     MKCoordinateRegion startRegion = MKCoordinateRegionMake(startCoordinate, startSpan);
     
     mapViewOutlet.showsUserLocation = YES;
-    mapViewOutlet.region = startRegion;
+    [mapViewOutlet setRegion:[mapViewOutlet regionThatFits:startRegion] animated:YES];
     
     CLLocationCoordinate2D theaterCoord;
     
@@ -101,15 +105,12 @@
                 theaterCoord.latitude = [tempTheater.theaterLatitude doubleValue];
                 theaterCoord.longitude = [tempTheater.theaterLongitude doubleValue];
                 
-                
                 MKPointAnnotation *annotationPoint = [[MKPointAnnotation alloc] init];
                 annotationPoint.coordinate = theaterCoord;
                 annotationPoint.title = [[incomingTheaters objectAtIndex:index] title];
                 annotationPoint.subtitle = [NSString stringWithFormat:@"%@ %@, %@", tempTheater.theaterStreet, tempTheater.theaterCity, tempTheater.theaterState];
                 
-                [mapViewOutlet addAnnotation:annotationPoint];
-                break;
-            }
+             }
         }
     }
 
@@ -196,6 +197,28 @@
     }
 }
 
-
+#pragma mark - MapViewDelegate
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+    
+    if (annotation == mapViewOutlet.userLocation)
+    {
+        return nil;
+    }
+    
+    MKPinAnnotationView *pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"pinView"];
+    
+    if (!pinView) {
+        pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"pinView"];
+        pinView.pinColor = MKPinAnnotationColorRed;
+        pinView.animatesDrop = YES;
+        pinView.canShowCallout = YES;
+        pinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        
+    } else {
+        pinView.annotation = annotation;
+    }    
+    
+    return pinView;
+}
 
 @end
