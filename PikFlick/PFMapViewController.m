@@ -19,6 +19,8 @@
     
     NSString                    *startDate;
     NSMutableArray              *theatersShowingMovie;
+    NSArray                     *uniqueTheaters;
+    Theater                     *selectedTheater;
 }
 
 @end
@@ -58,12 +60,14 @@
      object:nil];
 }
 
-/*
-- (void)viewDidAppear:(BOOL)animated
+// Clear annotation when you return from DetailViewController
+- (void)viewWillAppear:(BOOL)animated
 {
-    [self getUniqueTheaterIDS:theatersShowingMovie];
+    for (NSObject<MKAnnotation> *annotation in [mapViewOutlet selectedAnnotations])
+    {
+        [mapViewOutlet deselectAnnotation:(id <MKAnnotation>)annotation animated:NO];
+    }
 }
-*/
 
 - (void)didReceiveMemoryWarning
 {
@@ -87,15 +91,16 @@
     
     // Setup theaters on the map
     // Get unique theaters from data results
-    NSArray *uniqueTheaters = [[NSOrderedSet orderedSetWithArray:theatersShowingMovie] array];
+    [self getUniqueTheaterIDS];
 
-    for (int index = 0; index < [incomingTheaters count]; index++) {        
+    for (int index = 0; index < [incomingTheaters count]; index++) {
         Theater *tempTheater = [incomingTheaters objectAtIndex:index];
-        
+
         for (NSString *theaterID in uniqueTheaters) {
             if ([theaterID isEqualToString:tempTheater.theaterID]) {
                 theaterCoord.latitude = [tempTheater.theaterLatitude doubleValue];
                 theaterCoord.longitude = [tempTheater.theaterLongitude doubleValue];
+                
                 
                 MKPointAnnotation *annotationPoint = [[MKPointAnnotation alloc] init];
                 annotationPoint.coordinate = theaterCoord;
@@ -107,30 +112,14 @@
             }
         }
     }
+
 }
 
 
 - (NSArray *)getUniqueTheaterIDS
 {
-    /*
-    NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:theatersArray];
-    NSSet *uniqueTheaters = [orderedSet set];
-    */
-    
-    /*
-    NSArray* uniqueTheaters = [theatersArray valueForKeyPath:@"@distinctUnionOfObjects.self"];
-    NSLog(@"%@", uniqueTheaters);
-    */
-    /*
-    NSMutableArray *uniqueTheaters = [[NSMutableArray alloc] initWithArray:[[NSSet setWithArray:theatersShowingMovie] allObjects]];
+    uniqueTheaters = [[NSOrderedSet orderedSetWithArray:theatersShowingMovie] array];
     NSLog(@"uniqueTheaters: %@", uniqueTheaters);
-    return uniqueTheaters;
-    */
-    
-    
-    NSArray *uniqueTheaters = [[NSOrderedSet orderedSetWithArray:theatersShowingMovie] array];
-    NSLog(@"UniqueTheaters: %@", uniqueTheaters);
-    
     return uniqueTheaters;
 }
 
@@ -159,43 +148,57 @@
     if (!incomingTMSID) {
         NSLog(@"No TMSID");
     } else {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/%@/showings?startDate=%@&numDays=1&lat=%@&lng=%@&api_key=%@", incomingTMSID, startDate, incomingLatForQuery, incomingLngForQuery, TMS_API_KEY]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        
-        // Activity indicator
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-        
-//       if ([data isKindOfClass:[NSDictionary class]]) {
-//           NSLog(@"TMS Error: %@", data.description);
-//           
-//        } else if ([data isKindOfClass:[NSArray class]]) {
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/%@/showings?startDate=%@&numDays=1&lat=%@&lng=%@&api_key=%@", incomingTMSID, startDate, incomingLatForQuery, incomingLngForQuery, TMS_API_KEY]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+            
+            // Activity indicator
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+            
             NSArray *allDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
             if ([data length] > 0 && error == nil) {
                 [allDataArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                     if ([[[allDataArray objectAtIndex:idx] valueForKey:@"errorCode"] isEqualToString:@"1008"]) {
                         NSLog(@"No showtime dictionary for selection");
                         *stop = YES;
+                        
                     } else {
                         NSDictionary *showtimeDict = [allDataArray objectAtIndex:idx];
                         NSArray *showtimesArray = [showtimeDict objectForKey:@"showtimes"];
-                        [showtimesArray enumerateObjectsUsingBlock:^(NSDictionary *theatreDict, NSUInteger idx, BOOL *stop) {
-                            theatreDict = [showtimesArray objectAtIndex:idx];
-                            NSString *theaterID = [[theatreDict objectForKey:@"theatre"] valueForKey:@"id"];
+                        
+//                        for (Theater *theater in incomingTheaters) {
+//                            if (theater.theaterID == [showtimesArray valueForKeyPath:@"theater.id"]) {
+//                                theater.theaterTicketURI = [showtimesArray valueForKeyPath:@"ticketURI"];
+//                                NSLog(@"TicketURI: %@", theater.theaterTicketURI);
+//                                break;
+//                            }
+//                        }
+                        
+                        [showtimesArray enumerateObjectsUsingBlock:^(NSDictionary *showtimesDict, NSUInteger idx, BOOL *stop) {
+                            showtimesDict = [showtimesArray objectAtIndex:idx];
+                            
+                            NSString *theaterID = [showtimesDict valueForKeyPath:@"theatre.id"];
                             [theatersShowingMovie addObject:theaterID];
+                            
+                            for (Theater *theater in incomingTheaters) {
+                                if ([theater.theaterID isEqualToString:theaterID]) {
+                                    theater.theaterTicketURI = [showtimesDict valueForKey:@"ticketURI"];
+                                    NSLog(@"ticketURI: %@", theater.theaterTicketURI);
+                                }
+                            }
                         }];
                     }
-            }];
+                }];
             } else {
                 NSLog(@"Error retrieving data from TMS");
             }
-        //}
-        // Send notification that our download is complete
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"DownloadComplete" object:self];
-        
-        // Stop activity indicator
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    }];
+            
+            // Send notification that our download is complete
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"DownloadComplete" object:self];
+            
+            // Stop activity indicator
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        }];
     }
 }
 

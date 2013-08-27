@@ -19,6 +19,7 @@
 @property (strong, nonatomic) NSString  *theaterZip;
 @property (strong, nonatomic) NSString  *theaterLatitude;
 @property (strong, nonatomic) NSString  *theaterLongitude;
+@property (strong, nonatomic) NSString  *theaterTicketURI;
 
 - (instancetype)initWithTheaterDictionary:(NSDictionary *)theaterDictionary;
 
