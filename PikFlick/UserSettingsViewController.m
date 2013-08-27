@@ -10,6 +10,10 @@
 
 @interface UserSettingsViewController ()
 
+- (IBAction)saveSettings:(id)sender;
+- (IBAction)getHelp:(id)sender;
+
+
 @end
 
 @implementation UserSettingsViewController
@@ -35,4 +39,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)saveSettings:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        nil;
+    }];
+}
+
+- (IBAction)getHelp:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        nil;
+    }];
+}
 @end

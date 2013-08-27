@@ -49,6 +49,14 @@
     } else {
         _movieToSeeLayer.hidden = YES;
     }
+    
+    // RT ratings
+    if (movie.moviePeerRating.intValue >= 60) {
+        self.cellPeerRating.textColor = [UIColor greenColor];
+    } else {
+        self.cellPeerRating.textColor = [UIColor redColor];
+    }
+
 }
 
 const float UI_CUES_MARGIN = 10.0f;

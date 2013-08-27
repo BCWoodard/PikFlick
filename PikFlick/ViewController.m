@@ -12,12 +12,14 @@
 #import "Constants.h"
 #import "pfCustomCell.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UserSettingsViewController.h"
 
 #import "pfDetailViewController.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface ViewController ()
 {
+    BOOL                        firstTime;
     NSArray                     *moviesArray;
     NSArray                     *moviesShortlist;
     NSArray                     *theatersArray;
@@ -26,6 +28,7 @@
     NSString                    *startDate;
     
     
+    __weak IBOutlet UIImageView *tutorialOverlay;
     __weak IBOutlet UITableView *moviesTable;
     __weak IBOutlet UIView *selectedMovieOverlay;
     __weak IBOutlet UIButton *selectedMovieCloseButton;
@@ -38,6 +41,7 @@
 - (IBAction)closeSelectedMovieOverlay:(id)sender;
 - (IBAction)startOver:(id)sender;
 - (IBAction)showMovieDetails:(id)sender;
+- (IBAction)goToSettings:(id)sender;
 
 @end
 
@@ -74,8 +78,9 @@
     [selectedMovieOverlay setHidden:YES];
     
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
-    
     moviesTable.frame = CGRectMake(0, 0, screenSize.width, screenSize.height - 64);
+    
+    firstTime = YES;
 }
 
 
@@ -85,12 +90,38 @@
     [super viewWillAppear:animated];
     NSIndexPath *selectedIndexPath = [moviesTable indexPathForSelectedRow];
     [moviesTable deselectRowAtIndexPath:selectedIndexPath animated:YES];
-    
+
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    if (firstTime == YES) {
+        if (moviesArray.count > 0) {
+            [startOverButton setHidden:YES];
+        }
+        if (screenSize.height > 480) {
+            tutorialOverlay.image = [UIImage imageNamed:@"overlay@2x.png"];
+        } else {
+            tutorialOverlay.image = [UIImage imageNamed:@"overlay.png"];
+        }
+        firstTime = NO;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     //[self getTMSMovieInTheaterData];
+}
+
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    
+    if ([touch view] == tutorialOverlay) {
+        tutorialOverlay.userInteractionEnabled = NO;
+        [UIView animateWithDuration:0.15 animations:^{
+            tutorialOverlay.transform = CGAffineTransformScale(tutorialOverlay.transform, 0.01, 0.01);
+        } completion:^(BOOL finished) {
+            [tutorialOverlay setHidden:YES];
+        }];
+    }
 }
 
 
@@ -445,7 +476,6 @@
 - (void)dealloc
 {
     // dealloc our notification centers
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"GenreFound" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ThumbnailFound" object:nil];
 }
 
@@ -532,16 +562,14 @@
     [self performSegueWithIdentifier:@"toDetailView" sender:self];
 }
 
+- (IBAction)goToSettings:(id)sender {
+    [self performSegueWithIdentifier:@"Settings" sender:self];
+}
+
 
 #pragma mark - LISTEN for Notifications
 - (void)listenForNotifications
 {
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(getMovieGenre:)
-     name:@"GenreFound"
-     object:nil];
-    
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(getPosterThumbnail:)
@@ -551,16 +579,6 @@
 
 
 #pragma mark - NOTIFICATION Received
-- (void)getMovieGenre:(NSNotification *)note
-{
-    Movie *movie = note.object;
-    NSUInteger movieIndex = [moviesArray indexOfObject:movie];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:movieIndex inSection:0];
-    
-    [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    
-}
-
 
 - (void)getPosterThumbnail:(NSNotification *)note
 {

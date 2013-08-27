@@ -28,35 +28,6 @@
     return self;
 }
 
-
-- (NSString *)movieGenre
-{
-    if (_movieGenre) {
-        return _movieGenre;
-    }
-    
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.rottentomatoes.com/api/public/v1.0/movies/%@.json?apikey=xx88qet7sppj6r7jp7wrnznd", self.movieID]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        
-        // Access the movie info dictionary on Rotten Tomatoes and set the
-        // movie genre to the first element in the "genres" array
-        NSDictionary *movieInfoDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-        NSArray *movieGenresArray = [movieInfoDictionary objectForKey:@"genres"];
-        _movieGenre = [movieGenresArray objectAtIndex:0];
-        
-        // Stop the Network Activity Indicator
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        
-        // Send notification that our download is complete
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"GenreFound" object:self];
-    }];
-    
-    _movieGenre = @"Loading…";
-    return _movieGenre;
-}
-
-
 - (UIImage *)movieThumbnail
 {
     if (_movieThumbnail) {
