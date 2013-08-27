@@ -90,7 +90,7 @@
     [super viewWillAppear:animated];
     NSIndexPath *selectedIndexPath = [moviesTable indexPathForSelectedRow];
     [moviesTable deselectRowAtIndexPath:selectedIndexPath animated:YES];
-
+    
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
     if (firstTime == YES) {
         if (moviesArray.count > 0) {
@@ -476,6 +476,7 @@
 - (void)dealloc
 {
     // dealloc our notification centers
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"GenreFound" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ThumbnailFound" object:nil];
 }
 
@@ -572,6 +573,12 @@
 {
     [[NSNotificationCenter defaultCenter]
      addObserver:self
+     selector:@selector(getMovieGenre:)
+     name:@"GenreFound"
+     object:nil];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
      selector:@selector(getPosterThumbnail:)
      name:@"ThumbnailFound"
      object:nil];
@@ -579,6 +586,15 @@
 
 
 #pragma mark - NOTIFICATION Received
+- (void)getMovieGenre:(NSNotification *)note
+{
+    Movie *movie = note.object;
+    NSUInteger movieIndex = [moviesArray indexOfObject:movie];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:movieIndex inSection:0];
+    
+    [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
+}
 
 - (void)getPosterThumbnail:(NSNotification *)note
 {
