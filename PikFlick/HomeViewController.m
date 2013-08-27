@@ -33,9 +33,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+
+    
     // Reachability check
     [self checkForInternet];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -54,6 +65,8 @@
 
 
 - (IBAction)submitCustomLocation:(id)sender {
+    [self resignFirstResponder];
+    [self.view endEditing:YES];
 }
 
 

@@ -37,6 +37,8 @@
 		CF13A68417CA9CF200BB2958 /* grey.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CF13A68017CA9CF200BB2958 /* grey.jpg */; };
 		CF13A68517CA9CF200BB2958 /* grey@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CF13A68117CA9CF200BB2958 /* grey@2x.jpg */; };
 		CF13A68B17CBDB3400BB2958 /* UserSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF13A68A17CBDB3400BB2958 /* UserSettingsViewController.m */; };
+		CF13A69017CC205000BB2958 /* overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = CF13A68E17CC205000BB2958 /* overlay.png */; };
+		CF13A69117CC205000BB2958 /* overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CF13A68F17CC205000BB2958 /* overlay@2x.png */; };
 		CF71DD6C17C6837B00531FF9 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF71DD6B17C6837B00531FF9 /* HomeViewController.m */; };
 		CF71DD6E17C7FC9100531FF9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF71DD6D17C7FC9100531FF9 /* Social.framework */; };
 		CF71DD7017C7FCFD00531FF9 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF71DD6F17C7FCFD00531FF9 /* Accounts.framework */; };
@@ -91,6 +93,8 @@
 		CF13A68117CA9CF200BB2958 /* grey@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grey@2x.jpg"; sourceTree = "<group>"; };
 		CF13A68917CBDB3400BB2958 /* UserSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSettingsViewController.h; sourceTree = "<group>"; };
 		CF13A68A17CBDB3400BB2958 /* UserSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSettingsViewController.m; sourceTree = "<group>"; };
+		CF13A68E17CC205000BB2958 /* overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay.png; sourceTree = "<group>"; };
+		CF13A68F17CC205000BB2958 /* overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlay@2x.png"; sourceTree = "<group>"; };
 		CF71DD6A17C6837B00531FF9 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		CF71DD6B17C6837B00531FF9 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		CF71DD6D17C7FC9100531FF9 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -178,6 +182,8 @@
 			children = (
 				CF13A67E17CA9CF200BB2958 /* green.jpg */,
 				CF13A67F17CA9CF200BB2958 /* green@2x.jpg */,
+				CF13A68E17CC205000BB2958 /* overlay.png */,
+				CF13A68F17CC205000BB2958 /* overlay@2x.png */,
 				CF13A68017CA9CF200BB2958 /* grey.jpg */,
 				CF13A68117CA9CF200BB2958 /* grey@2x.jpg */,
 				4A3876B117BC7D7200F95ECA /* icon.png */,
@@ -323,6 +329,8 @@
 				CF13A68317CA9CF200BB2958 /* green@2x.jpg in Resources */,
 				CF13A68417CA9CF200BB2958 /* grey.jpg in Resources */,
 				CF13A68517CA9CF200BB2958 /* grey@2x.jpg in Resources */,
+				CF13A69017CC205000BB2958 /* overlay.png in Resources */,
+				CF13A69117CC205000BB2958 /* overlay@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

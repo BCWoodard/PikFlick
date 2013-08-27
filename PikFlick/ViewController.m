@@ -37,6 +37,7 @@
 }
 - (IBAction)closeSelectedMovieOverlay:(id)sender;
 - (IBAction)startOver:(id)sender;
+- (IBAction)showMovieDetails:(id)sender;
 
 @end
 
@@ -56,7 +57,7 @@
     [self getRottenTomatoesDATA];
     [self getTMSTheaterData];
     [self listenForNotifications];
-        
+    
     // UI Elements
     moviesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     moviesTable.backgroundColor = [UIColor blackColor];
@@ -101,10 +102,10 @@
             selectedMovie = [moviesShortlist objectAtIndex:arc4random() % [moviesShortlist count]];
             int movieIndex = [moviesShortlist indexOfObject:selectedMovie];
             selectedMovie.shortlisted = NO;
-//            NSLog(@"Selected Shortlist Movie: %@", selectedMovie.movieTitle);
-//            
-//            NSLog(@"movies array%@", moviesArray);
-//            NSLog(@"shortlist array%@", moviesShortlist);
+            //            NSLog(@"Selected Shortlist Movie: %@", selectedMovie.movieTitle);
+            //
+            //            NSLog(@"movies array%@", moviesArray);
+            //            NSLog(@"shortlist array%@", moviesShortlist);
             
             // Remove that movie from the shortlist array
             NSMutableArray *tempArray = [moviesShortlist mutableCopy];
@@ -123,7 +124,7 @@
             selectedMovie = [moviesShortlist objectAtIndex:arc4random() % [moviesShortlist count]];
             int movieIndex = [moviesShortlist indexOfObject:selectedMovie];
             selectedMovie.shortlisted = NO;
-//            NSLog(@"Selected Shortlist Movie: %@", selectedMovie.movieTitle);
+            //            NSLog(@"Selected Shortlist Movie: %@", selectedMovie.movieTitle);
             
             // Remove that movie from the shortlist array
             NSMutableArray *tempArray = [moviesShortlist mutableCopy];
@@ -208,7 +209,7 @@
     selectedMovieTitle.text = selectedMovie.movieTitle;
     
     [UIView animateWithDuration:0.3 animations:^{
-    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+        CGSize screenSize = [[UIScreen mainScreen] bounds].size;
         selectedMovieOverlay.transform = CGAffineTransformIdentity;
         if (screenSize.height > 480) {
             selectedMovieOverlay.frame = CGRectMake(0, 20, 320, screenSize.height - 20);
@@ -218,7 +219,7 @@
         //self.view.bounds.size.height;
         [selectedMovieOverlay setHidden:NO];
     } completion:^(BOOL finished) {
-//        selectedMovieOverlay.frame = CGRectMake(0, 0, 320, 414);
+        //        selectedMovieOverlay.frame = CGRectMake(0, 0, 320, 414);
     }];
 }
 
@@ -233,7 +234,7 @@
 
 
 - (NSString *)announcementMessage {
-//    NSArray *announcementMessages = [[NSArray alloc] initWithObjects:@"It is decidedly so", @"It is certain", @"You will see", @"We have decided", @"Without a doubt", @"Take it or leave it", @"Most likely", @"Signs point to", @"Tonight you will see", @"Your fate is", @"Your key to success", @"", nil];
+    //    NSArray *announcementMessages = [[NSArray alloc] initWithObjects:@"It is decidedly so", @"It is certain", @"You will see", @"We have decided", @"Without a doubt", @"Take it or leave it", @"Most likely", @"Signs point to", @"Tonight you will see", @"Your fate is", @"Your key to success", @"", nil];
     NSArray *announcementMessages = [[NSArray alloc] initWithObjects:@"It is so", @"It is certain", @"You will see", @"We have decided", @"Without a doubt", @"Most likely", @"Signs point to", @"Tonight is", @"Your fate is", nil];
     int index = arc4random() % announcementMessages.count;
     return [announcementMessages objectAtIndex:index];
@@ -336,7 +337,7 @@
             movie.shortlisted = NO;
             [tempArray addObject:movie];
         }
-                
+        
         // Populate moviesArray with tempArray
         // Again, we do this to protect our arrays from accidental edits, etc.
         moviesArray = [NSArray arrayWithArray:tempArray];
@@ -344,7 +345,7 @@
         if ([moviesArray count] == MOVIE_RETRIEVAL_LIMIT) {
             [self getTMSMovieInTheaterData];
         }
-
+        
         
         // Stop NetworkActivityIndicator
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -374,8 +375,8 @@
 
 - (void)getTMSMovieInTheaterData
 {
-//    NSString *latitude = [(AppDelegate *)[[UIApplication sharedApplication] delegate] latForQuery];
-//    NSString *longitude = [(AppDelegate *)[[UIApplication sharedApplication] delegate] lngForQuery];
+    //    NSString *latitude = [(AppDelegate *)[[UIApplication sharedApplication] delegate] latForQuery];
+    //    NSString *longitude = [(AppDelegate *)[[UIApplication sharedApplication] delegate] lngForQuery];
     [self getLatAndLngForTMS];
     NSString *todaysDate = [self getTodaysDate];
     
@@ -398,35 +399,35 @@
 }
 
 
- - (void)getTMSTheaterData
- {
-     // Activate the network activity indicator
-     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-
-     // Get latitude and longitude values
-     [self getLatAndLngForTMS];
-     
-     // Generate NSURL and perform TMS query
-     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/theatres?lat=%@&lng=%@&radius=10&units=mi&api_key=%@", incomingLatForQuery, incomingLngForQuery, TMS_API_KEY]];
-     
-     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-         
-         // Retrieve theater data array from TMS
-         NSArray *tmsTheatersArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-         NSMutableArray *tempTheaters = [[NSMutableArray alloc] initWithCapacity:25];
-
-         for (NSDictionary *dictionary in tmsTheatersArray) {
-             Theater *theater = [[Theater alloc] initWithTheaterDictionary:dictionary];
-             [tempTheaters addObject:theater];
-          }
-         
-         theatersArray = tempTheaters;
-         
-     // stop the activity indicator
-     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-         
-     }];
+- (void)getTMSTheaterData
+{
+    // Activate the network activity indicator
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    // Get latitude and longitude values
+    [self getLatAndLngForTMS];
+    
+    // Generate NSURL and perform TMS query
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/theatres?lat=%@&lng=%@&radius=10&units=mi&api_key=%@", incomingLatForQuery, incomingLngForQuery, TMS_API_KEY]];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        
+        // Retrieve theater data array from TMS
+        NSArray *tmsTheatersArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+        NSMutableArray *tempTheaters = [[NSMutableArray alloc] initWithCapacity:25];
+        
+        for (NSDictionary *dictionary in tmsTheatersArray) {
+            Theater *theater = [[Theater alloc] initWithTheaterDictionary:dictionary];
+            [tempTheaters addObject:theater];
+        }
+        
+        theatersArray = tempTheaters;
+        
+        // stop the activity indicator
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    }];
 }
 
 
@@ -523,6 +524,12 @@
         [selectedMovieOverlay setHidden:YES];
         [startOverButton setHidden:YES];
     }];
+}
+
+- (IBAction)showMovieDetails:(id)sender {
+    selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
+    [selectedMovieOverlay setHidden:YES];
+    [self performSegueWithIdentifier:@"toDetailView" sender:self];
 }
 
 
