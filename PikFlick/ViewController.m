@@ -412,6 +412,8 @@
     NSString *todaysDate = [self getTodaysDate];
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/showings?startDate=%@&lat=%@&lng=%@&radius=%i&units=mi&api_key=%@", todaysDate, incomingLatForQuery, incomingLngForQuery, DISTANCE_FROM_USER, TMS_API_KEY]];
+    //http://data.tmsapi.com/v1/movies/showings?startDate=%@&zip=%@&radius=%@&units=mi&api_key=%@, todaysDate, zipCode, distance, TMS_API_KEY
+    NSLog(@"%@", url);
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         

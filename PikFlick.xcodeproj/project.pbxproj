@@ -39,6 +39,7 @@
 		CF13A68B17CBDB3400BB2958 /* UserSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF13A68A17CBDB3400BB2958 /* UserSettingsViewController.m */; };
 		CF13A69017CC205000BB2958 /* overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = CF13A68E17CC205000BB2958 /* overlay.png */; };
 		CF13A69117CC205000BB2958 /* overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CF13A68F17CC205000BB2958 /* overlay@2x.png */; };
+		CF13A69317CCFF4A00BB2958 /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF13A69217CCFF4A00BB2958 /* UserSettings.plist */; };
 		CF71DD6C17C6837B00531FF9 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF71DD6B17C6837B00531FF9 /* HomeViewController.m */; };
 		CF71DD6E17C7FC9100531FF9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF71DD6D17C7FC9100531FF9 /* Social.framework */; };
 		CF71DD7017C7FCFD00531FF9 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF71DD6F17C7FCFD00531FF9 /* Accounts.framework */; };
@@ -95,6 +96,7 @@
 		CF13A68A17CBDB3400BB2958 /* UserSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSettingsViewController.m; sourceTree = "<group>"; };
 		CF13A68E17CC205000BB2958 /* overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay.png; sourceTree = "<group>"; };
 		CF13A68F17CC205000BB2958 /* overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlay@2x.png"; sourceTree = "<group>"; };
+		CF13A69217CCFF4A00BB2958 /* UserSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserSettings.plist; sourceTree = "<group>"; };
 		CF71DD6A17C6837B00531FF9 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		CF71DD6B17C6837B00531FF9 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		CF71DD6D17C7FC9100531FF9 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -180,6 +182,7 @@
 		4A38768917BBEB1300F95ECA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CF13A69217CCFF4A00BB2958 /* UserSettings.plist */,
 				CF13A67E17CA9CF200BB2958 /* green.jpg */,
 				CF13A67F17CA9CF200BB2958 /* green@2x.jpg */,
 				CF13A68E17CC205000BB2958 /* overlay.png */,
@@ -331,6 +334,7 @@
 				CF13A68517CA9CF200BB2958 /* grey@2x.jpg in Resources */,
 				CF13A69017CC205000BB2958 /* overlay.png in Resources */,
 				CF13A69117CC205000BB2958 /* overlay@2x.png in Resources */,
+				CF13A69317CCFF4A00BB2958 /* UserSettings.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
