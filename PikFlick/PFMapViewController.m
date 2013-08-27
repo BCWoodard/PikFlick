@@ -166,14 +166,6 @@
                         NSDictionary *showtimeDict = [allDataArray objectAtIndex:idx];
                         NSArray *showtimesArray = [showtimeDict objectForKey:@"showtimes"];
                         
-//                        for (Theater *theater in incomingTheaters) {
-//                            if (theater.theaterID == [showtimesArray valueForKeyPath:@"theater.id"]) {
-//                                theater.theaterTicketURI = [showtimesArray valueForKeyPath:@"ticketURI"];
-//                                NSLog(@"TicketURI: %@", theater.theaterTicketURI);
-//                                break;
-//                            }
-//                        }
-                        
                         [showtimesArray enumerateObjectsUsingBlock:^(NSDictionary *showtimesDict, NSUInteger idx, BOOL *stop) {
                             showtimesDict = [showtimesArray objectAtIndex:idx];
                             
@@ -184,11 +176,13 @@
                                 if ([theater.theaterID isEqualToString:theaterID]) {
                                     theater.theaterTicketURI = [showtimesDict valueForKey:@"ticketURI"];
                                     NSLog(@"ticketURI: %@", theater.theaterTicketURI);
+                                    break;
                                 }
                             }
                         }];
                     }
                 }];
+                
             } else {
                 NSLog(@"Error retrieving data from TMS");
             }
@@ -201,5 +195,7 @@
         }];
     }
 }
+
+
 
 @end
