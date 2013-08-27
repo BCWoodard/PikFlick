@@ -50,6 +50,9 @@
         // Send notification that our download is complete
         [[NSNotificationCenter defaultCenter] postNotificationName:GENRE_FOUND_NOTIFICATION object:self];
     }];
+    
+    _movieGenre = @"Loading…";
+    
 }
 
 - (void)fetchThumbnail
@@ -63,6 +66,7 @@
         // Send notification that our download is complete
         [[NSNotificationCenter defaultCenter] postNotificationName:THUMBNAIL_FOUND_NOTIFICATION object:self];
     }];
+    
 }
 
 - (void)fetchPoster
