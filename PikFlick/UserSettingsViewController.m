@@ -67,7 +67,7 @@
 }
 
 - (IBAction)useCurrentLocation:(id)sender {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"]) {
+    if ((![[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"]) || ([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == YES)) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"useCurrentLocation"];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
         [self dismissViewControllerAnimated:YES completion:^{
@@ -77,8 +77,9 @@
 }
 
 - (IBAction)useCustomLocation:(id)sender {
-    
-//    [[NSUserDefaults standardUserDefaults] setValue:[NSString = ] forKey:<#(NSString *)#>];
+    NSString *userSetLocation = locationField.text;
+    if (userSetLocation != [[NSUserDefaults standardUserDefaults] valueForKey:@"customLocationName"]) {
+    [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@", userSetLocation] forKey:@"customLocationName"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"useCurrentLocation"];
     NSLog(@"pressed submit custom location");
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
@@ -87,8 +88,6 @@
         MKCoordinateRegion region;
         region.center.latitude = placemark.region.center.latitude;
         region.center.longitude = placemark.region.center.longitude;
-        [[NSUserDefaults standardUserDefaults] setFloat:region.center.longitude forKey:@"longitude"];
-        [[NSUserDefaults standardUserDefaults] setFloat:region.center.latitude forKey:@"latitude"];
         [[NSUserDefaults standardUserDefaults] setFloat:region.center.longitude forKey:@"longitude"];
         [[NSUserDefaults standardUserDefaults] setFloat:region.center.latitude forKey:@"latitude"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"useCurrentLocation"];
@@ -100,16 +99,17 @@
         }];
     }];
 }
+}
 
 - (IBAction)saveSettings:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
     [self dismissViewControllerAnimated:YES completion:^{
         nil;
     }];
 }
 
 - (IBAction)getHelp:(id)sender {
-    ViewController *viewController = [[ViewController alloc] init];
-    
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstTime"];
     [self dismissViewControllerAnimated:YES completion:^{
         nil;
     }];
@@ -117,7 +117,6 @@
 
 - (IBAction)changeTheatreDistance:(id)sender {
     if (theatreDistanceControl.selectedSegmentIndex == 0) {
-        //        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTime"];
         [[NSUserDefaults standardUserDefaults] setInteger:5 forKey:@"userDistance"];
     } else if (theatreDistanceControl.selectedSegmentIndex == 1) {
         [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"userDistance"];

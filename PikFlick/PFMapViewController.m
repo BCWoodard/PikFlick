@@ -43,7 +43,7 @@
     theatersShowingMovie = [[NSMutableArray alloc] initWithCapacity:15];
     
     [super viewDidLoad];
-
+    
     
     // Get data to show specific theaters
     [self getTheatersShowingMovie];
@@ -57,11 +57,11 @@
 }
 
 /*
-- (void)viewDidAppear:(BOOL)animated
-{
-    [self getUniqueTheaterIDS:theatersShowingMovie];
-}
-*/
+ - (void)viewDidAppear:(BOOL)animated
+ {
+ [self getUniqueTheaterIDS:theatersShowingMovie];
+ }
+ */
 
 - (void)didReceiveMemoryWarning
 {
@@ -86,8 +86,8 @@
     // Setup theaters on the map
     // Get unique theaters from data results
     NSArray *uniqueTheaters = [[NSOrderedSet orderedSetWithArray:theatersShowingMovie] array];
-
-    for (int index = 0; index < [incomingTheaters count]; index++) {        
+    
+    for (int index = 0; index < [incomingTheaters count]; index++) {
         Theater *tempTheater = [incomingTheaters objectAtIndex:index];
         
         for (NSString *theaterID in uniqueTheaters) {
@@ -111,19 +111,19 @@
 - (NSArray *)getUniqueTheaterIDS
 {
     /*
-    NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:theatersArray];
-    NSSet *uniqueTheaters = [orderedSet set];
-    */
+     NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:theatersArray];
+     NSSet *uniqueTheaters = [orderedSet set];
+     */
     
     /*
-    NSArray* uniqueTheaters = [theatersArray valueForKeyPath:@"@distinctUnionOfObjects.self"];
-    NSLog(@"%@", uniqueTheaters);
-    */
+     NSArray* uniqueTheaters = [theatersArray valueForKeyPath:@"@distinctUnionOfObjects.self"];
+     NSLog(@"%@", uniqueTheaters);
+     */
     /*
-    NSMutableArray *uniqueTheaters = [[NSMutableArray alloc] initWithArray:[[NSSet setWithArray:theatersShowingMovie] allObjects]];
-    NSLog(@"uniqueTheaters: %@", uniqueTheaters);
-    return uniqueTheaters;
-    */
+     NSMutableArray *uniqueTheaters = [[NSMutableArray alloc] initWithArray:[[NSSet setWithArray:theatersShowingMovie] allObjects]];
+     NSLog(@"uniqueTheaters: %@", uniqueTheaters);
+     return uniqueTheaters;
+     */
     
     
     NSArray *uniqueTheaters = [[NSOrderedSet orderedSetWithArray:theatersShowingMovie] array];
@@ -152,35 +152,70 @@
 - (void)getTheatersShowingMovie
 {
     [self getTodaysDate];
-    [self getLatAndLngForTMS];
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/%@/showings?startDate=%@&numDays=1&lat=%@&lng=%@&api_key=%@", incomingTMSID, startDate, incomingLatForQuery, incomingLngForQuery, TMS_API_KEY]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+    
+    if (([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == YES) || (![[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"])) {
+        [self getLatAndLngForTMS];
         
-        // Activity indicator
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-        
-        NSArray *allDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-        [allDataArray enumerateObjectsUsingBlock:^(NSDictionary *showtimeDict, NSUInteger idx, BOOL *stop) {
-            showtimeDict = [allDataArray objectAtIndex:idx];
-            NSArray *showtimesArray = [showtimeDict objectForKey:@"showtimes"];
-            [showtimesArray enumerateObjectsUsingBlock:^(NSDictionary *theatreDict, NSUInteger idx, BOOL *stop) {
-                theatreDict = [showtimesArray objectAtIndex:idx];
-                NSString *theaterID = [[theatreDict objectForKey:@"theatre"] valueForKey:@"id"];
-                
-                [theatersShowingMovie addObject:theaterID];
-                
-                
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/%@/showings?startDate=%@&numDays=1&lat=%@&lng=%@&api_key=%@", incomingTMSID, startDate, incomingLatForQuery, incomingLngForQuery, TMS_API_KEY]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+            
+            // Activity indicator
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+            
+            NSArray *allDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            [allDataArray enumerateObjectsUsingBlock:^(NSDictionary *showtimeDict, NSUInteger idx, BOOL *stop) {
+                showtimeDict = [allDataArray objectAtIndex:idx];
+                NSArray *showtimesArray = [showtimeDict objectForKey:@"showtimes"];
+                [showtimesArray enumerateObjectsUsingBlock:^(NSDictionary *theatreDict, NSUInteger idx, BOOL *stop) {
+                    theatreDict = [showtimesArray objectAtIndex:idx];
+                    NSString *theaterID = [[theatreDict objectForKey:@"theatre"] valueForKey:@"id"];
+                    
+                    [theatersShowingMovie addObject:theaterID];
+                    
+                    
+                }];
             }];
+            
+            // Send notification that our download is complete
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"DownloadComplete" object:self];
+            
+            // Stop activity indicator
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }];
+    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == YES) {
+        float longitude = [[NSUserDefaults standardUserDefaults] floatForKey:@"longitude"];
+        float latitude = [[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"];
         
-        // Send notification that our download is complete
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"DownloadComplete" object:self];
-        
-        // Stop activity indicator
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    }];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/%@/showings?startDate=%@&numDays=1&lat=%f&lng=%f&api_key=%@", incomingTMSID, startDate, latitude, longitude, TMS_API_KEY]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+            
+            // Activity indicator
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+            
+            NSArray *allDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            [allDataArray enumerateObjectsUsingBlock:^(NSDictionary *showtimeDict, NSUInteger idx, BOOL *stop) {
+                showtimeDict = [allDataArray objectAtIndex:idx];
+                NSArray *showtimesArray = [showtimeDict objectForKey:@"showtimes"];
+                [showtimesArray enumerateObjectsUsingBlock:^(NSDictionary *theatreDict, NSUInteger idx, BOOL *stop) {
+                    theatreDict = [showtimesArray objectAtIndex:idx];
+                    NSString *theaterID = [[theatreDict objectForKey:@"theatre"] valueForKey:@"id"];
+                    
+                    [theatersShowingMovie addObject:theaterID];
+                    
+                    
+                }];
+            }];
+            
+            // Send notification that our download is complete
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"DownloadComplete" object:self];
+            
+            // Stop activity indicator
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        }];
+    }
 }
 
 @end
