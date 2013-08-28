@@ -157,8 +157,7 @@
         return nil;
     }
     
-    return  [array arc4random() % [array count]];
-//    return [array objectAtIndex:randomMovieIndex];
+    return [array objectAtIndex:arc4random() % [array count]];
 }
 
 - (void)removeSelectedMovieAndReloadTableView
@@ -194,7 +193,7 @@
         [self animatedOverlayRemovalAndReplacement];
     }
     if (moviesArray.count != 1) {
-    [self removeSelectedMovieAndReloadTableView];
+        [self removeSelectedMovieAndReloadTableView];
     }
 }
 
@@ -206,6 +205,10 @@
     announcementGreeting.text = [self announcementMessage];
     selectedMoviePoster.image = selectedMovie.moviePoster;
     selectedMovieTitle.text = selectedMovie.movieTitle;
+    
+    if (moviesArray.count == 1) {
+        startOverButton.hidden = NO;
+    }
     
     [UIView animateWithDuration:0.3 animations:^{
         CGSize screenSize = [[UIScreen mainScreen] bounds].size;
@@ -290,13 +293,19 @@
     if ([segue.identifier isEqualToString:@"toDetailView"]) {
         pfDetailViewController *detailViewController = segue.destinationViewController;
         if (movieSelectedFromTable == YES) {
-        
-        detailViewController.incomingMovie = [moviesArray objectAtIndex:[moviesTable indexPathForSelectedRow].row];
-        detailViewController.incomingTheaters = theatersArray;
+            
+            detailViewController.incomingMovie = [moviesArray objectAtIndex:[moviesTable indexPathForSelectedRow].row];
+            detailViewController.incomingTheaters = theatersArray;
         } else if (movieSelectedFromTable == NO) {
-        detailViewController.incomingMovie = [moviesArray objectAtIndex:randomMovieIndex];
-        detailViewController.incomingTheaters = theatersArray;
-
+            if ([moviesShortlist count]) {
+//                detailViewController.incomingMovie =
+            } else if ([moviesArray count]) {
+//                detailViewController.incomingMovie =
+            }
+            
+//            detailViewController.incomingMovie = [moviesArray objectAtIndex:randomMovieIndex];
+//            detailViewController.incomingTheaters = theatersArray;
+            
         }
     }
 }
@@ -377,7 +386,7 @@
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == YES) {
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/showings?startDate=%@&lat=%@&lng=%@&radius=%i&units=mi&api_key=%@", todaysDate, incomingLatForQuery, incomingLngForQuery, [[NSUserDefaults standardUserDefaults] integerForKey:@"userDistance"], TMS_API_KEY]];
-
+        
         NSLog(@"%@", url);
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -398,7 +407,7 @@
         float longitude = [[NSUserDefaults standardUserDefaults] floatForKey:@"longitude"];
         float latitude = [[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"];
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/showings?startDate=%@&lat=%f&lng=%f&radius=%i&units=mi&api_key=%@", todaysDate, latitude, longitude, [[NSUserDefaults standardUserDefaults] integerForKey:@"userDistance"], TMS_API_KEY]];
-
+        
         NSLog(@"%@", url);
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
