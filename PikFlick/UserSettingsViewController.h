@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface UserSettingsViewController : UIViewController
+@interface UserSettingsViewController : UIViewController <CLLocationManagerDelegate> {
+CLLocationManager           *locationManager;
+CLLocation                  *currentLocation;
+}
+
+@property (strong, nonatomic) NSString *latForQuery;
+@property (strong, nonatomic) NSString *lngForQuery;
+
 
 @end

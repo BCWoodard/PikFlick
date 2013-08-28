@@ -85,6 +85,22 @@
     [super viewWillAppear:animated];
     NSIndexPath *selectedIndexPath = [moviesTable indexPathForSelectedRow];
     [moviesTable deselectRowAtIndexPath:selectedIndexPath animated:YES];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(settingsSaved)
+                                                 name:@"settingsSaved"
+                                               object:nil];
+}
+
+- (void)settingsSaved {
+    NSLog(@"settingsSaved method called");
+    NSLog(@"current lat %@, long %@", incomingLatForQuery, incomingLngForQuery);
+    NSLog(@"custom lat %f, long %f", [[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"], [[NSUserDefaults standardUserDefaults] floatForKey:@"longitude"]);
+    
+    
+    [self getRottenTomatoesDATA];
+    [self getTMSTheaterData];
+    [self listenForNotifications];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -287,7 +303,6 @@
 {
     // Activate the Network Activity Indicator
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?page_limit=%i&page=1&country=us&apikey=%@", MOVIE_RETRIEVAL_LIMIT, ROTTEN_TOMATOES_API_KEY]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
@@ -347,7 +362,10 @@
     [self getLatAndLngForTMS];
     NSString *todaysDate = [self getTodaysDate];
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/showings?startDate=%@&lat=%@&lng=%@&radius=%i&units=mi&api_key=%@", todaysDate, incomingLatForQuery, incomingLngForQuery, DISTANCE_FROM_USER, TMS_API_KEY]];
+    int distance = [[NSUserDefaults standardUserDefaults] integerForKey:@"userDistance"];
+    
+    if (([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == YES) || (![[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"])) {
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/showings?startDate=%@&lat=%@&lng=%@&radius=%i&units=mi&api_key=%@", todaysDate, incomingLatForQuery, incomingLngForQuery, distance, TMS_API_KEY]];
     //http://data.tmsapi.com/v1/movies/showings?startDate=%@&zip=%@&radius=%@&units=mi&api_key=%@, todaysDate, zipCode, distance, TMS_API_KEY
     NSLog(@"%@", url);
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -365,19 +383,52 @@
             }
         }
     }];
+    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == NO) {
+        float longitude = [[NSUserDefaults standardUserDefaults] floatForKey:@"longitude"];
+        float latitude = [[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/showings?startDate=%@&lat=%f&lng=%f&radius=%i&units=mi&api_key=%@", todaysDate, latitude, longitude, distance, TMS_API_KEY]];
+        //http://data.tmsapi.com/v1/movies/showings?startDate=%@&zip=%@&radius=%@&units=mi&api_key=%@, todaysDate, zipCode, distance, TMS_API_KEY
+        NSLog(@"%@", url);
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+            
+            NSArray *tempArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            
+            for (NSDictionary *tmsMovie in tempArray) {
+                for (Movie *movie in moviesArray) {
+                    if ([movie.movieTitle isEqualToString:[tmsMovie valueForKey:@"title"]]) {
+                        movie.movieTMSID = [tmsMovie valueForKey:@"tmsId"];
+                        NSLog(@"Movie Name: %@, TMSID: %@", movie.movieTitle, movie.movieTMSID);
+                        break;
+                    }
+                }
+            }
+        }];
+
+    }
+  
+    
+    
+    
+    
 }
 
 
 - (void)getTMSTheaterData
 {
+    int distance = [[NSUserDefaults standardUserDefaults] integerForKey:@"userDistance"];
+
     // Activate the network activity indicator
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    if (([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == YES) || (![[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"])) {
     
     // Get latitude and longitude values
     [self getLatAndLngForTMS];
     
     // Generate NSURL and perform TMS query
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/theatres?lat=%@&lng=%@&radius=10&units=mi&api_key=%@", incomingLatForQuery, incomingLngForQuery, TMS_API_KEY]];
+
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/theatres?lat=%@&lng=%@&radius=%i&units=mi&api_key=%@", incomingLatForQuery, incomingLngForQuery, distance, TMS_API_KEY]];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -397,7 +448,35 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
     }];
+    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == NO) {
+        float longitude = [[NSUserDefaults standardUserDefaults] floatForKey:@"longitude"];
+        float latitude = [[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"];
+        
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/theatres?lat=%f&lng=%f&radius=%i&units=mi&api_key=%@", latitude, longitude, distance, TMS_API_KEY]];
+        
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+            
+            // Retrieve theater data array from TMS
+            NSArray *tmsTheatersArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            NSMutableArray *tempTheaters = [[NSMutableArray alloc] initWithCapacity:25];
+            
+            for (NSDictionary *dictionary in tmsTheatersArray) {
+                Theater *theater = [[Theater alloc] initWithTheaterDictionary:dictionary];
+                [tempTheaters addObject:theater];
+            }
+            
+            theatersArray = tempTheaters;
+            
+            // stop the activity indicator
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+            
+        }];
+    }
+        
 }
+
+
 
 
 
@@ -521,7 +600,6 @@
                                              selector:@selector(getPosterThumbnail:)
                                                  name:THUMBNAIL_FOUND_NOTIFICATION
                                                object:nil];
-
 }
 
 
