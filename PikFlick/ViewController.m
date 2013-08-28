@@ -106,6 +106,19 @@
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTime"];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    UITouch *dismissOverlay = [[event allTouches] anyObject];
+    
+    if (dismissOverlay) {
+        [UIView animateWithDuration:0.3f animations:^{
+            tutorialOverlay.transform = CGAffineTransformScale(tutorialOverlay.transform, 0.01f, 0.01f);
+        } completion:^(BOOL finished) {
+            tutorialOverlay.hidden = YES;
+        }];
+    }
+}
+
 
 #pragma mark - Shaking and Movie Selection
 - (void)preselectRandomMovie
