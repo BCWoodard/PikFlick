@@ -74,16 +74,46 @@
 
 
 #pragma mark - UITableViewDataSource
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
+    if (sectionTitle == nil) {
+        return nil;
+    }
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.frame = CGRectMake(20, 0, 280, 44);
+    label.backgroundColor = [UIColor clearColor];
+    label.textColor = [UIColor whiteColor];
+    label.shadowColor = [UIColor grayColor];
+    label.shadowOffset = CGSizeMake(-1.0, 1.0);
+    label.font = [UIFont boldSystemFontOfSize:20];
+    label.text = sectionTitle;
+    label.lineBreakMode = NSLineBreakByWordWrapping;
+    label.numberOfLines = 0;
+    label.textAlignment = NSTextAlignmentCenter;
+    
+    UIView *view = [[UIView alloc] init];
+    [view addSubview:label];
+    
+    return view;
+}
+
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (section == 1) {
+    
+    if (section == 0) {
         return self.incomingMovie.movieTitle;
+        
     } else if (section ==3) {
         return @"Critics Consensus";
     } else {
         return nil;
     }
 }
+
 
 - (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -144,11 +174,7 @@
         newFrame.size.height = [self getLabelHeightForIndexPath:indexPath andString:self.incomingMovie.movieCriticsConsensus];
         cell.textLabel.frame = newFrame;
         cell.textLabel.font = [UIFont fontWithName:@"Gill Sans" size:14.2f];
-        
-        //
-        //    CGRect newFrame = cell.textLabel.frame;
-        //    newFrame.size.height = [self getLabelHeightForIndex:self.incomingMovie.movieCriticsConsensus];
-        //    cell.textLabel.frame = newFrame;
+
         
     }
     return cell;
@@ -159,7 +185,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     row = indexPath.row;
-    [self performSegueWithIdentifier:@"toMapView" sender:self];
+    
+    if ((indexPath.section == 2) && (indexPath.row == 0)) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.youtube.com/v/oHg5SJYRHA0&f=gdata_videos&c=ytapi-my-clientID&d=AIzaSyDGU2EpXmKtonq8qc-P6Objjay0FdUsusw"]];
+    } else if ((indexPath.section == 2) && (indexPath.row == 1)) {
+        [self performSegueWithIdentifier:@"toMapView" sender:self];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

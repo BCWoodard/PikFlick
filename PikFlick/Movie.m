@@ -17,7 +17,6 @@
     if (self) {
         _movieID = [movieDictionary valueForKey:@"id"];
         _movieTitle = [movieDictionary valueForKey:@"title"];
-        _moviePeerRating = [[[movieDictionary objectForKey:@"ratings"] valueForKey:@"audience_score"] stringValue];
         _moviePeerRating = [[movieDictionary valueForKeyPath:@"ratings.audience_score"] stringValue];
         _movieThumbnailURL = [movieDictionary valueForKeyPath:@"posters.thumbnail"];
         _moviePosterURL = [movieDictionary valueForKeyPath:@"posters.detailed"];
@@ -25,6 +24,7 @@
         _movieSynopsis = [movieDictionary objectForKey:@"synopsis"];
         _movieCriticsConsensus = [movieDictionary objectForKey:@"critics_consensus"];
         _movieRunTime = [movieDictionary objectForKey:@"runtime"];
+
         [self fetchGenre];
         [self fetchThumbnail];
     }
@@ -52,6 +52,7 @@
     }];
 }
 
+
 - (void)fetchThumbnail
 {
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.movieThumbnailURL]];
@@ -63,7 +64,11 @@
         // Send notification that our download is complete
         [[NSNotificationCenter defaultCenter] postNotificationName:THUMBNAIL_FOUND_NOTIFICATION object:self];
     }];
+    
+    _movieGenre = @"Loading…";
+
 }
+
 
 - (void)fetchPoster
 {
@@ -98,4 +103,5 @@
 {
     return [UIImage imageNamed:@"icon"];
 }
+
 @end
