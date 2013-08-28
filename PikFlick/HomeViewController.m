@@ -8,15 +8,14 @@
 
 #import "HomeViewController.h"
 #import "Reachability.h"
+#import "ViewController.h"
 
 @interface HomeViewController () {
+
+    __weak IBOutlet UIImageView *homeImage;
     
-    BOOL                        clearText;
-    BOOL                        needHelp;
-    __weak IBOutlet UITextField *locationField;
 }
-- (IBAction)findCurrentLocation:(id)sender;
-- (IBAction)submitCustomLocation:(id)sender;
+- (IBAction)goToMoviesList:(id)sender;
 
 @end
 
@@ -34,10 +33,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     
     // Reachability check
     [self checkForInternet];
+    
+    // UI elements
+    [self selectHomeScreenImage];
 }
 
 
@@ -79,41 +80,45 @@
     
 }
 
-
-
-
-
+#pragma mark - Hide NavBar
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+#pragma mark - Select Homescreen Image
+- (void)selectHomeScreenImage
+{
+    CGRect windowRect = [[UIScreen mainScreen] bounds];
+    CGFloat windowWidth = windowRect.size.width;
+    CGFloat windowHeight = windowRect.size.height;
+    homeImage.frame = CGRectMake(0, 0, windowWidth, windowHeight);
+    
+    if (windowHeight == 480.0f) {
+        homeImage.image = [UIImage imageNamed:@"Default"];
+    } else {
+        homeImage.image = [UIImage imageNamed:@"Default-568h"];
+    }
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    ViewController *viewController = segue.destinationViewController;
+
+#pragma mark - Transition to Movies List
+- (IBAction)goToMoviesList:(id)sender
+{
+    ViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MoviesListViewController"];
+    
+    // hide back button
+    viewController.navigationItem.hidesBackButton = YES;
+    [self.navigationController pushViewController:viewController animated:YES];
+
 }
+
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-- (IBAction)findCurrentLocation:(id)sender {
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"useCurrentLocation"];
-    [self performSegueWithIdentifier:@"Location" sender:self];
-}
-
-
-- (IBAction)submitCustomLocation:(id)sender {
-    [self resignFirstResponder];
-    [self.view endEditing:YES];
-}
-
-
 
 @end
