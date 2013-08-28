@@ -174,7 +174,7 @@
         newFrame.size.height = [self getLabelHeightForIndexPath:indexPath andString:self.incomingMovie.movieCriticsConsensus];
         cell.textLabel.frame = newFrame;
         cell.textLabel.font = [UIFont fontWithName:@"Gill Sans" size:14.2f];
-
+        
         
     }
     return cell;
@@ -189,7 +189,18 @@
     if ((indexPath.section == 2) && (indexPath.row == 0)) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.youtube.com/v/oHg5SJYRHA0&f=gdata_videos&c=ytapi-my-clientID&d=AIzaSyDGU2EpXmKtonq8qc-P6Objjay0FdUsusw"]];
     } else if ((indexPath.section == 2) && (indexPath.row == 1)) {
-        [self performSegueWithIdentifier:@"toMapView" sender:self];
+        
+        if (incomingMovie.movieTMSID == nil) {
+            if ([[NSUserDefaults standardUserDefaults] integerForKey:@"userDistance"] != 40) {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Theaters Found" message:[NSString stringWithFormat:@"No showtimes within %i miles of your location.  You can increase distance under settings.", [[NSUserDefaults standardUserDefaults] integerForKey:@"userDistance"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+                [alertView show];
+            } else if ([[NSUserDefaults standardUserDefaults] integerForKey:@"userDistance"] == 40) {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Theaters Found" message:@"Sorry, there are no showtimes in your area." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+                [alertView show];
+            }
+        } else if (incomingMovie.movieTMSID != nil) {
+            [self performSegueWithIdentifier:@"toMapView" sender:self];
+        }
     }
 }
 

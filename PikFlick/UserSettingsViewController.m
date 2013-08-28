@@ -12,6 +12,7 @@
 #import <MapKit/MapKit.h>
 
 @interface UserSettingsViewController () {
+    NSString *userSetLocation;
     __weak IBOutlet UISegmentedControl *theatreDistanceControl;
     __weak IBOutlet UITextField *locationField;
     
@@ -97,22 +98,19 @@
 - (IBAction)useCurrentLocation:(id)sender {
     
     [self getCurrentLocation];
-     
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"useCurrentLocation"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
-
+    
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"useCurrentLocation"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
     
     [self dismissViewControllerAnimated:YES completion:^{
-            nil;
-        }];
+        nil;
+    }];
 }
 
 - (IBAction)useCustomLocation:(id)sender {
-    NSString *userSetLocation = locationField.text;
-    if (userSetLocation != [[NSUserDefaults standardUserDefaults] valueForKey:@"customLocationName"]) {
-    [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%@", userSetLocation] forKey:@"customLocationName"];
+    
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"useCurrentLocation"];
-    NSLog(@"pressed submit custom location");
+    
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder geocodeAddressString:locationField.text completionHandler:^(NSArray *placemarks, NSError *error) {
         CLPlacemark *placemark = [placemarks objectAtIndex:0];
@@ -123,13 +121,16 @@
         [[NSUserDefaults standardUserDefaults] setFloat:region.center.latitude forKey:@"latitude"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"useCurrentLocation"];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
-        
-        [self dismissViewControllerAnimated:YES completion:^{
-            nil;
-        }];
+        if (([[NSUserDefaults standardUserDefaults] floatForKey:@"longitude"] != 0.000000) && ([[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"] != 0.000000)) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
+            [self dismissViewControllerAnimated:YES completion:^{
+                nil;
+            }];
+        } else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location Not Recognized" message:@"We were not able to regognize your location." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+            [alertView show];
+        }
     }];
-}
 }
 
 - (IBAction)saveSettings:(id)sender {

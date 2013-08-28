@@ -584,10 +584,7 @@ SHAKE AGAIN!!</string>
             <relationships>
                 <relationship kind="action" name="closeSelectedMovieOverlay:"/>
                 <relationship kind="action" name="goToSettings:"/>
-<<<<<<< HEAD
-=======
                 <relationship kind="action" name="showMovieDetails:"/>
->>>>>>> FinalDay
                 <relationship kind="action" name="startOver:"/>
                 <relationship kind="outlet" name="announcementGreeting" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="moviesTable" candidateClass="UITableView"/>

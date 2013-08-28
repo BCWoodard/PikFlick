@@ -45,7 +45,7 @@
     theaterIDAndURI = [[NSDictionary alloc] init];
     
     [super viewDidLoad];
-
+    
     
     // Get data to show specific theaters
     [self getTheatersShowingMovie];
@@ -59,27 +59,38 @@
 }
 
 /*
-- (void)viewDidAppear:(BOOL)animated
-{
-    [self getUniqueTheaterIDS:theatersShowingMovie];
-}
-*/
+ - (void)viewDidAppear:(BOOL)animated
+ {
+ [self getUniqueTheaterIDS:theatersShowingMovie];
+ }
+ */
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-
+    
 }
 
 
 #pragma mark - Setup Initial Map
 - (void)setupInitialMap
 {
+    MKCoordinateSpan startSpan;
+    MKCoordinateRegion startRegion;
+    
     // Set up map and span
-    CLLocationCoordinate2D startCoordinate = CLLocationCoordinate2DMake(41.90, -87.65);
-    MKCoordinateSpan startSpan = MKCoordinateSpanMake(0.3, 0.3);
-    MKCoordinateRegion startRegion = MKCoordinateRegionMake(startCoordinate, startSpan);
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == YES) {
+        CLLocationCoordinate2D startCoordinate = CLLocationCoordinate2DMake(incomingLatForQuery.floatValue, incomingLngForQuery.floatValue);
+        startSpan = MKCoordinateSpanMake(0.3, 0.3);
+        startRegion = MKCoordinateRegionMake(startCoordinate, startSpan);
+    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == NO) {
+        CLLocationCoordinate2D startCoordinate = CLLocationCoordinate2DMake([[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"], [[NSUserDefaults standardUserDefaults] floatForKey:@"longitude"]);
+        startSpan = MKCoordinateSpanMake(0.3, 0.3);
+        startRegion = MKCoordinateRegionMake(startCoordinate, startSpan);
+    } else {
+        NSLog(@"error passing coordinates to mapView");
+    }
     
     mapViewOutlet.showsUserLocation = YES;
     mapViewOutlet.region = startRegion;
@@ -92,7 +103,7 @@
     //NSArray *uniqueTheaters = [[NSOrderedSet orderedSetWithArray:theatersShowingMovie] array];
     NSArray *uniqueTheaters = [self createUniqueTheatersArray:theatersShowingMovie];
     NSLog(@"Unique theaters: %@", uniqueTheaters);
-    for (int index = 0; index < [incomingTheaters count]; index++) {        
+    for (int index = 0; index < [incomingTheaters count]; index++) {
         Theater *tempTheater = [incomingTheaters objectAtIndex:index];
         
         for (NSString *theaterID in uniqueTheaters) {
@@ -157,6 +168,9 @@
 
 - (void)getTheatersShowingMovie
 {
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == YES) {
+
     [self getTodaysDate];
     [self getLatAndLngForTMS];
     
@@ -171,7 +185,7 @@
         [allDataArray enumerateObjectsUsingBlock:^(NSDictionary *allMovieShowtimesDataDict, NSUInteger idx, BOOL *stop) {
             allMovieShowtimesDataDict = [allDataArray objectAtIndex:idx];
             NSArray *showtimesArray = [allMovieShowtimesDataDict objectForKey:@"showtimes"];
-
+            
             [showtimesArray enumerateObjectsUsingBlock:^(NSDictionary *theatreDict, NSUInteger idx, BOOL *stop) {
                 
                 theatreDict = [showtimesArray objectAtIndex:idx];
@@ -188,7 +202,7 @@
                             tempTheater.theaterTicketURI = [theatreDict valueForKey:@"ticketURI"];
                             NSMutableDictionary *tempIDandURLDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:theaterID, @"id", theaterURL, @"url", nil];
                             theaterIDAndURI = tempIDandURLDict;
-
+                            
                             break;
                         }
                         NSLog(@"theaterDict: %@", theaterIDAndURI);
@@ -203,7 +217,56 @@
         // Stop activity indicator
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
+    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == NO) {
+        float longitude = [[NSUserDefaults standardUserDefaults] floatForKey:@"longitude"];
+        float latitude = [[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"];
+        
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/%@/showings?startDate=%@&numDays=1&lat=%f&lng=%f&api_key=%@", incomingTMSID, startDate, latitude, longitude, TMS_API_KEY]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+            
+            // Activity indicator
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+            
+            NSArray *allDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            [allDataArray enumerateObjectsUsingBlock:^(NSDictionary *allMovieShowtimesDataDict, NSUInteger idx, BOOL *stop) {
+                allMovieShowtimesDataDict = [allDataArray objectAtIndex:idx];
+                NSArray *showtimesArray = [allMovieShowtimesDataDict objectForKey:@"showtimes"];
+                
+                [showtimesArray enumerateObjectsUsingBlock:^(NSDictionary *theatreDict, NSUInteger idx, BOOL *stop) {
+                    
+                    theatreDict = [showtimesArray objectAtIndex:idx];
+                    NSString *theaterID = [theatreDict valueForKeyPath:@"theatre.id"];
+                    NSString *theaterURL = [theatreDict valueForKey:@"ticketURI"];
+                    
+                    [theatersShowingMovie addObject:theaterID];
+                    
+                    for (int index = 0; index < [incomingTheaters count]; index++) {
+                        Theater *tempTheater = [incomingTheaters objectAtIndex:index];
+                        
+                        for (NSString *theaterID in theatersShowingMovie) {
+                            if ([theaterID isEqualToString:tempTheater.theaterID]) {
+                                tempTheater.theaterTicketURI = [theatreDict valueForKey:@"ticketURI"];
+                                NSMutableDictionary *tempIDandURLDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:theaterID, @"id", theaterURL, @"url", nil];
+                                theaterIDAndURI = tempIDandURLDict;
+                                
+                                break;
+                            }
+                            NSLog(@"theaterDict: %@", theaterIDAndURI);
+                        }
+                    }
+                }];
+            }];
+            
+            // Send notification that our download is complete
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"DownloadComplete" object:self];
+            
+            // Stop activity indicator
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        }];
+    }
 }
+
 
 - (NSArray *)createUniqueTheatersArray:(NSArray *)array
 {
