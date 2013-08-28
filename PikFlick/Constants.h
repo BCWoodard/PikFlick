@@ -18,7 +18,5 @@
 
 // Integers
 #define MOVIE_RETRIEVAL_LIMIT   16
-//#define DISTANCE_FROM_USER      10
-
 
 @end
