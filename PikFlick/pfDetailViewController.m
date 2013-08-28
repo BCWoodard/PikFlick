@@ -11,6 +11,7 @@
 #import "pfDetailViewController.h"
 #import "ViewController.h"
 #import "PFMapViewController.h"
+#import "Theater.h"
 
 @interface pfDetailViewController ()
 {

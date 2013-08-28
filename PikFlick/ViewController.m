@@ -118,7 +118,7 @@
 
 - (void)tutorialOverlay {
     [tutorialOverlay setHidden:NO];
-    tutorialOverlay.image = [UIImage imageNamed:@"overlay.png"];
+    tutorialOverlay.image = [UIImage imageNamed:@"overlay"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTime"];
 }
 

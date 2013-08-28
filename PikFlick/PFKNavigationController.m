@@ -28,7 +28,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"PikFlick-navbar-10"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"PFKNavBar"] forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)didReceiveMemoryWarning
