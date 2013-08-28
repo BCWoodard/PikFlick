@@ -41,37 +41,6 @@
 }
 
 
-- (void)viewWillAppear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-}
-
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    ViewController *viewController = segue.destinationViewController;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)findCurrentLocation:(id)sender {
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"useCurrentLocation"];
-    [self performSegueWithIdentifier:@"Location" sender:self];
-}
-
-
-- (IBAction)submitCustomLocation:(id)sender {
-    [self resignFirstResponder];
-    [self.view endEditing:YES];
-}
-
-
 #pragma mark - REACHABILITY Methods
 - (void)checkForInternet
 {
@@ -109,5 +78,42 @@
     [alertView show];
     
 }
+
+
+
+
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    ViewController *viewController = segue.destinationViewController;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)findCurrentLocation:(id)sender {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"useCurrentLocation"];
+    [self performSegueWithIdentifier:@"Location" sender:self];
+}
+
+
+- (IBAction)submitCustomLocation:(id)sender {
+    [self resignFirstResponder];
+    [self.view endEditing:YES];
+}
+
+
 
 @end

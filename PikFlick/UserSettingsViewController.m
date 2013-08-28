@@ -28,6 +28,9 @@
 
 @implementation UserSettingsViewController
 
+@synthesize latForQuery;
+@synthesize lngForQuery;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -66,14 +69,42 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)getCurrentLocation
+{
+    if (!locationManager) {
+        locationManager = [[CLLocationManager alloc] init];
+    }
+    
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+    [locationManager startUpdatingLocation];
+    
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    currentLocation = [[CLLocation alloc] initWithLatitude:newLocation.coordinate.latitude longitude:newLocation.coordinate.longitude];
+    
+    self.latForQuery = [NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude];
+    self.lngForQuery = [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
+    
+    [locationManager stopUpdatingLocation];
+    
+}
+
+
 - (IBAction)useCurrentLocation:(id)sender {
-    if ((![[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"]) || ([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == YES)) {
+    
+    [self getCurrentLocation];
+     
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"useCurrentLocation"];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
-        [self dismissViewControllerAnimated:YES completion:^{
+
+    
+    [self dismissViewControllerAnimated:YES completion:^{
             nil;
         }];
-    }
 }
 
 - (IBAction)useCustomLocation:(id)sender {

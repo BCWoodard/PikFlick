@@ -94,7 +94,8 @@
 
 - (void)settingsSaved {
     NSLog(@"settingsSaved method called");
-    NSLog(@"lat %f, long %f", [[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"], [[NSUserDefaults standardUserDefaults] floatForKey:@"longitude"]);
+    NSLog(@"current lat %@, long %@", incomingLatForQuery, incomingLngForQuery);
+    NSLog(@"custom lat %f, long %f", [[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"], [[NSUserDefaults standardUserDefaults] floatForKey:@"longitude"]);
     
     
     [self getRottenTomatoesDATA];
@@ -369,7 +370,7 @@
             }
         }
     }];
-    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == YES) {
+    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == NO) {
         float longitude = [[NSUserDefaults standardUserDefaults] floatForKey:@"longitude"];
         float latitude = [[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"];
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/showings?startDate=%@&lat=%f&lng=%f&radius=%i&units=mi&api_key=%@", todaysDate, latitude, longitude, distance, TMS_API_KEY]];
@@ -434,7 +435,7 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
     }];
-    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == YES) {
+    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == NO) {
         float longitude = [[NSUserDefaults standardUserDefaults] floatForKey:@"longitude"];
         float latitude = [[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"];
         
