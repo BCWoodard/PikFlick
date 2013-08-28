@@ -85,6 +85,21 @@
     [super viewWillAppear:animated];
     NSIndexPath *selectedIndexPath = [moviesTable indexPathForSelectedRow];
     [moviesTable deselectRowAtIndexPath:selectedIndexPath animated:YES];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(settingsSaved)
+                                                 name:@"settingsSaved"
+                                               object:nil];
+}
+
+- (void)settingsSaved {
+    NSLog(@"settingsSaved method called");
+    NSLog(@"lat %f, long %f", [[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"], [[NSUserDefaults standardUserDefaults] floatForKey:@"longitude"]);
+    
+    
+    [self getRottenTomatoesDATA];
+    [self getTMSTheaterData];
+    [self listenForNotifications];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -508,7 +523,6 @@
                                              selector:@selector(getPosterThumbnail:)
                                                  name:THUMBNAIL_FOUND_NOTIFICATION
                                                object:nil];
-
 }
 
 

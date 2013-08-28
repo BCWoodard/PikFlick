@@ -8,11 +8,16 @@
 
 #import "UserSettingsViewController.h"
 #import "ViewController.h"
+#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 
 @interface UserSettingsViewController () {
     __weak IBOutlet UISegmentedControl *theatreDistanceControl;
+    __weak IBOutlet UITextField *locationField;
     
 }
+- (IBAction)useCurrentLocation:(id)sender;
+- (IBAction)useCustomLocation:(id)sender;
 
 - (IBAction)saveSettings:(id)sender;
 - (IBAction)getHelp:(id)sender;
@@ -59,6 +64,41 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)useCurrentLocation:(id)sender {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"useCurrentLocation"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
+        [self dismissViewControllerAnimated:YES completion:^{
+            nil;
+        }];
+    }
+}
+
+- (IBAction)useCustomLocation:(id)sender {
+    
+//    [[NSUserDefaults standardUserDefaults] setValue:[NSString = ] forKey:<#(NSString *)#>];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"useCurrentLocation"];
+    NSLog(@"pressed submit custom location");
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder geocodeAddressString:locationField.text completionHandler:^(NSArray *placemarks, NSError *error) {
+        CLPlacemark *placemark = [placemarks objectAtIndex:0];
+        MKCoordinateRegion region;
+        region.center.latitude = placemark.region.center.latitude;
+        region.center.longitude = placemark.region.center.longitude;
+        [[NSUserDefaults standardUserDefaults] setFloat:region.center.longitude forKey:@"longitude"];
+        [[NSUserDefaults standardUserDefaults] setFloat:region.center.latitude forKey:@"latitude"];
+        [[NSUserDefaults standardUserDefaults] setFloat:region.center.longitude forKey:@"longitude"];
+        [[NSUserDefaults standardUserDefaults] setFloat:region.center.latitude forKey:@"latitude"];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"useCurrentLocation"];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
+        
+        [self dismissViewControllerAnimated:YES completion:^{
+            nil;
+        }];
+    }];
 }
 
 - (IBAction)saveSettings:(id)sender {
