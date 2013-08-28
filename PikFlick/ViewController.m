@@ -28,11 +28,11 @@
     
     __weak IBOutlet UIImageView *tutorialOverlay;
     __weak IBOutlet UITableView *moviesTable;
-    __weak IBOutlet UIView *selectedMovieOverlay;
-    __weak IBOutlet UIButton *selectedMovieCloseButton;
-    __weak IBOutlet UIButton *startOverButton;
-    __weak IBOutlet UILabel *selectedMovieTitle;
-    __weak IBOutlet UILabel *announcementGreeting;
+    __weak IBOutlet UIView      *selectedMovieOverlay;
+    __weak IBOutlet UIButton    *selectedMovieCloseButton;
+    __weak IBOutlet UIButton    *startOverButton;
+    __weak IBOutlet UILabel     *selectedMovieTitle;
+    __weak IBOutlet UILabel     *announcementGreeting;
     __weak IBOutlet UIImageView *selectedMoviePoster;
     
 }
@@ -74,7 +74,6 @@
     [selectedMovieOverlay setHidden:YES];
     
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
-
     moviesTable.frame = CGRectMake(0, 0, screenSize.width, screenSize.height - 64);
 }
 
@@ -118,6 +117,17 @@
 
 - (void)tutorialOverlay {
     [tutorialOverlay setHidden:NO];
+    CGRect windowRect = [[UIScreen mainScreen] bounds];
+    CGFloat windowHeight = windowRect.size.height;
+    
+    if (windowHeight == 480.0f) {
+        tutorialOverlay.image = [UIImage imageNamed:@"overlay"];
+                                 
+    } else {
+        tutorialOverlay.image = [UIImage imageNamed:@"overlay-504h"];
+    }
+    
+    
     tutorialOverlay.image = [UIImage imageNamed:@"overlay"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTime"];
 }
