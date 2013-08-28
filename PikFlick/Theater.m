@@ -17,6 +17,7 @@
 @synthesize theaterZip = _theaterZip;
 @synthesize theaterLatitude = _theaterLatitude;
 @synthesize theaterLongitude = _theaterLongitude;
+@synthesize theaterTicketURI = _theaterTicketURI;
 
 
 - (instancetype)initWithTheaterDictionary:(NSDictionary *)theaterDictionary

@@ -19,6 +19,7 @@
     
     NSString                    *startDate;
     NSMutableArray              *theatersShowingMovie;
+    NSDictionary                *theaterIDAndURI;
 }
 
 @end
@@ -41,6 +42,7 @@
 - (void)viewDidLoad
 {
     theatersShowingMovie = [[NSMutableArray alloc] initWithCapacity:15];
+    theaterIDAndURI = [[NSDictionary alloc] init];
     
     [super viewDidLoad];
 
@@ -67,6 +69,7 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+
 }
 
 
@@ -80,13 +83,15 @@
     
     mapViewOutlet.showsUserLocation = YES;
     mapViewOutlet.region = startRegion;
+    mapViewOutlet.delegate = self;
     
     CLLocationCoordinate2D theaterCoord;
     
     // Setup theaters on the map
     // Get unique theaters from data results
-    NSArray *uniqueTheaters = [[NSOrderedSet orderedSetWithArray:theatersShowingMovie] array];
-
+    //NSArray *uniqueTheaters = [[NSOrderedSet orderedSetWithArray:theatersShowingMovie] array];
+    NSArray *uniqueTheaters = [self createUniqueTheatersArray:theatersShowingMovie];
+    NSLog(@"Unique theaters: %@", uniqueTheaters);
     for (int index = 0; index < [incomingTheaters count]; index++) {        
         Theater *tempTheater = [incomingTheaters objectAtIndex:index];
         
@@ -108,29 +113,30 @@
 }
 
 
-- (NSArray *)getUniqueTheaterIDS
-{
-    /*
-    NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:theatersArray];
-    NSSet *uniqueTheaters = [orderedSet set];
-    */
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     
-    /*
-    NSArray* uniqueTheaters = [theatersArray valueForKeyPath:@"@distinctUnionOfObjects.self"];
-    NSLog(@"%@", uniqueTheaters);
-    */
-    /*
-    NSMutableArray *uniqueTheaters = [[NSMutableArray alloc] initWithArray:[[NSSet setWithArray:theatersShowingMovie] allObjects]];
-    NSLog(@"uniqueTheaters: %@", uniqueTheaters);
-    return uniqueTheaters;
-    */
+    MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"Theater"];
+    if(!annotationView) {
+        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Theater"];
+        annotationView.enabled = YES;
+        annotationView.canShowCallout = YES;
+        annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    } else {
+        annotationView.annotation = annotation;
+        
+    }
     
-    
-    NSArray *uniqueTheaters = [[NSOrderedSet orderedSetWithArray:theatersShowingMovie] array];
-    NSLog(@"UniqueTheaters: %@", uniqueTheaters);
-    
-    return uniqueTheaters;
+    return annotationView;
 }
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    // Go to edit view
+    
+    NSLog(@"Theater ID: %@\nTheater URL: %@", [theaterIDAndURI valueForKey:@"id"], [theaterIDAndURI valueForKey:@"url"]);
+    
+    
+}
+
 
 // Get todays date for TMS query
 - (NSString *)getTodaysDate
@@ -162,16 +168,32 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         
         NSArray *allDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-        [allDataArray enumerateObjectsUsingBlock:^(NSDictionary *showtimeDict, NSUInteger idx, BOOL *stop) {
-            showtimeDict = [allDataArray objectAtIndex:idx];
-            NSArray *showtimesArray = [showtimeDict objectForKey:@"showtimes"];
+        [allDataArray enumerateObjectsUsingBlock:^(NSDictionary *allMovieShowtimesDataDict, NSUInteger idx, BOOL *stop) {
+            allMovieShowtimesDataDict = [allDataArray objectAtIndex:idx];
+            NSArray *showtimesArray = [allMovieShowtimesDataDict objectForKey:@"showtimes"];
+
             [showtimesArray enumerateObjectsUsingBlock:^(NSDictionary *theatreDict, NSUInteger idx, BOOL *stop) {
+                
                 theatreDict = [showtimesArray objectAtIndex:idx];
-                NSString *theaterID = [[theatreDict objectForKey:@"theatre"] valueForKey:@"id"];
+                NSString *theaterID = [theatreDict valueForKeyPath:@"theatre.id"];
+                NSString *theaterURL = [theatreDict valueForKey:@"ticketURI"];
                 
                 [theatersShowingMovie addObject:theaterID];
                 
-                
+                for (int index = 0; index < [incomingTheaters count]; index++) {
+                    Theater *tempTheater = [incomingTheaters objectAtIndex:index];
+                    
+                    for (NSString *theaterID in theatersShowingMovie) {
+                        if ([theaterID isEqualToString:tempTheater.theaterID]) {
+                            tempTheater.theaterTicketURI = [theatreDict valueForKey:@"ticketURI"];
+                            NSMutableDictionary *tempIDandURLDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:theaterID, @"id", theaterURL, @"url", nil];
+                            theaterIDAndURI = tempIDandURLDict;
+
+                            break;
+                        }
+                        NSLog(@"theaterDict: %@", theaterIDAndURI);
+                    }
+                }
             }];
         }];
         
@@ -181,6 +203,14 @@
         // Stop activity indicator
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
+}
+
+- (NSArray *)createUniqueTheatersArray:(NSArray *)array
+{
+    // Get unique theaters from data results
+    NSArray *tempArray = [[NSOrderedSet orderedSetWithArray:theatersShowingMovie] array];
+    
+    return tempArray;
 }
 
 @end
