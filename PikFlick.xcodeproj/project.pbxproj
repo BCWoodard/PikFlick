@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A095A3A17CFDD610014B53D /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A095A3917CFDD610014B53D /* icon.png */; };
+		4A095A3C17CFDD6B0014B53D /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A095A3B17CFDD6B0014B53D /* icon@2x.png */; };
 		4A38768317BBEB1300F95ECA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A38768217BBEB1300F95ECA /* UIKit.framework */; };
 		4A38768517BBEB1300F95ECA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A38768417BBEB1300F95ECA /* Foundation.framework */; };
 		4A38768717BBEB1300F95ECA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A38768617BBEB1300F95ECA /* CoreGraphics.framework */; };
@@ -21,8 +23,6 @@
 		4A95DD1117CD4EF400774D60 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD0A17CD4EF400774D60 /* Default-568h@2x.png */; };
 		4A95DD1217CD4EF400774D60 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD0B17CD4EF400774D60 /* Default.png */; };
 		4A95DD1317CD4EF400774D60 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD0C17CD4EF400774D60 /* Default@2x.png */; };
-		4A95DD1417CD4EF400774D60 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD0D17CD4EF400774D60 /* icon.png */; };
-		4A95DD1517CD4EF400774D60 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD0E17CD4EF400774D60 /* icon@2x.png */; };
 		4A95DD1617CD4EF400774D60 /* pikflick-icons-Appstore.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD0F17CD4EF400774D60 /* pikflick-icons-Appstore.png */; };
 		4A95DD1717CD4EF400774D60 /* pikflick-icons-Appstore@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD1017CD4EF400774D60 /* pikflick-icons-Appstore@2x.png */; };
 		4A95DD1D17CD5C9C00774D60 /* PikFlick-logo-18.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD1917CD5C9C00774D60 /* PikFlick-logo-18.png */; };
@@ -73,6 +73,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A095A3917CFDD610014B53D /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		4A095A3B17CFDD6B0014B53D /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		4A38767F17BBEB1300F95ECA /* PikFlick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PikFlick.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A38768217BBEB1300F95ECA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4A38768417BBEB1300F95ECA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -95,8 +97,6 @@
 		4A95DD0A17CD4EF400774D60 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		4A95DD0B17CD4EF400774D60 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4A95DD0C17CD4EF400774D60 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		4A95DD0D17CD4EF400774D60 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
-		4A95DD0E17CD4EF400774D60 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		4A95DD0F17CD4EF400774D60 /* pikflick-icons-Appstore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pikflick-icons-Appstore.png"; sourceTree = "<group>"; };
 		4A95DD1017CD4EF400774D60 /* pikflick-icons-Appstore@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pikflick-icons-Appstore@2x.png"; sourceTree = "<group>"; };
 		4A95DD1917CD5C9C00774D60 /* PikFlick-logo-18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PikFlick-logo-18.png"; sourceTree = "<group>"; };
@@ -304,11 +304,11 @@
 		4A95DD0917CD4EF400774D60 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				4A095A3B17CFDD6B0014B53D /* icon@2x.png */,
+				4A095A3917CFDD610014B53D /* icon.png */,
 				4A95DD0A17CD4EF400774D60 /* Default-568h@2x.png */,
 				4A95DD0B17CD4EF400774D60 /* Default.png */,
 				4A95DD0C17CD4EF400774D60 /* Default@2x.png */,
-				4A95DD0D17CD4EF400774D60 /* icon.png */,
-				4A95DD0E17CD4EF400774D60 /* icon@2x.png */,
 				4A95DD0F17CD4EF400774D60 /* pikflick-icons-Appstore.png */,
 				4A95DD1017CD4EF400774D60 /* pikflick-icons-Appstore@2x.png */,
 			);
@@ -440,8 +440,6 @@
 				4A95DD1117CD4EF400774D60 /* Default-568h@2x.png in Resources */,
 				4A95DD1217CD4EF400774D60 /* Default.png in Resources */,
 				4A95DD1317CD4EF400774D60 /* Default@2x.png in Resources */,
-				4A95DD1417CD4EF400774D60 /* icon.png in Resources */,
-				4A95DD1517CD4EF400774D60 /* icon@2x.png in Resources */,
 				4A95DD1617CD4EF400774D60 /* pikflick-icons-Appstore.png in Resources */,
 				4A95DD1717CD4EF400774D60 /* pikflick-icons-Appstore@2x.png in Resources */,
 				4A95DD1D17CD5C9C00774D60 /* PikFlick-logo-18.png in Resources */,
@@ -467,6 +465,8 @@
 				4AE9D03317CF97780067E6EA /* buttonInfo.png in Resources */,
 				4AE9D03617CFA9820067E6EA /* logoTMS@2x.png in Resources */,
 				4AE9D03717CFA9820067E6EA /* logoTMS.png in Resources */,
+				4A095A3A17CFDD610014B53D /* icon.png in Resources */,
+				4A095A3C17CFDD6B0014B53D /* icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
