@@ -55,6 +55,7 @@
 		4AE9D03317CF97780067E6EA /* buttonInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE9D03217CF97780067E6EA /* buttonInfo.png */; };
 		4AE9D03617CFA9820067E6EA /* logoTMS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE9D03417CFA9820067E6EA /* logoTMS@2x.png */; };
 		4AE9D03717CFA9820067E6EA /* logoTMS.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE9D03517CFA9820067E6EA /* logoTMS.png */; };
+		4AE9D03A17CFB4C00067E6EA /* PFKInfoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9D03917CFB4C00067E6EA /* PFKInfoDetailViewController.m */; };
 		4AF560A717C2FA0200BCF482 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A617C2FA0200BCF482 /* CoreLocation.framework */; };
 		4AF560A917C3016C00BCF482 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A817C3016C00BCF482 /* MapKit.framework */; };
 		4AF560AE17C3E8E800BCF482 /* PFMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF560AD17C3E8E800BCF482 /* PFMapViewController.m */; };
@@ -135,6 +136,8 @@
 		4AE9D03217CF97780067E6EA /* buttonInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonInfo.png; sourceTree = "<group>"; };
 		4AE9D03417CFA9820067E6EA /* logoTMS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logoTMS@2x.png"; sourceTree = "<group>"; };
 		4AE9D03517CFA9820067E6EA /* logoTMS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logoTMS.png; sourceTree = "<group>"; };
+		4AE9D03817CFB4C00067E6EA /* PFKInfoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFKInfoDetailViewController.h; sourceTree = "<group>"; };
+		4AE9D03917CFB4C00067E6EA /* PFKInfoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFKInfoDetailViewController.m; sourceTree = "<group>"; };
 		4AF560A617C2FA0200BCF482 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4AF560A817C3016C00BCF482 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		4AF560AA17C30D4E00BCF482 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -281,6 +284,8 @@
 				CF13A68A17CBDB3400BB2958 /* UserSettingsViewController.m */,
 				4AE9D02317CF91ED0067E6EA /* PFKInfoViewController.h */,
 				4AE9D02417CF91ED0067E6EA /* PFKInfoViewController.m */,
+				4AE9D03817CFB4C00067E6EA /* PFKInfoDetailViewController.h */,
+				4AE9D03917CFB4C00067E6EA /* PFKInfoDetailViewController.m */,
 				4A3876AC17BC444300F95ECA /* pfCustomCell.h */,
 				4A3876AD17BC444300F95ECA /* pfCustomCell.m */,
 				4AF560AB17C3D2AF00BCF482 /* Archive */,
@@ -486,6 +491,7 @@
 				4A95DD2717CD5EFE00774D60 /* PFKNavigationController.m in Sources */,
 				4A95DD4117CED39100774D60 /* PFKWebViewController.m in Sources */,
 				4AE9D02517CF91ED0067E6EA /* PFKInfoViewController.m in Sources */,
+				4AE9D03A17CFB4C00067E6EA /* PFKInfoDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
