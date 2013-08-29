@@ -474,15 +474,15 @@ SHAKE AGAIN!!</string>
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="logoTMS.png" id="Czj-ia-5eV">
-                                <rect key="frame" x="270" y="468" width="40" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <webView contentMode="scaleToFill" id="WKe-oh-dqv">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="logoTMS.png" id="Czj-ia-5eV">
+                                <rect key="frame" x="270" y="468" width="40" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -550,12 +550,64 @@ SHAKE AGAIN!!</string>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="1A4-Wg-v8z">
-                                        <rect key="frame" x="0.0" y="46" width="320" height="46"/>
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="5ig-sV-nJZ" style="IBUITableViewCellStyleDefault" id="1A4-Wg-v8z">
+                                        <rect key="frame" x="0.0" y="46" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="1" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5ig-sV-nJZ">
+                                                    <rect key="frame" x="10" y="0.0" width="280" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Bio" textLabel="THL-3S-59F" detailTextLabel="o2e-m7-c0n" style="IBUITableViewCellStyleSubtitle" id="ifw-dK-eTv">
+                                        <rect key="frame" x="0.0" y="91" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="THL-3S-59F">
+                                                    <rect key="frame" x="10" y="2" width="38" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="o2e-m7-c0n">
+                                                    <rect key="frame" x="10" y="24" width="47" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Contact" textLabel="pfj-i9-3wY" style="IBUITableViewCellStyleDefault" id="Fev-bo-XaC">
+                                        <rect key="frame" x="0.0" y="135" width="320" height="45"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Contact PikFlick" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pfj-i9-3wY">
+                                                    <rect key="frame" x="10" y="0.0" width="280" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </tableViewCell>
@@ -667,86 +719,6 @@ SHAKE AGAIN!!</string>
         <image name="buttonYes.png" width="30" height="30"/>
         <image name="logoTMS.png" width="40" height="26"/>
     </resources>
-    <classes>
-        <class className="HomeViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="homeImage" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="PFKInfoViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFKInfoViewController.h"/>
-        </class>
-        <class className="PFKNavigationController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFKNavigationController.h"/>
-        </class>
-        <class className="PFKWebViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFKWebViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-        <class className="PFMapViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFMapViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="mapViewOutlet" candidateClass="MKMapView"/>
-            </relationships>
-        </class>
-        <class className="UserSettingsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserSettingsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancelChanges:"/>
-                <relationship kind="action" name="changeTheatreDistance:"/>
-                <relationship kind="action" name="getHelp:"/>
-                <relationship kind="action" name="saveSettings:"/>
-                <relationship kind="action" name="useCurrentLocation:"/>
-                <relationship kind="action" name="useCustomLocation:"/>
-                <relationship kind="outlet" name="locationField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="theatreDistanceControl" candidateClass="UISegmentedControl"/>
-            </relationships>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="closeSelectedMovieOverlay:"/>
-                <relationship kind="action" name="goToSettings:"/>
-                <relationship kind="action" name="showMovieDetails:"/>
-                <relationship kind="action" name="startOver:"/>
-                <relationship kind="outlet" name="announcementGreeting" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="moviesTable" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="selectedMovieCloseButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="selectedMovieOverlay" candidateClass="UIView"/>
-                <relationship kind="outlet" name="selectedMoviePoster" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="selectedMovieTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="startOverButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="tutorialOverlay" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="pfCustomCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/pfCustomCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="cellGenre" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="cellImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="cellMPAA" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="cellPeerRating" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="cellTitle" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="pfDetailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/pfDetailViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="addToShortlist:"/>
-                <relationship kind="action" name="contactUs:"/>
-                <relationship kind="action" name="removeMovie:"/>
-                <relationship kind="action" name="shareMovie:"/>
-                <relationship kind="outlet" name="addToShortlistButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="contactUsButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="myDetailTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="removeMovieButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="shareMovieButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

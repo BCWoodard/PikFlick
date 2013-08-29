@@ -40,6 +40,7 @@
     NSURL *url = [NSURL URLWithString:incomingTheaterURL];
     NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
     [webView loadRequest:requestURL];
+
 }
 
 - (void)didReceiveMemoryWarning

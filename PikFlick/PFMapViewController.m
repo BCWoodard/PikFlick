@@ -47,6 +47,11 @@
     
     [super viewDidLoad];
     
+    // Add TMS image overlay
+    UIImageView *tmsLogo = [[UIImageView alloc] initWithFrame:CGRectMake(270.0f, 468.0f, 40.0f, 26.0f)];
+    tmsLogo.image = [UIImage imageNamed:@"logoTMS"];
+    [mapViewOutlet addSubview:tmsLogo];
+    
     
     // Get data to show specific theaters
     [self getTheatersShowingMovie];
