@@ -354,10 +354,11 @@
 
 
 - (IBAction)addToShortlist:(id)sender {
+    [self.delegate addMovieToShortlist:incomingMovie];
 }
 
 - (IBAction)removeMovie:(id)sender {
-    
+    [self.delegate deleteMovieFromLists:incomingMovie];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

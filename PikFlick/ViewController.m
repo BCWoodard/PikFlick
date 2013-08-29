@@ -322,6 +322,7 @@
 {
     if ([segue.identifier isEqualToString:@"toDetailView"]) {
         pfDetailViewController *detailViewController = segue.destinationViewController;
+        detailViewController.delegate = self;
         if (movieSelectedFromTable == YES) {
             
             detailViewController.incomingMovie = [moviesArray objectAtIndex:[moviesTable indexPathForSelectedRow].row];
@@ -410,7 +411,7 @@
     [self getLatAndLngForTMS];
     NSString *todaysDate = [self getTodaysDate];
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == YES) {
+    if (([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == YES) && (incomingLatForQuery != nil)) {
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/showings?startDate=%@&lat=%@&lng=%@&radius=%i&units=mi&api_key=%@", todaysDate, incomingLatForQuery, incomingLngForQuery, [[NSUserDefaults standardUserDefaults] integerForKey:@"userDistance"], TMS_API_KEY]];
         
         NSLog(@"%@", url);
@@ -450,6 +451,14 @@
                 }
             }
         }];
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Unable To Gather Showtimes"
+                                                            message:@"PikFlick was unable to gather showtimes.  Please check your device settings or try again later."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil, nil];
+        [alertView show];
+
     }
 }
 
@@ -472,14 +481,23 @@
             
             // Retrieve theater data array from TMS
             NSArray *tmsTheatersArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-            NSMutableArray *tempTheaters = [[NSMutableArray alloc] initWithCapacity:25];
-            
-            for (NSDictionary *dictionary in tmsTheatersArray) {
-                Theater *theater = [[Theater alloc] initWithTheaterDictionary:dictionary];
-                [tempTheaters addObject:theater];
+            if ([[tmsTheatersArray class] isSubclassOfClass:[NSArray class]]) {
+                NSMutableArray *tempTheaters = [[NSMutableArray alloc] initWithCapacity:25];
+                
+                for (NSDictionary *dictionary in tmsTheatersArray) {
+                    Theater *theater = [[Theater alloc] initWithTheaterDictionary:dictionary];
+                    [tempTheaters addObject:theater];
+                }
+                
+                theatersArray = tempTheaters;
             }
-            
-            theatersArray = tempTheaters;
+            else {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Showtimes Found!"
+                                                                    message:@"PikFlick was unable to gather showtimes. Please check your device settings or try later."
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil, nil];
+                [alertView show];            }
             
             // stop the activity indicator
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
