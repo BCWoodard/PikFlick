@@ -122,14 +122,17 @@
         [[NSUserDefaults standardUserDefaults] setFloat:region.center.longitude forKey:@"longitude"];
         [[NSUserDefaults standardUserDefaults] setFloat:region.center.latitude forKey:@"latitude"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"useCurrentLocation"];
-        
-        if (([[NSUserDefaults standardUserDefaults] floatForKey:@"longitude"] != 0.000000) && ([[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"] != 0.000000)) {
+
+        if ((placemark.locality != nil) && ([[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"] != 0.000000)) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
 //            [self dismissViewControllerAnimated:YES completion:^{
 //                nil;
 //            }];
+        } else if ((placemark.locality == nil) && ([[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"] != 0.000000)) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Not A Valid Address" message:@"Location provided is not within a valid city or zip code.  Please enter a valid City/State or Zip Code." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+            [alertView show];
         } else {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location Not Recognized" message:@"We were not able to regognize your location." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location Not Recognized" message:@"We were not able to regognize your location.  Please enter a valid City/State or Zip Code." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
             [alertView show];
         }
     }];
