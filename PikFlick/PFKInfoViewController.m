@@ -17,6 +17,7 @@
 {
     int                 selectedSection;
     int                 selectedRow;
+    __weak IBOutlet UITableView *infoTableView;
 }
 
 
@@ -33,6 +34,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    NSIndexPath *selectedIndexPath = [infoTableView indexPathForSelectedRow];
+    [infoTableView
+     deselectRowAtIndexPath:selectedIndexPath animated:NO];
 
 }
 
@@ -167,7 +175,7 @@
             break;
         case 1:
             detailViewController.incomingTitle = @"Jeremy Herrero";
-            detailViewController.incomingText = @"My passions in life are traveling, teaching, and programming.  I have experienced many things around the world and started life after college as a special eductation teacher.  Now I have entered the life as a software developer and love it.  As I continue to code I will discover how to connect these passions together.\n\nLinkedIn: http://www.linkedin.com/in/jerherrero/\nGitHub: https://github.com/jerherrero";
+            detailViewController.incomingText = @"My passions in life are traveling, teaching, and programming.  I have experienced many things around the world and started life after college as a special eductation teacher.\n\nNow I have entered the life as a software developer and love it.  As I continue to code I will discover how to connect these passions together.\n\n\nLinkedIn: http://www.linkedin.com/in/jerherrero/\n\nGitHub: https://github.com/jerherrero";
             break;
         case 2:
             detailViewController.incomingTitle = @"Jessica Sturme";
