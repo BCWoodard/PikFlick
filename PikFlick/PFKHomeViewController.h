@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
-#import "ViewController.h"
+#import "PFKViewController.h"
 
-@interface HomeViewController : UIViewController <UIAlertViewDelegate>
+@interface PFKHomeViewController : UIViewController <UIAlertViewDelegate>
 
 @end

@@ -14,9 +14,9 @@
 		4A38768F17BBEB1300F95ECA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A38768E17BBEB1300F95ECA /* main.m */; };
 		4A38769317BBEB1300F95ECA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A38769217BBEB1300F95ECA /* AppDelegate.m */; };
 		4A38769C17BBEB1300F95ECA /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A38769A17BBEB1300F95ECA /* MainStoryboard.storyboard */; };
-		4A38769F17BBEB1300F95ECA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A38769E17BBEB1300F95ECA /* ViewController.m */; };
+		4A38769F17BBEB1300F95ECA /* PFKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A38769E17BBEB1300F95ECA /* PFKViewController.m */; };
 		4A3876AB17BC00B700F95ECA /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3876AA17BC00B700F95ECA /* Movie.m */; };
-		4A3876AE17BC444300F95ECA /* pfCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3876AD17BC444300F95ECA /* pfCustomCell.m */; };
+		4A3876AE17BC444300F95ECA /* PFKCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3876AD17BC444300F95ECA /* PFKCustomCell.m */; };
 		4A3876B017BC447800F95ECA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A3876AF17BC447800F95ECA /* QuartzCore.framework */; };
 		4A95DD1117CD4EF400774D60 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD0A17CD4EF400774D60 /* Default-568h@2x.png */; };
 		4A95DD1217CD4EF400774D60 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD0B17CD4EF400774D60 /* Default.png */; };
@@ -58,15 +58,15 @@
 		4AE9D03A17CFB4C00067E6EA /* PFKInfoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9D03917CFB4C00067E6EA /* PFKInfoDetailViewController.m */; };
 		4AF560A717C2FA0200BCF482 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A617C2FA0200BCF482 /* CoreLocation.framework */; };
 		4AF560A917C3016C00BCF482 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A817C3016C00BCF482 /* MapKit.framework */; };
-		4AF560AE17C3E8E800BCF482 /* PFMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF560AD17C3E8E800BCF482 /* PFMapViewController.m */; };
+		4AF560AE17C3E8E800BCF482 /* PFKMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF560AD17C3E8E800BCF482 /* PFKMapViewController.m */; };
 		4AF560B117C4257900BCF482 /* Theater.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF560B017C4257900BCF482 /* Theater.m */; };
-		4FC5AD8417C2838000E3E55D /* pfDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC5AD8317C2838000E3E55D /* pfDetailViewController.m */; };
+		4FC5AD8417C2838000E3E55D /* PFKDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC5AD8317C2838000E3E55D /* PFKDetailViewController.m */; };
 		CF13A68217CA9CF200BB2958 /* green.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CF13A67E17CA9CF200BB2958 /* green.jpg */; };
 		CF13A68317CA9CF200BB2958 /* green@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CF13A67F17CA9CF200BB2958 /* green@2x.jpg */; };
 		CF13A68417CA9CF200BB2958 /* grey.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CF13A68017CA9CF200BB2958 /* grey.jpg */; };
 		CF13A68517CA9CF200BB2958 /* grey@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CF13A68117CA9CF200BB2958 /* grey@2x.jpg */; };
-		CF13A68B17CBDB3400BB2958 /* UserSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF13A68A17CBDB3400BB2958 /* UserSettingsViewController.m */; };
-		CF71DD6C17C6837B00531FF9 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF71DD6B17C6837B00531FF9 /* HomeViewController.m */; };
+		CF13A68B17CBDB3400BB2958 /* PFKUserSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF13A68A17CBDB3400BB2958 /* PFKUserSettingsViewController.m */; };
+		CF71DD6C17C6837B00531FF9 /* PFKHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF71DD6B17C6837B00531FF9 /* PFKHomeViewController.m */; };
 		CF71DD6E17C7FC9100531FF9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF71DD6D17C7FC9100531FF9 /* Social.framework */; };
 		CF71DD7017C7FCFD00531FF9 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF71DD6F17C7FCFD00531FF9 /* Accounts.framework */; };
 		CF71DD7217C80C3E00531FF9 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF71DD7117C80C3E00531FF9 /* MessageUI.framework */; };
@@ -84,12 +84,12 @@
 		4A38769117BBEB1300F95ECA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4A38769217BBEB1300F95ECA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4A38769B17BBEB1300F95ECA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		4A38769D17BBEB1300F95ECA /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		4A38769E17BBEB1300F95ECA /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		4A38769D17BBEB1300F95ECA /* PFKViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PFKViewController.h; sourceTree = "<group>"; };
+		4A38769E17BBEB1300F95ECA /* PFKViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PFKViewController.m; sourceTree = "<group>"; };
 		4A3876A917BC00B700F95ECA /* Movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
 		4A3876AA17BC00B700F95ECA /* Movie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
-		4A3876AC17BC444300F95ECA /* pfCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pfCustomCell.h; sourceTree = "<group>"; };
-		4A3876AD17BC444300F95ECA /* pfCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pfCustomCell.m; sourceTree = "<group>"; };
+		4A3876AC17BC444300F95ECA /* PFKCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFKCustomCell.h; sourceTree = "<group>"; };
+		4A3876AD17BC444300F95ECA /* PFKCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFKCustomCell.m; sourceTree = "<group>"; };
 		4A3876AF17BC447800F95ECA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4A66264817BDA96000F31785 /* pfDeleteMovieDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pfDeleteMovieDelegate.h; sourceTree = "<group>"; };
 		4A95DD0A17CD4EF400774D60 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -141,20 +141,20 @@
 		4AF560A617C2FA0200BCF482 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4AF560A817C3016C00BCF482 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		4AF560AA17C30D4E00BCF482 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		4AF560AC17C3E8E800BCF482 /* PFMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFMapViewController.h; sourceTree = "<group>"; };
-		4AF560AD17C3E8E800BCF482 /* PFMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFMapViewController.m; sourceTree = "<group>"; };
+		4AF560AC17C3E8E800BCF482 /* PFKMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFKMapViewController.h; sourceTree = "<group>"; };
+		4AF560AD17C3E8E800BCF482 /* PFKMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFKMapViewController.m; sourceTree = "<group>"; };
 		4AF560AF17C4257900BCF482 /* Theater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theater.h; sourceTree = "<group>"; };
 		4AF560B017C4257900BCF482 /* Theater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theater.m; sourceTree = "<group>"; };
-		4FC5AD8217C2838000E3E55D /* pfDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pfDetailViewController.h; sourceTree = "<group>"; };
-		4FC5AD8317C2838000E3E55D /* pfDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pfDetailViewController.m; sourceTree = "<group>"; };
+		4FC5AD8217C2838000E3E55D /* PFKDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFKDetailViewController.h; sourceTree = "<group>"; };
+		4FC5AD8317C2838000E3E55D /* PFKDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFKDetailViewController.m; sourceTree = "<group>"; };
 		CF13A67E17CA9CF200BB2958 /* green.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = green.jpg; sourceTree = "<group>"; };
 		CF13A67F17CA9CF200BB2958 /* green@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "green@2x.jpg"; sourceTree = "<group>"; };
 		CF13A68017CA9CF200BB2958 /* grey.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = grey.jpg; sourceTree = "<group>"; };
 		CF13A68117CA9CF200BB2958 /* grey@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grey@2x.jpg"; sourceTree = "<group>"; };
-		CF13A68917CBDB3400BB2958 /* UserSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSettingsViewController.h; sourceTree = "<group>"; };
-		CF13A68A17CBDB3400BB2958 /* UserSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSettingsViewController.m; sourceTree = "<group>"; };
-		CF71DD6A17C6837B00531FF9 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
-		CF71DD6B17C6837B00531FF9 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		CF13A68917CBDB3400BB2958 /* PFKUserSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFKUserSettingsViewController.h; sourceTree = "<group>"; };
+		CF13A68A17CBDB3400BB2958 /* PFKUserSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFKUserSettingsViewController.m; sourceTree = "<group>"; };
+		CF71DD6A17C6837B00531FF9 /* PFKHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFKHomeViewController.h; sourceTree = "<group>"; };
+		CF71DD6B17C6837B00531FF9 /* PFKHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFKHomeViewController.m; sourceTree = "<group>"; };
 		CF71DD6D17C7FC9100531FF9 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		CF71DD6F17C7FCFD00531FF9 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		CF71DD7117C80C3E00531FF9 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -270,24 +270,24 @@
 			children = (
 				4A95DD2517CD5EFE00774D60 /* PFKNavigationController.h */,
 				4A95DD2617CD5EFE00774D60 /* PFKNavigationController.m */,
-				CF71DD6A17C6837B00531FF9 /* HomeViewController.h */,
-				CF71DD6B17C6837B00531FF9 /* HomeViewController.m */,
-				4A38769D17BBEB1300F95ECA /* ViewController.h */,
-				4A38769E17BBEB1300F95ECA /* ViewController.m */,
-				4FC5AD8217C2838000E3E55D /* pfDetailViewController.h */,
-				4FC5AD8317C2838000E3E55D /* pfDetailViewController.m */,
-				4AF560AC17C3E8E800BCF482 /* PFMapViewController.h */,
-				4AF560AD17C3E8E800BCF482 /* PFMapViewController.m */,
+				CF71DD6A17C6837B00531FF9 /* PFKHomeViewController.h */,
+				CF71DD6B17C6837B00531FF9 /* PFKHomeViewController.m */,
+				4A38769D17BBEB1300F95ECA /* PFKViewController.h */,
+				4A38769E17BBEB1300F95ECA /* PFKViewController.m */,
+				4FC5AD8217C2838000E3E55D /* PFKDetailViewController.h */,
+				4FC5AD8317C2838000E3E55D /* PFKDetailViewController.m */,
+				4AF560AC17C3E8E800BCF482 /* PFKMapViewController.h */,
+				4AF560AD17C3E8E800BCF482 /* PFKMapViewController.m */,
 				4A95DD3F17CED39100774D60 /* PFKWebViewController.h */,
 				4A95DD4017CED39100774D60 /* PFKWebViewController.m */,
-				CF13A68917CBDB3400BB2958 /* UserSettingsViewController.h */,
-				CF13A68A17CBDB3400BB2958 /* UserSettingsViewController.m */,
+				CF13A68917CBDB3400BB2958 /* PFKUserSettingsViewController.h */,
+				CF13A68A17CBDB3400BB2958 /* PFKUserSettingsViewController.m */,
 				4AE9D02317CF91ED0067E6EA /* PFKInfoViewController.h */,
 				4AE9D02417CF91ED0067E6EA /* PFKInfoViewController.m */,
 				4AE9D03817CFB4C00067E6EA /* PFKInfoDetailViewController.h */,
 				4AE9D03917CFB4C00067E6EA /* PFKInfoDetailViewController.m */,
-				4A3876AC17BC444300F95ECA /* pfCustomCell.h */,
-				4A3876AD17BC444300F95ECA /* pfCustomCell.m */,
+				4A3876AC17BC444300F95ECA /* PFKCustomCell.h */,
+				4A3876AD17BC444300F95ECA /* PFKCustomCell.m */,
 				4AF560AB17C3D2AF00BCF482 /* Archive */,
 			);
 			name = Controllers;
@@ -479,15 +479,15 @@
 			files = (
 				4A38768F17BBEB1300F95ECA /* main.m in Sources */,
 				4A38769317BBEB1300F95ECA /* AppDelegate.m in Sources */,
-				4A38769F17BBEB1300F95ECA /* ViewController.m in Sources */,
+				4A38769F17BBEB1300F95ECA /* PFKViewController.m in Sources */,
 				4A3876AB17BC00B700F95ECA /* Movie.m in Sources */,
-				4A3876AE17BC444300F95ECA /* pfCustomCell.m in Sources */,
-				4FC5AD8417C2838000E3E55D /* pfDetailViewController.m in Sources */,
-				4AF560AE17C3E8E800BCF482 /* PFMapViewController.m in Sources */,
+				4A3876AE17BC444300F95ECA /* PFKCustomCell.m in Sources */,
+				4FC5AD8417C2838000E3E55D /* PFKDetailViewController.m in Sources */,
+				4AF560AE17C3E8E800BCF482 /* PFKMapViewController.m in Sources */,
 				4AF560B117C4257900BCF482 /* Theater.m in Sources */,
-				CF71DD6C17C6837B00531FF9 /* HomeViewController.m in Sources */,
+				CF71DD6C17C6837B00531FF9 /* PFKHomeViewController.m in Sources */,
 				4AC0C92F17C9954F00714C28 /* Reachability.m in Sources */,
-				CF13A68B17CBDB3400BB2958 /* UserSettingsViewController.m in Sources */,
+				CF13A68B17CBDB3400BB2958 /* PFKUserSettingsViewController.m in Sources */,
 				4A95DD2717CD5EFE00774D60 /* PFKNavigationController.m in Sources */,
 				4A95DD4117CED39100774D60 /* PFKWebViewController.m in Sources */,
 				4AE9D02517CF91ED0067E6EA /* PFKInfoViewController.m in Sources */,

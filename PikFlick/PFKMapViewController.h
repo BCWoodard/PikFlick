@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-@interface PFMapViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate>
+@interface PFKMapViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate>
 
 @property (strong, nonatomic) NSArray   *incomingTheaters;
 @property (strong, nonatomic) NSString  *incomingTMSID;

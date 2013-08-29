@@ -11,10 +11,10 @@
 #import <MessageUI/MessageUI.h>
 #import "pfDeleteMovieDelegate.h"
 
-@interface pfDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate>
+@interface PFKDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) Movie     *incomingMovie;
 @property (strong, nonatomic) NSArray   *incomingTheaters;
-@property (nonatomic, weak) id<pfDeleteMovieDelegate> delegate;
+@property (nonatomic, weak) id<PFKDeleteMovieDelegate> delegate;
 
 @end

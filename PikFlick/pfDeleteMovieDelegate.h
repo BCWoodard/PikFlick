@@ -14,7 +14,7 @@
     the app of state change.
 */
 
-@protocol pfDeleteMovieDelegate <NSObject>
+@protocol PFKDeleteMovieDelegate <NSObject>
 
 - (void)deleteMovieFromLists:(Movie *)movie;
 - (void)addMovieToShortlist:(Movie *)movie;

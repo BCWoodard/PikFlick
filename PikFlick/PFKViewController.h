@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "pfDeleteMovieDelegate.h"
 
-@interface ViewController : UIViewController <pfDeleteMovieDelegate, UIAlertViewDelegate>
+@interface PFKViewController : UIViewController <PFKDeleteMovieDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) NSString *incomingLatForQuery;
 @property (strong, nonatomic) NSString *incomingLngForQuery;

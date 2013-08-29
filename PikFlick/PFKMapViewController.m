@@ -8,13 +8,13 @@
 
 #import "AppDelegate.h"
 #import "Constants.h"
-#import "PFMapViewController.h"
+#import "PFKMapViewController.h"
 #import "PFKWebViewController.h"
 #import "Movie.h"
 #import "Theater.h"
 
 
-@interface PFMapViewController ()
+@interface PFKMapViewController ()
 {
     __weak IBOutlet MKMapView   *mapViewOutlet;
     
@@ -25,7 +25,7 @@
 
 @end
 
-@implementation PFMapViewController
+@implementation PFKMapViewController
 @synthesize incomingTheaters;
 @synthesize incomingLatForQuery;
 @synthesize incomingLngForQuery;
@@ -175,7 +175,7 @@
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/%@/showings?startDate=%@&numDays=1&lat=%@&lng=%@&api_key=%@", incomingTMSID, startDate, incomingLatForQuery, incomingLngForQuery, TMS_API_KEY]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    PFMapViewController __weak *weakSelf = self;
+    PFKMapViewController __weak *weakSelf = self;
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         
         // Activity indicator
@@ -259,7 +259,7 @@
         
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/%@/showings?startDate=%@&numDays=1&lat=%f&lng=%f&api_key=%@", incomingTMSID, startDate, latitude, longitude, TMS_API_KEY]];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
-        PFMapViewController __weak *weakSelf = self;
+        PFKMapViewController __weak *weakSelf = self;
         [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
             
             // Activity indicator

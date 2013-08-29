@@ -6,12 +6,12 @@
 //  Copyright (c) 2013 Brad Woodard. All rights reserved.
 //
 
-#import "UserSettingsViewController.h"
-#import "ViewController.h"
+#import "PFKUserSettingsViewController.h"
+#import "PFKViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-@interface UserSettingsViewController () {
+@interface PFKUserSettingsViewController () {
     NSString                                *userSetLocation;
     BOOL                                    distanceWasUpdated;
     BOOL                                    currentLocationWasUpdated;
@@ -36,7 +36,7 @@
 
 @end
 
-@implementation UserSettingsViewController
+@implementation PFKUserSettingsViewController
 
 @synthesize latForQuery;
 @synthesize lngForQuery;

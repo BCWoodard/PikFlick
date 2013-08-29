@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-@interface UserSettingsViewController : UIViewController <CLLocationManagerDelegate> {
+@interface PFKUserSettingsViewController : UIViewController <CLLocationManagerDelegate> {
 CLLocationManager           *locationManager;
 CLLocation                  *currentLocation;
 }
