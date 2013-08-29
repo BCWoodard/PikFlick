@@ -102,16 +102,16 @@
     [self getCurrentLocation];
     
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"useCurrentLocation"];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
+    //    [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
     
-//    [self dismissViewControllerAnimated:YES completion:^{
-//        nil;
-//    }];
+    //    [self dismissViewControllerAnimated:YES completion:^{
+    //        nil;
+    //    }];
 }
 
 - (IBAction)useCustomLocation:(id)sender {
     
-//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"useCurrentLocation"];
+    //    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"useCurrentLocation"];
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder geocodeAddressString:locationField.text completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -121,14 +121,23 @@
         region.center.longitude = placemark.region.center.longitude;
         [[NSUserDefaults standardUserDefaults] setFloat:region.center.longitude forKey:@"longitude"];
         [[NSUserDefaults standardUserDefaults] setFloat:region.center.latitude forKey:@"latitude"];
-
-        if ((placemark.locality != nil) && ([[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"] != 0.000000)) {
+        
+        BOOL locationChecksOut = NO;
+        
+        if (([placemark.country isEqualToString:@"United States"]) || [placemark.country isEqualToString:@"Canada"]) {
+            if (placemark.locality != nil) {
+                locationChecksOut = YES;
+                NSLog(@"location checks out %i", locationChecksOut);
+            }
+        }
+        
+        if ((locationChecksOut) && ([[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"] != 0.000000)) {
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"useCurrentLocation"];
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
-//            [self dismissViewControllerAnimated:YES completion:^{
-//                nil;
-//            }];
-        } else if ((placemark.locality == nil) && ([[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"] != 0.000000)) {
+            //            [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
+            //            [self dismissViewControllerAnimated:YES completion:^{
+            //                nil;
+            //            }];
+        } else if (!(locationChecksOut) && ([[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"] != 0.000000)) {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Not A Valid Address" message:@"Location provided is not within a valid city or zip code.  Please enter a valid City/State or Zip Code." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
             [alertView show];
         } else {
