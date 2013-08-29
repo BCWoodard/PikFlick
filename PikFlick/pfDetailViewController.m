@@ -354,8 +354,10 @@
 
 
 - (IBAction)addToShortlist:(id)sender {
+    [incomingMovie setShortlisted:YES];
     [self.delegate addMovieToShortlist:incomingMovie];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)removeMovie:(id)sender {
