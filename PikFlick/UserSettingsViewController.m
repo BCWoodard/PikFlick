@@ -12,9 +12,16 @@
 #import <MapKit/MapKit.h>
 
 @interface UserSettingsViewController () {
-    NSString *userSetLocation;
-    __weak IBOutlet UISegmentedControl *theatreDistanceControl;
-    __weak IBOutlet UITextField *locationField;
+    NSString                                *userSetLocation;
+    BOOL                                    distanceWasUpdated;
+    BOOL                                    currentLocationWasUpdated;
+    BOOL                                    customLocationWasUpdated;
+    int                                     distanceToSave;
+    float                                   latitudeToUpdate;
+    float                                   longitudeToUpdate;
+    MKCoordinateRegion                      region;
+    __weak IBOutlet UISegmentedControl      *theatreDistanceControl;
+    __weak IBOutlet UITextField             *locationField;
     
 }
 - (IBAction)useCurrentLocation:(id)sender;
@@ -98,10 +105,8 @@
 
 #pragma mark - Pik Your Location
 - (IBAction)useCurrentLocation:(id)sender {
-    
-    [self getCurrentLocation];
-    
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"useCurrentLocation"];
+    currentLocationWasUpdated = YES;
+
     //    [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
     
     //    [self dismissViewControllerAnimated:YES completion:^{
@@ -116,12 +121,8 @@
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder geocodeAddressString:locationField.text completionHandler:^(NSArray *placemarks, NSError *error) {
         CLPlacemark *placemark = [placemarks objectAtIndex:0];
-        MKCoordinateRegion region;
         region.center.latitude = placemark.region.center.latitude;
         region.center.longitude = placemark.region.center.longitude;
-        [[NSUserDefaults standardUserDefaults] setFloat:region.center.longitude forKey:@"longitude"];
-        [[NSUserDefaults standardUserDefaults] setFloat:region.center.latitude forKey:@"latitude"];
-
         
         BOOL locationChecksOut = NO;
         
@@ -133,8 +134,10 @@
             }
         }
         
-        if ((locationChecksOut) && ([[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"] != 0.000000)) {
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"useCurrentLocation"];
+        if ((locationChecksOut) && (region.center.latitude != 0.000000)) {
+            longitudeToUpdate = region.center.longitude;
+            latitudeToUpdate = region.center.latitude;
+            customLocationWasUpdated = YES;
             locationField.backgroundColor = [UIColor greenColor];
             locationField.text = [NSString stringWithFormat:@"%@ \u2713", locationField.text];
             //            [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
@@ -143,12 +146,12 @@
             //            }];
         } else if (!(locationChecksOut) && ([[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"] != 0.000000)) {
             locationField.backgroundColor = [UIColor whiteColor];
-
+            
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Not A Valid Address" message:@"Location provided is not within a valid city or zip code.  Please enter a valid City/State or Zip Code." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
             [alertView show];
         } else {
             locationField.backgroundColor = [UIColor whiteColor];
-
+            
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location Not Recognized" message:@"We were not able to recognize your location.  Please enter a valid City/State or Zip Code." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
             locationField.backgroundColor = [UIColor whiteColor];
             [alertView show];
@@ -160,19 +163,44 @@
 #pragma mark - Pik Your Distance
 - (IBAction)changeTheatreDistance:(id)sender {
     if (theatreDistanceControl.selectedSegmentIndex == 0) {
-        [[NSUserDefaults standardUserDefaults] setInteger:5 forKey:@"userDistance"];
+        distanceToSave = 5;
+        distanceWasUpdated = YES;
     } else if (theatreDistanceControl.selectedSegmentIndex == 1) {
-        [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"userDistance"];
+        distanceToSave = 10;
+        distanceWasUpdated = YES;
     } else if (theatreDistanceControl.selectedSegmentIndex == 2) {
-        [[NSUserDefaults standardUserDefaults] setInteger:20 forKey:@"userDistance"];
+        distanceToSave = 20;
+        distanceWasUpdated = YES;
     } else if (theatreDistanceControl.selectedSegmentIndex == 3) {
-        [[NSUserDefaults standardUserDefaults] setInteger:40 forKey:@"userDistance"];
+        distanceToSave = 40;
+        distanceWasUpdated = YES;
     }
 }
 
 
 #pragma mark - SAVE and DISMISS MODAL
 - (IBAction)saveSettings:(id)sender {
+    BOOL sendSettingsSavedNotification = NO;
+    if (distanceWasUpdated == YES) {
+    [[NSUserDefaults standardUserDefaults] setInteger:distanceToSave forKey:@"userDistance"];
+        distanceWasUpdated = NO;
+        sendSettingsSavedNotification = YES;
+    }
+    if (customLocationWasUpdated == YES) {
+       [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"useCurrentLocation"];
+        [[NSUserDefaults standardUserDefaults] setFloat:region.center.longitude forKey:@"longitude"];
+        [[NSUserDefaults standardUserDefaults] setFloat:region.center.latitude forKey:@"latitude"];
+        customLocationWasUpdated = NO;
+        sendSettingsSavedNotification = YES;
+    }
+    if (currentLocationWasUpdated == YES) {
+        currentLocationWasUpdated = NO;
+
+        [self getCurrentLocation];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"useCurrentLocation"];
+
+    }
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
     [self dismissViewControllerAnimated:YES completion:^{
         nil;
@@ -181,6 +209,9 @@
 
 - (IBAction)cancelChanges:(id)sender
 {
+    distanceWasUpdated = NO;
+    customLocationWasUpdated = NO;
+    currentLocationWasUpdated = NO;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
