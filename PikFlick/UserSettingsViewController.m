@@ -129,10 +129,10 @@
 //                nil;
 //            }];
         } else if ((placemark.locality == nil) && ([[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"] != 0.000000)) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Not A Valid Address" message:@"Location provided is not within a valid city or zip code.  Please enter a valid City/State or Zip Code." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Invalid Address" message:@"Please enter a valid City/State or Zip Code." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
             [alertView show];
         } else {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location Not Recognized" message:@"We were not able to regognize your location.  Please enter a valid City/State or Zip Code." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location Not Recognized" message:@"We were not able to recognize your location.  Please enter a valid City/State or Zip Code." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
             [alertView show];
         }
     }];
