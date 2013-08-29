@@ -125,18 +125,21 @@
     }
 }
 
-- (void)tutorialOverlay {
+- (void)tutorialOverlay
+{
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [tutorialOverlay setHidden:NO];
     CGRect windowRect = [[UIScreen mainScreen] bounds];
     CGFloat windowWidth = windowRect.size.width;
     CGFloat windowHeight = windowRect.size.height;
+    tutorialOverlay.frame = CGRectMake(0.0, -20.0f, windowWidth, windowHeight);
     
-    if (windowHeight <= 480.0f) {
-        tutorialOverlay.frame = CGRectMake(0, -10, windowWidth, windowHeight);
+    if (windowHeight == 480.0f) {
+//        tutorialOverlay.frame = CGRectMake(0, -10, windowWidth, windowHeight);
         tutorialOverlay.image = [UIImage imageNamed:@"overlay"];
         
     } else {
-        tutorialOverlay.frame = CGRectMake(0, -10, windowWidth, windowHeight);
+//        tutorialOverlay.frame = CGRectMake(0, -10, windowWidth, windowHeight);
         tutorialOverlay.image = [UIImage imageNamed:@"overlay-504h"];
     }
     
@@ -153,6 +156,8 @@
         } completion:^(BOOL finished) {
             tutorialOverlay.hidden = YES;
         }];
+        
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
     }
 }
 
