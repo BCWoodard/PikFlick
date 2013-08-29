@@ -53,6 +53,8 @@
 		4AE9D02F17CF936C0067E6EA /* buttonYes@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE9D02E17CF936C0067E6EA /* buttonYes@2x.png */; };
 		4AE9D03117CF976E0067E6EA /* buttonInfo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE9D03017CF976E0067E6EA /* buttonInfo@2x.png */; };
 		4AE9D03317CF97780067E6EA /* buttonInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE9D03217CF97780067E6EA /* buttonInfo.png */; };
+		4AE9D03617CFA9820067E6EA /* logoTMS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE9D03417CFA9820067E6EA /* logoTMS@2x.png */; };
+		4AE9D03717CFA9820067E6EA /* logoTMS.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE9D03517CFA9820067E6EA /* logoTMS.png */; };
 		4AF560A717C2FA0200BCF482 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A617C2FA0200BCF482 /* CoreLocation.framework */; };
 		4AF560A917C3016C00BCF482 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A817C3016C00BCF482 /* MapKit.framework */; };
 		4AF560AE17C3E8E800BCF482 /* PFMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF560AD17C3E8E800BCF482 /* PFMapViewController.m */; };
@@ -131,6 +133,8 @@
 		4AE9D02E17CF936C0067E6EA /* buttonYes@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonYes@2x.png"; sourceTree = "<group>"; };
 		4AE9D03017CF976E0067E6EA /* buttonInfo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonInfo@2x.png"; sourceTree = "<group>"; };
 		4AE9D03217CF97780067E6EA /* buttonInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonInfo.png; sourceTree = "<group>"; };
+		4AE9D03417CFA9820067E6EA /* logoTMS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logoTMS@2x.png"; sourceTree = "<group>"; };
+		4AE9D03517CFA9820067E6EA /* logoTMS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logoTMS.png; sourceTree = "<group>"; };
 		4AF560A617C2FA0200BCF482 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4AF560A817C3016C00BCF482 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		4AF560AA17C30D4E00BCF482 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -309,6 +313,8 @@
 		4A95DD1817CD5C8800774D60 /* Logos */ = {
 			isa = PBXGroup;
 			children = (
+				4AE9D03417CFA9820067E6EA /* logoTMS@2x.png */,
+				4AE9D03517CFA9820067E6EA /* logoTMS.png */,
 				4A95DD4217CF109C00774D60 /* PikFlick-navbar-09.png */,
 				4A95DD4317CF109C00774D60 /* PikFlick-navbar-09@2x.png */,
 				4A95DD1917CD5C9C00774D60 /* PikFlick-logo-18.png */,
@@ -454,6 +460,8 @@
 				4AE9D02F17CF936C0067E6EA /* buttonYes@2x.png in Resources */,
 				4AE9D03117CF976E0067E6EA /* buttonInfo@2x.png in Resources */,
 				4AE9D03317CF97780067E6EA /* buttonInfo.png in Resources */,
+				4AE9D03617CFA9820067E6EA /* logoTMS@2x.png in Resources */,
+				4AE9D03717CFA9820067E6EA /* logoTMS.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

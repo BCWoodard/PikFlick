@@ -474,6 +474,10 @@ SHAKE AGAIN!!</string>
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="logoTMS.png" id="Czj-ia-5eV">
+                                <rect key="frame" x="270" y="468" width="40" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <webView contentMode="scaleToFill" id="WKe-oh-dqv">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -661,6 +665,7 @@ SHAKE AGAIN!!</string>
         <image name="buttonNo.png" width="30" height="30"/>
         <image name="buttonShare.png" width="30" height="30"/>
         <image name="buttonYes.png" width="30" height="30"/>
+        <image name="logoTMS.png" width="40" height="26"/>
     </resources>
     <classes>
         <class className="HomeViewController" superclassName="UIViewController">

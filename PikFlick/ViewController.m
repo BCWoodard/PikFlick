@@ -635,6 +635,11 @@
                                              selector:@selector(getPosterThumbnail:)
                                                  name:THUMBNAIL_FOUND_NOTIFICATION
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(getPosterThumbnail:)
+                                                 name:POSTER_FOUND_NOTIFICATION
+                                               object:nil];
 }
 
 
