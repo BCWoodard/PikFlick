@@ -60,7 +60,15 @@
     NSLog(@"TMSID: %@", incomingMovie.movieTMSID);
 }
 
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    //hide highlighting when returning to table
+    [super viewWillAppear:animated];
+    
+      NSIndexPath *selectedIndexPath = [myDetailTableView indexPathForSelectedRow];
+      [myDetailTableView deselectRowAtIndexPath:selectedIndexPath animated:NO];
+}
+    
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -117,11 +125,12 @@
 
 - (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 2) {
-        return 2;
-    } else {
-        return 1;
-    }
+    return 1;
+//    if (section == 2) {
+//        return 2;
+//    } else {
+//        return 1;
+//    }
 }
 
 
@@ -158,12 +167,8 @@
     }
     else if (indexPath.section == 2){
         cell = [tableView dequeueReusableCellWithIdentifier:@"SectionTwo" forIndexPath:indexPath];
-        
-        if (indexPath.row == 1){
-            cell.textLabel.text = @"Where and When";
-        } else {
-            cell.textLabel.text = @"Watch the Trailer";
-        }
+        cell.textLabel.text = @"Where and When";
+
     } else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"SectionThree" forIndexPath:indexPath];
         cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -187,10 +192,6 @@
 {
     row = indexPath.row;
     
-    if ((indexPath.section == 2) && (indexPath.row == 0)) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.youtube.com/v/oHg5SJYRHA0&f=gdata_videos&c=ytapi-my-clientID&d=AIzaSyDGU2EpXmKtonq8qc-P6Objjay0FdUsusw"]];
-    } else if ((indexPath.section == 2) && (indexPath.row == 1)) {
-        
         if (incomingMovie.movieTMSID == nil) {
             if ([[NSUserDefaults standardUserDefaults] integerForKey:@"userDistance"] != 40) {
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Theaters Found" message:[NSString stringWithFormat:@"No showtimes within %i miles of your location.  You can increase distance under settings.", [[NSUserDefaults standardUserDefaults] integerForKey:@"userDistance"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
@@ -203,7 +204,7 @@
             [self performSegueWithIdentifier:@"toMapView" sender:self];
         }
     }
-}
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
