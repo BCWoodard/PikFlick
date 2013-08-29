@@ -11,7 +11,7 @@
 #import <MessageUI/MessageUI.h>
 #import "pfDeleteMovieDelegate.h"
 
-@interface pfDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate, pfDeleteMovieDelegate>
+@interface pfDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) Movie     *incomingMovie;
 @property (strong, nonatomic) NSArray   *incomingTheaters;

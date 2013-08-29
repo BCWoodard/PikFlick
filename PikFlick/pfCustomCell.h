@@ -11,7 +11,7 @@
 
 @class Movie;
 
-@interface pfCustomCell : UITableViewCell <UIGestureRecognizerDelegate, pfDeleteMovieDelegate>
+@interface pfCustomCell : UITableViewCell <UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) Movie *movie;
 @property (nonatomic, assign) id<pfDeleteMovieDelegate> delegate;

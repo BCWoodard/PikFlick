@@ -23,6 +23,7 @@
 {
     BOOL                        deleteSelectedMove;
     BOOL                        movieSelectedFromTable;
+    BOOL                        firstTMSAlert;
     NSArray                     *moviesArray;
     NSArray                     *moviesShortlist;
     NSArray                     *theatersArray;
@@ -38,6 +39,7 @@
     __weak IBOutlet UILabel     *selectedMovieTitle;
     __weak IBOutlet UILabel     *announcementGreeting;
     __weak IBOutlet UIImageView *selectedMoviePoster;
+    __weak IBOutlet UILabel     *shakeAgainLabel;
     
 }
 - (IBAction)closeSelectedMovieOverlay:(id)sender;
@@ -57,6 +59,9 @@
     
     [super viewDidLoad];
     
+    // Set BOOL before utility methods
+    firstTMSAlert = YES;
+
     // Utility methods
     [self checkForInternet];
     [self getRottenTomatoesDATA];
@@ -229,14 +234,17 @@
     }
     if (moviesArray.count != 1) {
         announcementGreeting.text = [self announcementMessage];
+        shakeAgainLabel.text = @"Not Thrilled? SHAKE AGAIN!!";
     } else {
-        announcementGreeting.text = @"Only Movie Left";
+        announcementGreeting.text = @"The Final Flick";
+        startOverButton.hidden = NO;
+        shakeAgainLabel.text = @"Of course you could always Start Over";
+
     }
     selectedMoviePoster.image = selectedMovie.moviePoster;
     selectedMovieTitle.text = selectedMovie.movieTitle;
     
     if (moviesArray.count == 1) {
-        startOverButton.hidden = NO;
     }
     
     [UIView animateWithDuration:0.3 animations:^{
@@ -451,14 +459,14 @@
                 }
             }
         }];
-    } else {
+    } else if (firstTMSAlert == YES) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Unable To Gather Showtimes"
                                                             message:@"PikFlick was unable to gather showtimes.  Please check your device settings or try again later."
                                                            delegate:self
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil, nil];
         [alertView show];
-
+    firstTMSAlert = NO;
     }
 }
 
@@ -491,14 +499,14 @@
                 
                 theatersArray = tempTheaters;
             }
-            else {
+            else if (firstTMSAlert == YES) {
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Showtimes Found!"
                                                                     message:@"PikFlick was unable to gather showtimes. Please check your device settings or try later."
                                                                    delegate:self
                                                           cancelButtonTitle:@"OK"
                                                           otherButtonTitles:nil, nil];
                 [alertView show];            }
-            
+            firstTMSAlert = NO;
             // stop the activity indicator
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             
@@ -594,11 +602,11 @@
     if ([moviesShortlist containsObject:movie]) {
         return;
     }
-    
+
     NSMutableArray *tempArray = [moviesShortlist mutableCopy];
     [tempArray addObject:movie];
-    moviesShortlist = [tempArray copy];
-    
+    moviesShortlist = [NSArray arrayWithArray:tempArray];
+
     [self preselectRandomMovie];
 }
 
