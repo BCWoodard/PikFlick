@@ -122,7 +122,7 @@
 }
 
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewgForAnnotation:(id <MKAnnotation>)annotation {
     
     if (![annotation isKindOfClass:[Theater class]]) {
         return nil;
@@ -172,6 +172,9 @@
 //    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == YES) {
 
     [self getTodaysDate];
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == YES) {
+
     [self getLatAndLngForTMS];
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/%@/showings?startDate=%@&numDays=1&lat=%@&lng=%@&api_key=%@", incomingTMSID, startDate, incomingLatForQuery, incomingLngForQuery, TMS_API_KEY]];
@@ -254,6 +257,44 @@
 //            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 //        }];
 //    }
+    }   else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == NO) {
+        float longitude = [[NSUserDefaults standardUserDefaults] floatForKey:@"longitude"];
+        float latitude = [[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"];
+        
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://data.tmsapi.com/v1/movies/%@/showings?startDate=%@&numDays=1&lat=%f&lng=%f&api_key=%@", incomingTMSID, startDate, latitude, longitude, TMS_API_KEY]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        PFMapViewController __weak *weakSelf = self;
+        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+            
+            // Activity indicator
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+            
+            NSArray *allDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            [allDataArray enumerateObjectsUsingBlock:^(NSDictionary *allMovieShowtimesDataDict, NSUInteger idx, BOOL *stop) {
+                allMovieShowtimesDataDict = [allDataArray objectAtIndex:idx];
+                NSArray *showtimesArray = [allMovieShowtimesDataDict objectForKey:@"showtimes"];
+                
+                NSMutableArray *filteredIncoming = [@[] mutableCopy];
+                for (NSDictionary *dictionary in showtimesArray) {
+                    
+                    NSPredicate *theaterIDPredicate = [NSPredicate predicateWithFormat:@"theaterID == %@", dictionary[@"theatre"][@"id"]];
+                    Theater *existingTheater = [[incomingTheaters filteredArrayUsingPredicate:theaterIDPredicate] lastObject];
+                    if (existingTheater && [filteredIncoming containsObject:existingTheater] == NO) {
+                        existingTheater.theaterTicketURI = dictionary[@"ticketURI"];
+                        [filteredIncoming addObject:existingTheater];
+                    }
+                }
+                weakSelf.incomingTheaters = [NSArray arrayWithArray:filteredIncoming];
+            }];
+            
+            // Send notification that our download is complete
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"DownloadComplete" object:self];
+            
+            // Stop activity indicator
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        }];
+    
+}
 }
 
 
