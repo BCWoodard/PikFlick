@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Brad Woodard. All rights reserved.
 //
 
-#import "HomeViewController.h"
+#import "PFKHomeViewController.h"
 #import "Reachability.h"
-#import "ViewController.h"
+#import "PFKViewController.h"
 
-@interface HomeViewController () {
+@interface PFKHomeViewController () {
 
     __weak IBOutlet UIImageView *homeImage;
     
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation HomeViewController
+@implementation PFKHomeViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -111,7 +111,7 @@
         return;
     }
     
-    ViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MoviesListViewController"];
+    PFKViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MoviesListViewController"];
     
     // hide back button
     viewController.navigationItem.hidesBackButton = YES;

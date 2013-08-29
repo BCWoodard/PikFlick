@@ -6,20 +6,20 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "PFKViewController.h"
 #import "Movie.h"
 #import "Theater.h"
 #import "Constants.h"
-#import "pfCustomCell.h"
+#import "PFKCustomCell.h"
 #import "Reachability.h"
-#import "UserSettingsViewController.h"
-#import "pfDetailViewController.h"
+#import "PFKUserSettingsViewController.h"
+#import "PFKDetailViewController.h"
 
 #import <CoreLocation/CoreLocation.h>
 #import <QuartzCore/QuartzCore.h>
 
 
-@interface ViewController ()
+@interface PFKViewController ()
 {
     BOOL                        deleteSelectedMove;
     BOOL                        movieSelectedFromTable;
@@ -47,7 +47,7 @@
 
 @end
 
-@implementation ViewController
+@implementation PFKViewController
 @synthesize incomingLatForQuery;
 @synthesize incomingLngForQuery;
 
@@ -298,7 +298,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    pfCustomCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    PFKCustomCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Need to set the background color to clear in order for gradient to show
     cell.textLabel.backgroundColor = [UIColor clearColor];
@@ -329,7 +329,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"toDetailView"]) {
-        pfDetailViewController *detailViewController = segue.destinationViewController;
+        PFKDetailViewController *detailViewController = segue.destinationViewController;
         detailViewController.delegate = self;
         if (movieSelectedFromTable == YES) {
             

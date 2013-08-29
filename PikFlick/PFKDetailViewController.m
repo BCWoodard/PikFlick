@@ -8,12 +8,12 @@
 
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
-#import "pfDetailViewController.h"
-#import "ViewController.h"
-#import "PFMapViewController.h"
+#import "PFKDetailViewController.h"
+#import "PFKViewController.h"
+#import "PFKMapViewController.h"
 #import "Theater.h"
 
-@interface pfDetailViewController ()
+@interface PFKDetailViewController ()
 {
     UIActionSheet *shareActionSheet;
     UIActionSheet *contactUsActionSheet;
@@ -31,7 +31,7 @@
 
 @end
 
-@implementation pfDetailViewController
+@implementation PFKDetailViewController
 @synthesize incomingMovie;
 @synthesize incomingTheaters;
 
@@ -209,7 +209,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"toMapView"]) {
-        PFMapViewController *mapViewController = segue.destinationViewController;
+        PFKMapViewController *mapViewController = segue.destinationViewController;
         mapViewController.incomingTheaters = incomingTheaters;
         mapViewController.incomingTMSID = incomingMovie.movieTMSID;
     }

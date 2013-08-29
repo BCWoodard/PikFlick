@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Brad Woodard. All rights reserved.
 //
 
-#import "pfCustomCell.h"
+#import "PFKCustomCell.h"
 #import "Movie.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface pfCustomCell ()
+@interface PFKCustomCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *cellImage;
 
@@ -21,7 +21,7 @@
 
 @end
 
-@implementation pfCustomCell
+@implementation PFKCustomCell
 {
     CALayer                     *_defaultBackgroundLayer;
     CALayer                     *_movieToSeeLayer;

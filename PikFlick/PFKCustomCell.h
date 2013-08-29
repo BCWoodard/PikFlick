@@ -11,10 +11,10 @@
 
 @class Movie;
 
-@interface pfCustomCell : UITableViewCell <UIGestureRecognizerDelegate>
+@interface PFKCustomCell : UITableViewCell <UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) Movie *movie;
-@property (nonatomic, assign) id<pfDeleteMovieDelegate> delegate;
+@property (nonatomic, assign) id<PFKDeleteMovieDelegate> delegate;
 
 // This method receives the movie from the array and extracts the
 // properties for display in the list
