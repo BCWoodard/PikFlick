@@ -127,12 +127,14 @@
     if (![annotation isKindOfClass:[Theater class]]) {
         return nil;
     }
+    
     MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"Theater"];
     if(!annotationView) {
         annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Theater"];
         annotationView.enabled = YES;
         annotationView.canShowCallout = YES;
         annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        
     } else {
         annotationView.annotation = annotation;
         
