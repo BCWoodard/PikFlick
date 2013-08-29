@@ -15,7 +15,6 @@
     __weak IBOutlet UIImageView *homeImage;
     
 }
-- (IBAction)goToMoviesList:(id)sender;
 
 @end
 
@@ -93,7 +92,7 @@
     CGRect windowRect = [[UIScreen mainScreen] bounds];
     CGFloat windowWidth = windowRect.size.width;
     CGFloat windowHeight = windowRect.size.height;
-    homeImage.frame = CGRectMake(0, 0, windowWidth, windowHeight);
+    homeImage.frame = CGRectMake(0, -20.0, windowWidth, windowHeight);
     
     if (windowHeight == 480.0f) {
         homeImage.image = [UIImage imageNamed:@"Default"];
@@ -104,8 +103,14 @@
 
 
 #pragma mark - Transition to Movies List
-- (IBAction)goToMoviesList:(id)sender
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    UITouch *goToMovies = [[event allTouches] anyObject];
+    
+    if (!goToMovies) {
+        return;
+    }
+    
     ViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MoviesListViewController"];
     
     // hide back button
