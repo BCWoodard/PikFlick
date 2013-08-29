@@ -65,10 +65,10 @@
     //hide highlighting when returning to table
     [super viewWillAppear:animated];
     
-      NSIndexPath *selectedIndexPath = [myDetailTableView indexPathForSelectedRow];
-      [myDetailTableView deselectRowAtIndexPath:selectedIndexPath animated:NO];
+    NSIndexPath *selectedIndexPath = [myDetailTableView indexPathForSelectedRow];
+    [myDetailTableView deselectRowAtIndexPath:selectedIndexPath animated:NO];
 }
-    
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -126,11 +126,11 @@
 - (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 1;
-//    if (section == 2) {
-//        return 2;
-//    } else {
-//        return 1;
-//    }
+    //    if (section == 2) {
+    //        return 2;
+    //    } else {
+    //        return 1;
+    //    }
 }
 
 
@@ -149,8 +149,12 @@
         cell.textLabel.font = [UIFont fontWithName:@"Gill Sans" size:14.2f];
         
         cell.imageView.image = incomingMovie.movieThumbnail;
-        cell.textLabel.text = [NSString stringWithFormat:@"Rated:  %@\nGenre:  %@\nPeer Rating:  %@\nMovie Length:  %@min", incomingMovie.movieMPAA, incomingMovie.movieGenre, incomingMovie.moviePeerRating, incomingMovie.movieRunTime];
         
+        if (incomingMovie.movieGenre != nil) {
+            cell.textLabel.text = [NSString stringWithFormat:@"Rated:  %@\nGenre:  %@\nPeer Rating:  %@\nMovie Length:  %@min", incomingMovie.movieMPAA, incomingMovie.movieGenre, incomingMovie.moviePeerRating, incomingMovie.movieRunTime];
+        } else {
+            cell.textLabel.text = [NSString stringWithFormat:@"Rated:  %@\nGenre:  not available\nPeer Rating:  %@\nMovie Length:  %@min", incomingMovie.movieMPAA, incomingMovie.moviePeerRating, incomingMovie.movieRunTime];
+        }
     }
     else if (indexPath.section ==1){
         cell = [tableView dequeueReusableCellWithIdentifier:@"SectionOne" forIndexPath:indexPath];
@@ -168,7 +172,7 @@
     else if (indexPath.section == 2){
         cell = [tableView dequeueReusableCellWithIdentifier:@"SectionTwo" forIndexPath:indexPath];
         cell.textLabel.text = @"Where and When";
-
+        
     } else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"SectionThree" forIndexPath:indexPath];
         cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -192,18 +196,18 @@
 {
     row = indexPath.row;
     
-        if (incomingMovie.movieTMSID == nil) {
-            if ([[NSUserDefaults standardUserDefaults] integerForKey:@"userDistance"] != 40) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Theaters Found" message:[NSString stringWithFormat:@"No showtimes within %i miles of your location.  You can increase distance under settings.", [[NSUserDefaults standardUserDefaults] integerForKey:@"userDistance"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-                [alertView show];
-            } else if ([[NSUserDefaults standardUserDefaults] integerForKey:@"userDistance"] == 40) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Theaters Found" message:@"Sorry, there are no showtimes in your area." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-                [alertView show];
-            }
-        } else if (incomingMovie.movieTMSID != nil) {
-            [self performSegueWithIdentifier:@"toMapView" sender:self];
+    if (incomingMovie.movieTMSID == nil) {
+        if ([[NSUserDefaults standardUserDefaults] integerForKey:@"userDistance"] != 40) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Theaters Found" message:[NSString stringWithFormat:@"No showtimes within %i miles of your location.  You can increase distance under settings.", [[NSUserDefaults standardUserDefaults] integerForKey:@"userDistance"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+            [alertView show];
+        } else if ([[NSUserDefaults standardUserDefaults] integerForKey:@"userDistance"] == 40) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Theaters Found" message:@"Sorry, there are no showtimes in your area." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+            [alertView show];
         }
+    } else if (incomingMovie.movieTMSID != nil) {
+        [self performSegueWithIdentifier:@"toMapView" sender:self];
     }
+}
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -244,7 +248,7 @@
                               constrainedToSize:CGSizeMake(300, 2000)
                                   lineBreakMode:NSLineBreakByWordWrapping];
         
-        CGFloat labelHeight = labelSize.height;        
+        CGFloat labelHeight = labelSize.height;
         return labelHeight;
         
     }
