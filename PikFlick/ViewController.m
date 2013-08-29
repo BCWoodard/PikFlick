@@ -21,6 +21,7 @@
 
 @interface ViewController ()
 {
+    BOOL                        deleteSelectedMove;
     BOOL                        movieSelectedFromTable;
     NSArray                     *moviesArray;
     NSArray                     *moviesShortlist;
@@ -80,6 +81,8 @@
     
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
     moviesTable.frame = CGRectMake(0, 0, screenSize.width, screenSize.height - 64);
+    
+    deleteSelectedMove = NO;
 }
 
 
@@ -131,7 +134,7 @@
     if (windowHeight <= 480.0f) {
         tutorialOverlay.frame = CGRectMake(0, -10, windowWidth, windowHeight);
         tutorialOverlay.image = [UIImage imageNamed:@"overlay"];
-                                 
+        
     } else {
         tutorialOverlay.frame = CGRectMake(0, -10, windowWidth, windowHeight);
         tutorialOverlay.image = [UIImage imageNamed:@"overlay-504h"];
@@ -182,6 +185,8 @@
     moviesShortlist = [self removeObject:selectedMovie fromArray:moviesShortlist];
     moviesArray = [self removeObject:selectedMovie fromArray:moviesArray];
     
+    deleteSelectedMove = NO;
+    
     [moviesTable reloadData];
     [self preselectRandomMovie];
 }
@@ -207,7 +212,7 @@
     } else {
         [self animatedOverlayRemovalAndReplacement];
     }
-    if (moviesArray.count != 1) {
+    if ((moviesArray.count != 1) && (deleteSelectedMove == YES)) {
         [self removeSelectedMovieAndReloadTableView];
     }
 }
@@ -242,6 +247,7 @@
 
 
 - (void)animatedOverlayRemovalAndReplacement {
+    deleteSelectedMove = YES;
     [UIView animateWithDuration:0.3 animations:^{
         selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
     } completion:^(BOOL finished) {
@@ -311,19 +317,15 @@
             
             detailViewController.incomingMovie = [moviesArray objectAtIndex:[moviesTable indexPathForSelectedRow].row];
             detailViewController.incomingTheaters = theatersArray;
+            
         } else if (movieSelectedFromTable == NO) {
-            if ([moviesShortlist count]) {
-//                detailViewController.incomingMovie =
-            } else if ([moviesArray count]) {
-//                detailViewController.incomingMovie =
-            }
-            
-//            detailViewController.incomingMovie = [moviesArray objectAtIndex:randomMovieIndex];
-//            detailViewController.incomingTheaters = theatersArray;
-            
+            detailViewController.incomingMovie = selectedMovie;
+            detailViewController.incomingTheaters = theatersArray;
+            [self preselectRandomMovie];
         }
     }
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 110;
@@ -580,6 +582,7 @@
         selectedMovieOverlay.transform = CGAffineTransformScale(selectedMovieOverlay.transform, 0.01, 0.01);
     } completion:^(BOOL finished) {
         [selectedMovieOverlay setHidden:YES];
+        [self preselectRandomMovie];
     }];
 }
 
