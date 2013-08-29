@@ -102,7 +102,7 @@
     [self getCurrentLocation];
     
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"useCurrentLocation"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
     
 //    [self dismissViewControllerAnimated:YES completion:^{
 //        nil;
@@ -111,7 +111,7 @@
 
 - (IBAction)useCustomLocation:(id)sender {
     
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"useCurrentLocation"];
+//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"useCurrentLocation"];
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder geocodeAddressString:locationField.text completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -121,9 +121,9 @@
         region.center.longitude = placemark.region.center.longitude;
         [[NSUserDefaults standardUserDefaults] setFloat:region.center.longitude forKey:@"longitude"];
         [[NSUserDefaults standardUserDefaults] setFloat:region.center.latitude forKey:@"latitude"];
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"useCurrentLocation"];
 
         if ((placemark.locality != nil) && ([[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"] != 0.000000)) {
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"useCurrentLocation"];
 //            [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
 //            [self dismissViewControllerAnimated:YES completion:^{
 //                nil;
