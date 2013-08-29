@@ -19,8 +19,10 @@
 }
 - (IBAction)useCurrentLocation:(id)sender;
 - (IBAction)useCustomLocation:(id)sender;
+- (IBAction)cancelChanges:(id)sender;
 
 - (IBAction)saveSettings:(id)sender;
+
 - (IBAction)getHelp:(id)sender;
 - (IBAction)changeTheatreDistance:(id)sender;
 
@@ -94,7 +96,7 @@
     
 }
 
-
+#pragma mark - Pik Your Location
 - (IBAction)useCurrentLocation:(id)sender {
     
     [self getCurrentLocation];
@@ -102,9 +104,9 @@
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"useCurrentLocation"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
     
-    [self dismissViewControllerAnimated:YES completion:^{
-        nil;
-    }];
+//    [self dismissViewControllerAnimated:YES completion:^{
+//        nil;
+//    }];
 }
 
 - (IBAction)useCustomLocation:(id)sender {
@@ -123,9 +125,9 @@
         
         if (([[NSUserDefaults standardUserDefaults] floatForKey:@"longitude"] != 0.000000) && ([[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"] != 0.000000)) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
-            [self dismissViewControllerAnimated:YES completion:^{
-                nil;
-            }];
+//            [self dismissViewControllerAnimated:YES completion:^{
+//                nil;
+//            }];
         } else {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location Not Recognized" message:@"We were not able to regognize your location." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
             [alertView show];
@@ -133,20 +135,8 @@
     }];
 }
 
-- (IBAction)saveSettings:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
-    [self dismissViewControllerAnimated:YES completion:^{
-        nil;
-    }];
-}
 
-- (IBAction)getHelp:(id)sender {
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstTime"];
-    [self dismissViewControllerAnimated:YES completion:^{
-        nil;
-    }];
-}
-
+#pragma mark - Pik Your Distance
 - (IBAction)changeTheatreDistance:(id)sender {
     if (theatreDistanceControl.selectedSegmentIndex == 0) {
         [[NSUserDefaults standardUserDefaults] setInteger:5 forKey:@"userDistance"];
@@ -158,4 +148,30 @@
         [[NSUserDefaults standardUserDefaults] setInteger:40 forKey:@"userDistance"];
     }
 }
+
+
+#pragma mark - SAVE and DISMISS MODAL
+- (IBAction)saveSettings:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        nil;
+    }];
+}
+
+- (IBAction)cancelChanges:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+#pragma mark - How to PikFlick
+- (IBAction)getHelp:(id)sender {
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstTime"];
+    [self dismissViewControllerAnimated:YES completion:^{
+        nil;
+    }];
+}
+
+
+
 @end

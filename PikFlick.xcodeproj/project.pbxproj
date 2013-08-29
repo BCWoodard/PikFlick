@@ -38,6 +38,8 @@
 		4A95DD3C17CE9ED900774D60 /* overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD3B17CE9ED900774D60 /* overlay@2x.png */; };
 		4A95DD3E17CEAAE500774D60 /* overlay-504h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD3D17CEAAE500774D60 /* overlay-504h@2x.png */; };
 		4A95DD4117CED39100774D60 /* PFKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95DD4017CED39100774D60 /* PFKWebViewController.m */; };
+		4A95DD4417CF109C00774D60 /* PikFlick-navbar-09.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD4217CF109C00774D60 /* PikFlick-navbar-09.png */; };
+		4A95DD4517CF109C00774D60 /* PikFlick-navbar-09@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD4317CF109C00774D60 /* PikFlick-navbar-09@2x.png */; };
 		4AB5374617C6FFAE005CA37C /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB5374217C6FFAE005CA37C /* libTestFlight.a */; };
 		4AB5374917C70018005CA37C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB5374817C70018005CA37C /* libz.dylib */; };
 		4AC0C92C17C9952E00714C28 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC0C92B17C9952E00714C28 /* SystemConfiguration.framework */; };
@@ -100,6 +102,8 @@
 		4A95DD3D17CEAAE500774D60 /* overlay-504h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlay-504h@2x.png"; sourceTree = "<group>"; };
 		4A95DD3F17CED39100774D60 /* PFKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFKWebViewController.h; sourceTree = "<group>"; };
 		4A95DD4017CED39100774D60 /* PFKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFKWebViewController.m; sourceTree = "<group>"; };
+		4A95DD4217CF109C00774D60 /* PikFlick-navbar-09.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PikFlick-navbar-09.png"; sourceTree = "<group>"; };
+		4A95DD4317CF109C00774D60 /* PikFlick-navbar-09@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PikFlick-navbar-09@2x.png"; sourceTree = "<group>"; };
 		4AB5374217C6FFAE005CA37C /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = PikFlick/libTestFlight.a; sourceTree = "<group>"; };
 		4AB5374317C6FFAE005CA37C /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		4AB5374417C6FFAE005CA37C /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
@@ -284,6 +288,8 @@
 		4A95DD1817CD5C8800774D60 /* Logos */ = {
 			isa = PBXGroup;
 			children = (
+				4A95DD4217CF109C00774D60 /* PikFlick-navbar-09.png */,
+				4A95DD4317CF109C00774D60 /* PikFlick-navbar-09@2x.png */,
 				4A95DD1917CD5C9C00774D60 /* PikFlick-logo-18.png */,
 				4A95DD1A17CD5C9C00774D60 /* PikFlick-logo-18@2x.png */,
 				4A95DD1B17CD5C9C00774D60 /* PikFlick-logo-19.png */,
@@ -409,6 +415,8 @@
 				4A95DD3A17CE9E3C00774D60 /* overlay.png in Resources */,
 				4A95DD3C17CE9ED900774D60 /* overlay@2x.png in Resources */,
 				4A95DD3E17CEAAE500774D60 /* overlay-504h@2x.png in Resources */,
+				4A95DD4417CF109C00774D60 /* PikFlick-navbar-09.png in Resources */,
+				4A95DD4517CF109C00774D60 /* PikFlick-navbar-09@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
