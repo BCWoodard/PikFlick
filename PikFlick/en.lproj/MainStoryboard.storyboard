@@ -420,13 +420,13 @@ SHAKE AGAIN!!</string>
                                 <rect key="frame" x="0.0" y="460" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem title="Item" width="50" id="OAC-tx-Q4h">
+                                    <barButtonItem title="Add" width="50" id="OAC-tx-Q4h">
                                         <connections>
                                             <action selector="addToShortlist:" destination="Jkr-0g-g9i" id="dK7-gg-Czd"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="YSu-MU-ugf"/>
-                                    <barButtonItem title="Item" id="XwJ-Gj-NGw">
+                                    <barButtonItem title="✘" id="XwJ-Gj-NGw">
                                         <connections>
                                             <action selector="removeMovie:" destination="Jkr-0g-g9i" id="6wg-tq-Yxq"/>
                                         </connections>
