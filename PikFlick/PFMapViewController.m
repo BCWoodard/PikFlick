@@ -64,6 +64,15 @@
      object:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    // CLEAR VISIBLE ANNOTATIONS
+    for (NSObject<MKAnnotation> *annotation in [mapViewOutlet selectedAnnotations])
+    {
+        [mapViewOutlet deselectAnnotation:(id <MKAnnotation>)annotation animated:NO];
+    }
+}
+
 
 - (void)didReceiveMemoryWarning
 {
