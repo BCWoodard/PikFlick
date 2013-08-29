@@ -48,10 +48,10 @@
 {
     [super viewDidLoad];
     
-    addToShortlistButton.image = [UIImage imageNamed:@"buttonAdd"];
-    removeMovieButton.title = @"Remove";
-    shareMovieButton.title = @"Share";
-    contactUsButton.title = @"Contact";
+    addToShortlistButton.image = [UIImage imageNamed:@"buttonYes"];
+    removeMovieButton.image = [UIImage imageNamed:@"buttonNo"];
+    shareMovieButton.image = [UIImage imageNamed:@"buttonShare"];
+    contactUsButton.image = [UIImage imageNamed:@"buttonInfo"];
     
     shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Tell Your Friends!" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Facebook", @"Tweet", @"Text", @"Email", nil];
     
@@ -75,7 +75,6 @@
 
 
 #pragma mark - UITableViewDataSource
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
@@ -133,7 +132,7 @@
     if (indexPath.section ==0){
         cell = [tableView dequeueReusableCellWithIdentifier:@"SectionZero" forIndexPath:indexPath];
         cell.imageView.image = [UIImage imageNamed:@"icon"];
-        cell.imageView.frame = CGRectMake(0.0, 5.0f, 80.0, 80.0);
+        cell.imageView.frame = CGRectMake(0.0f, 5.0f, 80.0f, 80.0f);
         
         cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         cell.textLabel.numberOfLines = 0;
