@@ -18,8 +18,8 @@
     
     // TestFlight methods
     // NOTE: Do not use setDeviceIdentifier in PRODUCTION!!
-    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
-    [TestFlight takeOff:TESTFLIGHT_APP_TOKEN];
+    //[TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+    //[TestFlight takeOff:TESTFLIGHT_APP_TOKEN];
     
     [self getCurrentLocation];
     return YES;
