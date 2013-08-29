@@ -11,11 +11,13 @@
 #import "Theater.h"
 #import "Constants.h"
 #import "pfCustomCell.h"
-#import <QuartzCore/QuartzCore.h>
-
+#import "Reachability.h"
 #import "UserSettingsViewController.h"
 #import "pfDetailViewController.h"
+
 #import <CoreLocation/CoreLocation.h>
+#import <QuartzCore/QuartzCore.h>
+
 
 @interface ViewController ()
 {
@@ -29,11 +31,11 @@
     
     __weak IBOutlet UIImageView *tutorialOverlay;
     __weak IBOutlet UITableView *moviesTable;
-    __weak IBOutlet UIView *selectedMovieOverlay;
-    __weak IBOutlet UIButton *selectedMovieCloseButton;
-    __weak IBOutlet UIButton *startOverButton;
-    __weak IBOutlet UILabel *selectedMovieTitle;
-    __weak IBOutlet UILabel *announcementGreeting;
+    __weak IBOutlet UIView      *selectedMovieOverlay;
+    __weak IBOutlet UIButton    *selectedMovieCloseButton;
+    __weak IBOutlet UIButton    *startOverButton;
+    __weak IBOutlet UILabel     *selectedMovieTitle;
+    __weak IBOutlet UILabel     *announcementGreeting;
     __weak IBOutlet UIImageView *selectedMoviePoster;
     
 }
@@ -55,6 +57,7 @@
     [super viewDidLoad];
     
     // Utility methods
+    [self checkForInternet];
     [self getRottenTomatoesDATA];
     [self getTMSTheaterData];
     [self listenForNotifications];
@@ -62,6 +65,7 @@
     // UI Elements
     moviesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     moviesTable.backgroundColor = [UIColor blackColor];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
     
     [startOverButton setHidden:YES];
     
@@ -75,7 +79,6 @@
     [selectedMovieOverlay setHidden:YES];
     
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
-    
     moviesTable.frame = CGRectMake(0, 0, screenSize.width, screenSize.height - 64);
 }
 
@@ -121,7 +124,19 @@
 
 - (void)tutorialOverlay {
     [tutorialOverlay setHidden:NO];
-    tutorialOverlay.image = [UIImage imageNamed:@"overlay.png"];
+    CGRect windowRect = [[UIScreen mainScreen] bounds];
+    CGFloat windowWidth = windowRect.size.width;
+    CGFloat windowHeight = windowRect.size.height;
+    
+    if (windowHeight <= 480.0f) {
+        tutorialOverlay.frame = CGRectMake(0, -10, windowWidth, windowHeight);
+        tutorialOverlay.image = [UIImage imageNamed:@"overlay"];
+                                 
+    } else {
+        tutorialOverlay.frame = CGRectMake(0, -10, windowWidth, windowHeight);
+        tutorialOverlay.image = [UIImage imageNamed:@"overlay-504h"];
+    }
+    
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTime"];
 }
 
@@ -274,7 +289,7 @@
     cell.delegate = self;
     cell.movie = movie;
     
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"grey@2x.jpg"]];
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"grey.jpg"]];
     
     return cell;
 }
@@ -424,13 +439,7 @@
                 }
             }
         }];
-        
     }
-    
-    
-    
-    
-    
 }
 
 
@@ -492,10 +501,6 @@
     }
     
 }
-
-
-
-
 
 #pragma mark - COLOR THE CELLS
 - (UIColor *)colorForIndex:(NSInteger)index
@@ -639,6 +644,45 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:movieIndex inSection:0];
     
     [moviesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
+}
+
+
+#pragma mark - REACHABILITY Methods
+- (void)checkForInternet
+{
+    // check if we've got network connectivity
+    Reachability *myNetwork = [Reachability reachabilityWithHostname:@"google.com"];
+    NetworkStatus myStatus = [myNetwork currentReachabilityStatus];
+    
+    switch (myStatus) {
+        case NotReachable:
+            [self showReachabilityAlertView];
+            NSLog(@"There's no internet connection at all.");
+            break;
+            
+        case ReachableViaWWAN:
+            NSLog(@"We have a 3G connection");
+            break;
+            
+        case ReachableViaWiFi:
+            NSLog(@"We have WiFi.");
+            break;
+            
+        default:
+            break;
+    }
+}
+
+
+- (void)showReachabilityAlertView
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Internet Connection!"
+                                                        message:@"PikFlick is unable to reach the Internet. Please check your device settings or try later."
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
+    [alertView show];
     
 }
 

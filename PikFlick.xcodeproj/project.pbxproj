@@ -18,8 +18,6 @@
 		4A3876AB17BC00B700F95ECA /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3876AA17BC00B700F95ECA /* Movie.m */; };
 		4A3876AE17BC444300F95ECA /* pfCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3876AD17BC444300F95ECA /* pfCustomCell.m */; };
 		4A3876B017BC447800F95ECA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A3876AF17BC447800F95ECA /* QuartzCore.framework */; };
-		4A95DD0717CD2EE000774D60 /* overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD0517CD2EE000774D60 /* overlay.png */; };
-		4A95DD0817CD2EE000774D60 /* overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD0617CD2EE000774D60 /* overlay@2x.png */; };
 		4A95DD1117CD4EF400774D60 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD0A17CD4EF400774D60 /* Default-568h@2x.png */; };
 		4A95DD1217CD4EF400774D60 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD0B17CD4EF400774D60 /* Default.png */; };
 		4A95DD1317CD4EF400774D60 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD0C17CD4EF400774D60 /* Default@2x.png */; };
@@ -31,9 +29,14 @@
 		4A95DD1E17CD5C9C00774D60 /* PikFlick-logo-18@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD1A17CD5C9C00774D60 /* PikFlick-logo-18@2x.png */; };
 		4A95DD1F17CD5C9C00774D60 /* PikFlick-logo-19.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD1B17CD5C9C00774D60 /* PikFlick-logo-19.png */; };
 		4A95DD2017CD5C9C00774D60 /* PikFlick-logo-19@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD1C17CD5C9C00774D60 /* PikFlick-logo-19@2x.png */; };
-		4A95DD2317CD5ECA00774D60 /* PikFlick-navbar-10.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD2117CD5ECA00774D60 /* PikFlick-navbar-10.png */; };
-		4A95DD2417CD5ECA00774D60 /* PikFlick-navbar-10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD2217CD5ECA00774D60 /* PikFlick-navbar-10@2x.png */; };
 		4A95DD2717CD5EFE00774D60 /* PFKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95DD2617CD5EFE00774D60 /* PFKNavigationController.m */; };
+		4A95DD3117CE934B00774D60 /* PFKNavBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD2D17CE934B00774D60 /* PFKNavBar.png */; };
+		4A95DD3217CE934B00774D60 /* PFKNavBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD2E17CE934B00774D60 /* PFKNavBar@2x.png */; };
+		4A95DD3317CE934B00774D60 /* PFKSettings.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD2F17CE934B00774D60 /* PFKSettings.png */; };
+		4A95DD3417CE934B00774D60 /* PFKSettings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD3017CE934B00774D60 /* PFKSettings@2x.png */; };
+		4A95DD3A17CE9E3C00774D60 /* overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD3917CE9E3C00774D60 /* overlay.png */; };
+		4A95DD3C17CE9ED900774D60 /* overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD3B17CE9ED900774D60 /* overlay@2x.png */; };
+		4A95DD3E17CEAAE500774D60 /* overlay-504h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A95DD3D17CEAAE500774D60 /* overlay-504h@2x.png */; };
 		4AB5374617C6FFAE005CA37C /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB5374217C6FFAE005CA37C /* libTestFlight.a */; };
 		4AB5374917C70018005CA37C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB5374817C70018005CA37C /* libz.dylib */; };
 		4AC0C92C17C9952E00714C28 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC0C92B17C9952E00714C28 /* SystemConfiguration.framework */; };
@@ -74,8 +77,6 @@
 		4A3876AD17BC444300F95ECA /* pfCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pfCustomCell.m; sourceTree = "<group>"; };
 		4A3876AF17BC447800F95ECA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4A66264817BDA96000F31785 /* pfDeleteMovieDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pfDeleteMovieDelegate.h; sourceTree = "<group>"; };
-		4A95DD0517CD2EE000774D60 /* overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay.png; sourceTree = "<group>"; };
-		4A95DD0617CD2EE000774D60 /* overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlay@2x.png"; sourceTree = "<group>"; };
 		4A95DD0A17CD4EF400774D60 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		4A95DD0B17CD4EF400774D60 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4A95DD0C17CD4EF400774D60 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -87,10 +88,15 @@
 		4A95DD1A17CD5C9C00774D60 /* PikFlick-logo-18@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PikFlick-logo-18@2x.png"; sourceTree = "<group>"; };
 		4A95DD1B17CD5C9C00774D60 /* PikFlick-logo-19.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PikFlick-logo-19.png"; sourceTree = "<group>"; };
 		4A95DD1C17CD5C9C00774D60 /* PikFlick-logo-19@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PikFlick-logo-19@2x.png"; sourceTree = "<group>"; };
-		4A95DD2117CD5ECA00774D60 /* PikFlick-navbar-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PikFlick-navbar-10.png"; sourceTree = "<group>"; };
-		4A95DD2217CD5ECA00774D60 /* PikFlick-navbar-10@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PikFlick-navbar-10@2x.png"; sourceTree = "<group>"; };
 		4A95DD2517CD5EFE00774D60 /* PFKNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFKNavigationController.h; sourceTree = "<group>"; };
 		4A95DD2617CD5EFE00774D60 /* PFKNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFKNavigationController.m; sourceTree = "<group>"; };
+		4A95DD2D17CE934B00774D60 /* PFKNavBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PFKNavBar.png; sourceTree = "<group>"; };
+		4A95DD2E17CE934B00774D60 /* PFKNavBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PFKNavBar@2x.png"; sourceTree = "<group>"; };
+		4A95DD2F17CE934B00774D60 /* PFKSettings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PFKSettings.png; sourceTree = "<group>"; };
+		4A95DD3017CE934B00774D60 /* PFKSettings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PFKSettings@2x.png"; sourceTree = "<group>"; };
+		4A95DD3917CE9E3C00774D60 /* overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay.png; sourceTree = "<group>"; };
+		4A95DD3B17CE9ED900774D60 /* overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlay@2x.png"; sourceTree = "<group>"; };
+		4A95DD3D17CEAAE500774D60 /* overlay-504h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlay-504h@2x.png"; sourceTree = "<group>"; };
 		4AB5374217C6FFAE005CA37C /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = PikFlick/libTestFlight.a; sourceTree = "<group>"; };
 		4AB5374317C6FFAE005CA37C /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		4AB5374417C6FFAE005CA37C /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
@@ -199,10 +205,7 @@
 		4A38768917BBEB1300F95ECA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4A95DD0517CD2EE000774D60 /* overlay.png */,
-				4A95DD0617CD2EE000774D60 /* overlay@2x.png */,
-				4A95DD2117CD5ECA00774D60 /* PikFlick-navbar-10.png */,
-				4A95DD2217CD5ECA00774D60 /* PikFlick-navbar-10@2x.png */,
+				4A95DD2C17CE932800774D60 /* Images */,
 				4A95DD1817CD5C8800774D60 /* Logos */,
 				4A95DD0917CD4EF400774D60 /* Icons */,
 				CF13A67E17CA9CF200BB2958 /* green.jpg */,
@@ -282,6 +285,20 @@
 				4A95DD1C17CD5C9C00774D60 /* PikFlick-logo-19@2x.png */,
 			);
 			name = Logos;
+			sourceTree = "<group>";
+		};
+		4A95DD2C17CE932800774D60 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				4A95DD3D17CEAAE500774D60 /* overlay-504h@2x.png */,
+				4A95DD3B17CE9ED900774D60 /* overlay@2x.png */,
+				4A95DD2D17CE934B00774D60 /* PFKNavBar.png */,
+				4A95DD2E17CE934B00774D60 /* PFKNavBar@2x.png */,
+				4A95DD2F17CE934B00774D60 /* PFKSettings.png */,
+				4A95DD3017CE934B00774D60 /* PFKSettings@2x.png */,
+				4A95DD3917CE9E3C00774D60 /* overlay.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		4AB5374717C6FFBE005CA37C /* TestFlight */ = {
@@ -369,8 +386,6 @@
 				CF13A68317CA9CF200BB2958 /* green@2x.jpg in Resources */,
 				CF13A68417CA9CF200BB2958 /* grey.jpg in Resources */,
 				CF13A68517CA9CF200BB2958 /* grey@2x.jpg in Resources */,
-				4A95DD0717CD2EE000774D60 /* overlay.png in Resources */,
-				4A95DD0817CD2EE000774D60 /* overlay@2x.png in Resources */,
 				4A95DD1117CD4EF400774D60 /* Default-568h@2x.png in Resources */,
 				4A95DD1217CD4EF400774D60 /* Default.png in Resources */,
 				4A95DD1317CD4EF400774D60 /* Default@2x.png in Resources */,
@@ -382,8 +397,13 @@
 				4A95DD1E17CD5C9C00774D60 /* PikFlick-logo-18@2x.png in Resources */,
 				4A95DD1F17CD5C9C00774D60 /* PikFlick-logo-19.png in Resources */,
 				4A95DD2017CD5C9C00774D60 /* PikFlick-logo-19@2x.png in Resources */,
-				4A95DD2317CD5ECA00774D60 /* PikFlick-navbar-10.png in Resources */,
-				4A95DD2417CD5ECA00774D60 /* PikFlick-navbar-10@2x.png in Resources */,
+				4A95DD3117CE934B00774D60 /* PFKNavBar.png in Resources */,
+				4A95DD3217CE934B00774D60 /* PFKNavBar@2x.png in Resources */,
+				4A95DD3317CE934B00774D60 /* PFKSettings.png in Resources */,
+				4A95DD3417CE934B00774D60 /* PFKSettings@2x.png in Resources */,
+				4A95DD3A17CE9E3C00774D60 /* overlay.png in Resources */,
+				4A95DD3C17CE9ED900774D60 /* overlay@2x.png in Resources */,
+				4A95DD3E17CEAAE500774D60 /* overlay-504h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

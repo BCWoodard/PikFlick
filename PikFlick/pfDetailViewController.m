@@ -11,6 +11,7 @@
 #import "pfDetailViewController.h"
 #import "ViewController.h"
 #import "PFMapViewController.h"
+#import "Theater.h"
 
 @interface pfDetailViewController ()
 {
@@ -139,6 +140,7 @@
         
         cell.textLabel.font = [UIFont fontWithName:@"Gill Sans" size:14.2f];
         
+        cell.imageView.image = incomingMovie.movieThumbnail;
         cell.textLabel.text = [NSString stringWithFormat:@"Rated:  %@\nGenre:  %@\nPeer Rating:  %@\nMovie Length:  %@min", incomingMovie.movieMPAA, incomingMovie.movieGenre, incomingMovie.moviePeerRating, incomingMovie.movieRunTime];
         
     }

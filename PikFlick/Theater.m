@@ -8,6 +8,8 @@
 
 #import "Theater.h"
 
+#import <CoreLocation/CoreLocation.h>
+
 @implementation Theater
 @synthesize title = _title;
 @synthesize theaterID = _theaterID;
@@ -39,4 +41,19 @@
 }
 
 
+#pragma mark - MKAnnotation
+- (NSString *)title
+{
+    return _title;
+}
+
+- (NSString *)subtitle
+{
+    return [NSString stringWithFormat:@"%@, %@ %@", _theaterStreet, _theaterCity, _theaterState];
+}
+
+- (CLLocationCoordinate2D)coordinate
+{
+    return CLLocationCoordinate2DMake([_theaterLatitude floatValue], [_theaterLongitude floatValue]);
+}
 @end
