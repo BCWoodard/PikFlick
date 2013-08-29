@@ -90,7 +90,7 @@
     }
     
     mapViewOutlet.showsUserLocation = YES;
-    mapViewOutlet.region = startRegion;
+    [mapViewOutlet setRegion:startRegion animated:YES];
     mapViewOutlet.delegate = self;
     
     [mapViewOutlet addAnnotations:self.incomingTheaters];
@@ -98,7 +98,7 @@
 }
 
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewgForAnnotation:(id <MKAnnotation>)annotation {
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     
     if (![annotation isKindOfClass:[Theater class]]) {
         return nil;
