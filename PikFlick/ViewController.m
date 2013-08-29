@@ -222,7 +222,11 @@
     if (!selectedMovie) {
         [self preselectRandomMovie];
     }
-    announcementGreeting.text = [self announcementMessage];
+    if (moviesArray.count != 1) {
+        announcementGreeting.text = [self announcementMessage];
+    } else {
+        announcementGreeting.text = @"Only Movie Left";
+    }
     selectedMoviePoster.image = selectedMovie.moviePoster;
     selectedMovieTitle.text = selectedMovie.movieTitle;
     
