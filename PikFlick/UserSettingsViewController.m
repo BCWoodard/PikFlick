@@ -122,14 +122,21 @@
         [[NSUserDefaults standardUserDefaults] setFloat:region.center.longitude forKey:@"longitude"];
         [[NSUserDefaults standardUserDefaults] setFloat:region.center.latitude forKey:@"latitude"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"useCurrentLocation"];
-        
-        if (([[NSUserDefaults standardUserDefaults] floatForKey:@"longitude"] != 0.000000) && ([[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"] != 0.000000)) {
+
+        if ((placemark.locality != nil) && ([[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"] != 0.000000)) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
+            locationField.backgroundColor = [UIColor greenColor];
+            locationField.text = [NSString stringWithFormat:@"%@ \u2713", locationField.text];
 //            [self dismissViewControllerAnimated:YES completion:^{
 //                nil;
 //            }];
+        } else if ((placemark.locality == nil) && ([[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"] != 0.000000)) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Invalid Address" message:@"Please enter a valid City/State or Zip Code." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            locationField.backgroundColor = [UIColor whiteColor];
+            [alertView show];
         } else {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location Not Recognized" message:@"We were not able to regognize your location." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location Not Recognized" message:@"We were not able to recognize your location.  Please enter a valid City/State or Zip Code." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+            locationField.backgroundColor = [UIColor whiteColor];
             [alertView show];
         }
     }];

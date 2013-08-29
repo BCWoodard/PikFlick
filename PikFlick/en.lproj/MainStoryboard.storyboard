@@ -607,6 +607,49 @@ SHAKE AGAIN!!</string>
         <image name="PikFlick-logo-18.png" width="248" height="268"/>
         <image name="PikFlick-navbar-09.png" width="93" height="28"/>
     </resources>
+    <classes>
+        <class className="HomeViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
+        </class>
+        <class className="PFKNavigationController" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFKNavigationController.h"/>
+        </class>
+        <class className="PFKWebViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFKWebViewController.h"/>
+        </class>
+        <class className="PFMapViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFMapViewController.h"/>
+        </class>
+        <class className="UserSettingsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserSettingsViewController.h"/>
+        </class>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="closeSelectedMovieOverlay:"/>
+                <relationship kind="action" name="goToSettings:"/>
+                <relationship kind="action" name="showMovieDetails:"/>
+                <relationship kind="action" name="startOver:"/>
+            </relationships>
+        </class>
+        <class className="pfCustomCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/pfCustomCell.h"/>
+        </class>
+        <class className="pfDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/pfDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addToShortlist:"/>
+                <relationship kind="action" name="contactUs:"/>
+                <relationship kind="action" name="removeMovie:"/>
+                <relationship kind="action" name="shareMovie:"/>
+                <relationship kind="outlet" name="addToShortlistButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="contactUsButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="myDetailTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="removeMovieButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="shareMovieButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
