@@ -470,6 +470,28 @@ SHAKE AGAIN!!</string>
             </objects>
             <point key="canvasLocation" x="-1133" y="89"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="P2R-YI-EAX">
+            <objects>
+                <viewController id="Jah-Of-wj0" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6hc-G4-v9f">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" id="WKe-oh-dqv">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="duU-xS-Mh4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aWF-wz-NIn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-301" y="89"/>
+        </scene>
         <!--Map View Controller-->
         <scene sceneID="O6r-n4-E4z">
             <objects>
@@ -491,6 +513,7 @@ SHAKE AGAIN!!</string>
                     <navigationItem key="navigationItem" id="dIf-LK-WMu"/>
                     <connections>
                         <outlet property="mapViewOutlet" destination="mmS-j0-CRf" id="2vY-9Z-WIj"/>
+                        <segue destination="Jah-Of-wj0" kind="push" id="jNJ-GI-Ogr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WVb-Ni-7ij" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -581,78 +604,6 @@ SHAKE AGAIN!!</string>
             <point key="canvasLocation" x="-2024" y="-775"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="HomeViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="findCurrentLocation:"/>
-                <relationship kind="action" name="submitCustomLocation:"/>
-                <relationship kind="outlet" name="locationField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="PFKNavigationController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFKNavigationController.h"/>
-        </class>
-        <class className="PFMapViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFMapViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="mapViewOutlet" candidateClass="MKMapView"/>
-            </relationships>
-        </class>
-        <class className="UserSettingsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserSettingsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="changeTheatreDistance:"/>
-                <relationship kind="action" name="getHelp:"/>
-                <relationship kind="action" name="saveSettings:"/>
-                <relationship kind="action" name="useCurrentLocation:"/>
-                <relationship kind="action" name="useCustomLocation:"/>
-                <relationship kind="outlet" name="locationField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="theatreDistanceControl" candidateClass="UISegmentedControl"/>
-            </relationships>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="closeSelectedMovieOverlay:"/>
-                <relationship kind="action" name="goToSettings:"/>
-                <relationship kind="action" name="showMovieDetails:"/>
-                <relationship kind="action" name="startOver:"/>
-                <relationship kind="outlet" name="announcementGreeting" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="moviesTable" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="selectedMovieCloseButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="selectedMovieOverlay" candidateClass="UIView"/>
-                <relationship kind="outlet" name="selectedMoviePoster" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="selectedMovieTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="startOverButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="tutorialOverlay" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="pfCustomCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/pfCustomCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="cellGenre" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="cellImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="cellMPAA" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="cellPeerRating" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="cellTitle" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="pfDetailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/pfDetailViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="addToShortlist:"/>
-                <relationship kind="action" name="contactUs:"/>
-                <relationship kind="action" name="removeMovie:"/>
-                <relationship kind="action" name="shareMovie:"/>
-                <relationship kind="outlet" name="addToShortlistButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="contactUsButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="myDetailTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="removeMovieButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="shareMovieButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-    </classes>
     <resources>
         <image name="PFKSettings.png" width="20" height="20"/>
     </resources>
