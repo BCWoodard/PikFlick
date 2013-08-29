@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "Constants.h"
 #import "PFMapViewController.h"
+#import "PFKWebViewController.h"
 #import "Movie.h"
 #import "Theater.h"
 
@@ -58,12 +59,6 @@
      object:nil];
 }
 
-/*
- - (void)viewDidAppear:(BOOL)animated
- {
- [self getUniqueTheaterIDS:theatersShowingMovie];
- }
- */
 
 - (void)didReceiveMemoryWarning
 {
@@ -84,10 +79,12 @@
         CLLocationCoordinate2D startCoordinate = CLLocationCoordinate2DMake(incomingLatForQuery.floatValue, incomingLngForQuery.floatValue);
         startSpan = MKCoordinateSpanMake(0.3, 0.3);
         startRegion = MKCoordinateRegionMake(startCoordinate, startSpan);
+        
     } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useCurrentLocation"] == NO) {
         CLLocationCoordinate2D startCoordinate = CLLocationCoordinate2DMake([[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"], [[NSUserDefaults standardUserDefaults] floatForKey:@"longitude"]);
         startSpan = MKCoordinateSpanMake(0.3, 0.3);
         startRegion = MKCoordinateRegionMake(startCoordinate, startSpan);
+        
     } else {
         NSLog(@"error passing coordinates to mapView");
     }
@@ -98,27 +95,6 @@
     
     [mapViewOutlet addAnnotations:self.incomingTheaters];
     
-//    CLLocationCoordinate2D theaterCoord;
-//    NSArray *uniqueTheaters = [self createUniqueTheatersArray:theatersShowingMovie];
-//    NSLog(@"Unique theaters: %@", uniqueTheaters);
-//    for (int index = 0; index < [incomingTheaters count]; index++) {
-//        Theater *tempTheater = [incomingTheaters objectAtIndex:index];
-//        
-//        for (NSString *theaterID in uniqueTheaters) {
-//            if ([theaterID isEqualToString:tempTheater.theaterID]) {
-//                theaterCoord.latitude = [tempTheater.theaterLatitude doubleValue];
-//                theaterCoord.longitude = [tempTheater.theaterLongitude doubleValue];
-//                
-//                MKPointAnnotation *annotationPoint = [[MKPointAnnotation alloc] init];
-//                annotationPoint.coordinate = theaterCoord;
-//                annotationPoint.title = [[incomingTheaters objectAtIndex:index] title];
-//                annotationPoint.subtitle = [NSString stringWithFormat:@"%@ %@, %@", tempTheater.theaterStreet, tempTheater.theaterCity, tempTheater.theaterState];
-//                
-//                [mapViewOutlet addAnnotation:annotationPoint];
-//                break;
-//            }
-//        }
-//    }
 }
 
 
@@ -129,6 +105,7 @@
     }
     
     MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"Theater"];
+    
     if(!annotationView) {
         annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Theater"];
         annotationView.enabled = YES;
@@ -144,8 +121,13 @@
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    
     Theater *selectedTheater = (Theater *)view.annotation;
-    NSLog(@"YOU SELECTED: %@", selectedTheater.theaterTicketURI);
+    
+    PFKWebViewController *webViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"WebViewController"];
+    webViewController.incomingTheaterURL = selectedTheater.theaterTicketURI;
+    [self.navigationController pushViewController:webViewController animated:YES];
+
 }
 
 

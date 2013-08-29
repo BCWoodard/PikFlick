@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PFKWebViewController : UIViewController
+@interface PFKWebViewController : UIViewController <UIWebViewDelegate>
+
+@property (strong, nonatomic) NSString *incomingTheaterURL;
 
 @end

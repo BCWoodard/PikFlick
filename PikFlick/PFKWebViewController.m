@@ -9,10 +9,14 @@
 #import "PFKWebViewController.h"
 
 @interface PFKWebViewController ()
+{
+    __weak IBOutlet UIWebView *webView;
+}
 
 @end
 
 @implementation PFKWebViewController
+@synthesize incomingTheaterURL;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,6 +31,15 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    webView.delegate = self;
+    
+    if (!incomingTheaterURL) {
+        return;
+    }
+    
+    NSURL *url = [NSURL URLWithString:incomingTheaterURL];
+    NSURLRequest *requestURL = [NSURLRequest requestWithURL:url];
+    [webView loadRequest:requestURL];
 }
 
 - (void)didReceiveMemoryWarning

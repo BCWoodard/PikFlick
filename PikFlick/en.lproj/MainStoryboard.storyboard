@@ -470,10 +470,10 @@ SHAKE AGAIN!!</string>
             </objects>
             <point key="canvasLocation" x="-1133" y="89"/>
         </scene>
-        <!--View Controller-->
+        <!--Web View Controller-->
         <scene sceneID="P2R-YI-EAX">
             <objects>
-                <viewController id="Jah-Of-wj0" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WebViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Jah-Of-wj0" customClass="PFKWebViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6hc-G4-v9f">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -487,10 +487,13 @@ SHAKE AGAIN!!</string>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="duU-xS-Mh4"/>
+                    <connections>
+                        <outlet property="webView" destination="WKe-oh-dqv" id="n1j-lL-wik"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aWF-wz-NIn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-301" y="89"/>
+            <point key="canvasLocation" x="-244" y="89"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="O6r-n4-E4z">
@@ -513,7 +516,7 @@ SHAKE AGAIN!!</string>
                     <navigationItem key="navigationItem" id="dIf-LK-WMu"/>
                     <connections>
                         <outlet property="mapViewOutlet" destination="mmS-j0-CRf" id="2vY-9Z-WIj"/>
-                        <segue destination="Jah-Of-wj0" kind="push" id="jNJ-GI-Ogr"/>
+                        <segue destination="Jah-Of-wj0" kind="push" identifier="toWebView" id="jNJ-GI-Ogr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WVb-Ni-7ij" userLabel="First Responder" sceneMemberID="firstResponder"/>
