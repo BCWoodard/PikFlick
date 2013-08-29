@@ -124,7 +124,7 @@
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"useCurrentLocation"];
 
         if ((placemark.locality != nil) && ([[NSUserDefaults standardUserDefaults] floatForKey:@"latitude"] != 0.000000)) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsSaved" object:nil userInfo:nil];
 //            [self dismissViewControllerAnimated:YES completion:^{
 //                nil;
 //            }];
