@@ -48,10 +48,10 @@
 {
     [super viewDidLoad];
     
-    addToShortlistButton.title = @"Add";
-    removeMovieButton.title = @"Remove";
-    shareMovieButton.title = @"Share";
-    contactUsButton.title = @"Contact";
+    addToShortlistButton.image = [UIImage imageNamed:@"buttonYes"];
+    removeMovieButton.image = [UIImage imageNamed:@"buttonNo"];
+    shareMovieButton.image = [UIImage imageNamed:@"buttonShare"];
+    contactUsButton.image = [UIImage imageNamed:@"buttonInfo"];
     
     shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Tell Your Friends!" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Facebook", @"Tweet", @"Text", @"Email", nil];
     
@@ -75,7 +75,6 @@
 
 
 #pragma mark - UITableViewDataSource
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
@@ -133,7 +132,7 @@
     if (indexPath.section ==0){
         cell = [tableView dequeueReusableCellWithIdentifier:@"SectionZero" forIndexPath:indexPath];
         cell.imageView.image = [UIImage imageNamed:@"icon"];
-        cell.imageView.frame = CGRectMake(0.0, 5.0f, 80.0, 80.0);
+        cell.imageView.frame = CGRectMake(0.0f, 5.0f, 80.0f, 80.0f);
         
         cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         cell.textLabel.numberOfLines = 0;
@@ -220,7 +219,6 @@
 {
     if (indexPath.section == 1) {
         float rowHeight = [self getLabelHeightForIndexPath:indexPath andString:self.incomingMovie.movieSynopsis] + 40;
-        NSLog(@"Row Height: %f", rowHeight);
         
         return rowHeight;
         
@@ -230,7 +228,6 @@
         
     } else {
         float rowHeight = [self getLabelHeightForIndexPath:indexPath andString:self.incomingMovie.movieCriticsConsensus] + 40;
-        NSLog(@"Row Height: %f", rowHeight);
         
         return rowHeight;
         
@@ -246,10 +243,9 @@
                               constrainedToSize:CGSizeMake(300, 2000)
                                   lineBreakMode:NSLineBreakByWordWrapping];
         
-        CGFloat labelHeight = labelSize.height;
-        NSLog(@"labelHeight: %f", labelHeight);
-        
+        CGFloat labelHeight = labelSize.height;        
         return labelHeight;
+        
     }
     else if (indexPath.section == 2) {
         return 44;
@@ -260,9 +256,7 @@
         CGSize labelSize = [string sizeWithFont:[UIFont fontWithName:@"Gill Sans" size:14.2f]
                               constrainedToSize:CGSizeMake(300, 2000)
                                   lineBreakMode:NSLineBreakByWordWrapping];
-        
         CGFloat labelHeight = labelSize.height;
-        NSLog(@"labelHeight: %f", labelHeight);
         
         return labelHeight;
     }
@@ -270,7 +264,7 @@
     
 }
 
-
+#pragma mark - Toolbar and actionSheet
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (actionSheet == shareActionSheet) {
         if (buttonIndex == 0) {
@@ -303,7 +297,7 @@
         slComposerSheet = [SLComposeViewController new];
         slComposerSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
         [slComposerSheet addImage:incomingMovie.movieThumbnail];
-        [slComposerSheet setInitialText:[NSString stringWithFormat:@"PickFlick help me choose to see %@.",  incomingMovie.movieTitle]];
+        [slComposerSheet setInitialText:[NSString stringWithFormat:@"PikFlick chose \"%@\" for me.",  incomingMovie.movieTitle]];
         [self presentViewController:slComposerSheet animated:YES completion:nil];
     } else {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Facebook Account Unavailable" message:@"Please add a Facebook account under Settings." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
@@ -318,7 +312,7 @@
         slComposerSheet = [SLComposeViewController new];
         slComposerSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
         [slComposerSheet addImage:incomingMovie.movieThumbnail];
-        [slComposerSheet setInitialText:[NSString stringWithFormat:@"PickFlick help me choose to see %@.",  incomingMovie.movieTitle]];
+        [slComposerSheet setInitialText:[NSString stringWithFormat:@"PikFlick chose \"%@\" for me.",  incomingMovie.movieTitle]];
         [self presentViewController:slComposerSheet animated:YES completion:nil];
     } else {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Twitter Account Unavailable" message:@"Please add a Twitter account under Settings." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
@@ -333,7 +327,7 @@
     [composeViewController setMessageComposeDelegate:self];
     
     if ([MFMessageComposeViewController canSendText]) {
-        [composeViewController setBody:[NSString stringWithFormat:@"PickFlick helped me choose to see %@.", incomingMovie.movieTitle]];
+        [composeViewController setBody:[NSString stringWithFormat:@"PikFlick chose \"%@\" for me.", incomingMovie.movieTitle]];
         [self presentViewController:composeViewController animated:YES completion:nil];
     }
 }
@@ -343,8 +337,8 @@
     MFMailComposeViewController *mailComposeViewController = [MFMailComposeViewController new];
     [mailComposeViewController setMailComposeDelegate:self];
     
-    [mailComposeViewController setSubject:[NSString stringWithFormat:@"Going to see %@", incomingMovie.movieTitle]];
-    [mailComposeViewController setMessageBody:[NSString stringWithFormat:@"PickFlick helped me choose to see %@.", incomingMovie.movieTitle] isHTML:NO];
+    [mailComposeViewController setSubject:[NSString stringWithFormat:@"PikFlick chose \"%@\" for me.", incomingMovie.movieTitle]];
+    [mailComposeViewController setMessageBody:[NSString stringWithFormat:@"PikFlick helped me choose to see %@.", incomingMovie.movieTitle] isHTML:NO];
     [self presentViewController:mailComposeViewController animated:YES completion:nil];
 }
 

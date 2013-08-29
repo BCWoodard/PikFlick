@@ -44,6 +44,15 @@
 		4AB5374917C70018005CA37C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB5374817C70018005CA37C /* libz.dylib */; };
 		4AC0C92C17C9952E00714C28 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC0C92B17C9952E00714C28 /* SystemConfiguration.framework */; };
 		4AC0C92F17C9954F00714C28 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC0C92E17C9954F00714C28 /* Reachability.m */; };
+		4AE9D02217CF911D0067E6EA /* buttonShare.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE9D02117CF911D0067E6EA /* buttonShare.png */; };
+		4AE9D02517CF91ED0067E6EA /* PFKInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9D02417CF91ED0067E6EA /* PFKInfoViewController.m */; };
+		4AE9D02717CF921E0067E6EA /* buttonShare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE9D02617CF921E0067E6EA /* buttonShare@2x.png */; };
+		4AE9D02917CF934B0067E6EA /* buttonNo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE9D02817CF934B0067E6EA /* buttonNo.png */; };
+		4AE9D02B17CF935C0067E6EA /* buttonYes.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE9D02A17CF935C0067E6EA /* buttonYes.png */; };
+		4AE9D02D17CF93640067E6EA /* buttonNo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE9D02C17CF93640067E6EA /* buttonNo@2x.png */; };
+		4AE9D02F17CF936C0067E6EA /* buttonYes@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE9D02E17CF936C0067E6EA /* buttonYes@2x.png */; };
+		4AE9D03117CF976E0067E6EA /* buttonInfo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE9D03017CF976E0067E6EA /* buttonInfo@2x.png */; };
+		4AE9D03317CF97780067E6EA /* buttonInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE9D03217CF97780067E6EA /* buttonInfo.png */; };
 		4AF560A717C2FA0200BCF482 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A617C2FA0200BCF482 /* CoreLocation.framework */; };
 		4AF560A917C3016C00BCF482 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF560A817C3016C00BCF482 /* MapKit.framework */; };
 		4AF560AE17C3E8E800BCF482 /* PFMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF560AD17C3E8E800BCF482 /* PFMapViewController.m */; };
@@ -112,6 +121,16 @@
 		4AC0C92B17C9952E00714C28 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4AC0C92D17C9954F00714C28 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		4AC0C92E17C9954F00714C28 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		4AE9D02117CF911D0067E6EA /* buttonShare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonShare.png; sourceTree = "<group>"; };
+		4AE9D02317CF91ED0067E6EA /* PFKInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFKInfoViewController.h; sourceTree = "<group>"; };
+		4AE9D02417CF91ED0067E6EA /* PFKInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFKInfoViewController.m; sourceTree = "<group>"; };
+		4AE9D02617CF921E0067E6EA /* buttonShare@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonShare@2x.png"; sourceTree = "<group>"; };
+		4AE9D02817CF934B0067E6EA /* buttonNo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonNo.png; sourceTree = "<group>"; };
+		4AE9D02A17CF935C0067E6EA /* buttonYes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonYes.png; sourceTree = "<group>"; };
+		4AE9D02C17CF93640067E6EA /* buttonNo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonNo@2x.png"; sourceTree = "<group>"; };
+		4AE9D02E17CF936C0067E6EA /* buttonYes@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonYes@2x.png"; sourceTree = "<group>"; };
+		4AE9D03017CF976E0067E6EA /* buttonInfo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonInfo@2x.png"; sourceTree = "<group>"; };
+		4AE9D03217CF97780067E6EA /* buttonInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonInfo.png; sourceTree = "<group>"; };
 		4AF560A617C2FA0200BCF482 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4AF560A817C3016C00BCF482 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		4AF560AA17C30D4E00BCF482 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -248,14 +267,16 @@
 				CF71DD6B17C6837B00531FF9 /* HomeViewController.m */,
 				4A38769D17BBEB1300F95ECA /* ViewController.h */,
 				4A38769E17BBEB1300F95ECA /* ViewController.m */,
-				CF13A68917CBDB3400BB2958 /* UserSettingsViewController.h */,
-				CF13A68A17CBDB3400BB2958 /* UserSettingsViewController.m */,
 				4FC5AD8217C2838000E3E55D /* pfDetailViewController.h */,
 				4FC5AD8317C2838000E3E55D /* pfDetailViewController.m */,
 				4AF560AC17C3E8E800BCF482 /* PFMapViewController.h */,
 				4AF560AD17C3E8E800BCF482 /* PFMapViewController.m */,
 				4A95DD3F17CED39100774D60 /* PFKWebViewController.h */,
 				4A95DD4017CED39100774D60 /* PFKWebViewController.m */,
+				CF13A68917CBDB3400BB2958 /* UserSettingsViewController.h */,
+				CF13A68A17CBDB3400BB2958 /* UserSettingsViewController.m */,
+				4AE9D02317CF91ED0067E6EA /* PFKInfoViewController.h */,
+				4AE9D02417CF91ED0067E6EA /* PFKInfoViewController.m */,
 				4A3876AC17BC444300F95ECA /* pfCustomCell.h */,
 				4A3876AD17BC444300F95ECA /* pfCustomCell.m */,
 				4AF560AB17C3D2AF00BCF482 /* Archive */,
@@ -301,6 +322,14 @@
 		4A95DD2C17CE932800774D60 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				4AE9D03217CF97780067E6EA /* buttonInfo.png */,
+				4AE9D03017CF976E0067E6EA /* buttonInfo@2x.png */,
+				4AE9D02A17CF935C0067E6EA /* buttonYes.png */,
+				4AE9D02E17CF936C0067E6EA /* buttonYes@2x.png */,
+				4AE9D02817CF934B0067E6EA /* buttonNo.png */,
+				4AE9D02C17CF93640067E6EA /* buttonNo@2x.png */,
+				4AE9D02117CF911D0067E6EA /* buttonShare.png */,
+				4AE9D02617CF921E0067E6EA /* buttonShare@2x.png */,
 				4A95DD3D17CEAAE500774D60 /* overlay-504h@2x.png */,
 				4A95DD3B17CE9ED900774D60 /* overlay@2x.png */,
 				4A95DD2D17CE934B00774D60 /* PFKNavBar.png */,
@@ -417,6 +446,14 @@
 				4A95DD3E17CEAAE500774D60 /* overlay-504h@2x.png in Resources */,
 				4A95DD4417CF109C00774D60 /* PikFlick-navbar-09.png in Resources */,
 				4A95DD4517CF109C00774D60 /* PikFlick-navbar-09@2x.png in Resources */,
+				4AE9D02217CF911D0067E6EA /* buttonShare.png in Resources */,
+				4AE9D02717CF921E0067E6EA /* buttonShare@2x.png in Resources */,
+				4AE9D02917CF934B0067E6EA /* buttonNo.png in Resources */,
+				4AE9D02B17CF935C0067E6EA /* buttonYes.png in Resources */,
+				4AE9D02D17CF93640067E6EA /* buttonNo@2x.png in Resources */,
+				4AE9D02F17CF936C0067E6EA /* buttonYes@2x.png in Resources */,
+				4AE9D03117CF976E0067E6EA /* buttonInfo@2x.png in Resources */,
+				4AE9D03317CF97780067E6EA /* buttonInfo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +477,7 @@
 				CF13A68B17CBDB3400BB2958 /* UserSettingsViewController.m in Sources */,
 				4A95DD2717CD5EFE00774D60 /* PFKNavigationController.m in Sources */,
 				4A95DD4117CED39100774D60 /* PFKWebViewController.m in Sources */,
+				4AE9D02517CF91ED0067E6EA /* PFKInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
